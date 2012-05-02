@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-package "iptables" 
+package "iptables"
 
 execute "rebuild-iptables" do
   command "/usr/sbin/rebuild-iptables"
@@ -47,6 +47,7 @@ when "ubuntu", "debian"
   end
 end
 
-
-iptables_rule "all_established"
-iptables_rule "all_icmp"
+if node["iptables"]["install_rules"]
+  iptables_rule "all_established"
+  iptables_rule "all_icmp"
+end
