@@ -18,6 +18,7 @@
 #
 
 package "iptables" 
+package "perl"
 
 execute "rebuild-iptables" do
   command "/usr/sbin/rebuild-iptables"
