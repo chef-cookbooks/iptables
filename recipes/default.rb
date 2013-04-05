@@ -20,6 +20,7 @@
 package "iptables" 
 package "perl"
 
+
 execute "rebuild-iptables" do
   command "/usr/sbin/rebuild-iptables"
   action :nothing
@@ -35,16 +36,13 @@ cookbook_file "/usr/sbin/rebuild-iptables" do
 end
 
 case node[:platform]
-when "ubuntu", "debian"
-  iptables_save_file = "/etc/iptables/general"
+  when "ubuntu", "debian"
+    iptables_save_file = "/etc/iptables/general"
 
-  template "/etc/network/if-pre-up.d/iptables_load" do
-    source "iptables_load.erb"
-    mode 0755
-    variables :iptables_save_file => iptables_save_file
-  end
+    template "/etc/network/if-pre-up.d/iptables_load" do
+      source "iptables_load.erb"
+      mode 0755
+      variables :iptables_save_file => iptables_save_file
+    end
 end
 
-
-iptables_rule "all_established"
-iptables_rule "all_icmp"
