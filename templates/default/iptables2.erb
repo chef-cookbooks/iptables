@@ -1,0 +1,60 @@
+# ruleset accepts all INPUT related, established by default, acception rules for new connections are defined, all other connections are dropped and logged.
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-I INPUT 1 -i lo -j ACCEPT
+
+<%
+   @rules.each do |rule|
+%>
+
+    # allow <%= rule[3] %> to <%= rule[0] %> on the <%= rule[2] %> interface for port <%= rule[1] %>
+    <%
+       tcp = rule[4] == "tcp" ? true : false
+       udp = rule[4] == "udp" ? true : false
+       icmp = rule[4] == "icmp" ? true: false
+       if rule[4] == "both"
+         tcp = true
+         udp = true
+       end
+       if rule.length == 6
+         rule[5].each do |addr|
+           if tcp == true
+    %>
+                -A INPUT -i <%= node["network_interfaces"][rule[2]] %> -p tcp -m tcp -s <%= addr %> --dport <%= rule[1] %> -j ACCEPT
+            <%
+               end
+               if udp == true
+            %>
+                -A INPUT -i <%= node["network_interfaces"][rule[2]] %> -p udp -m udp -s <%= addr %> --dport <%= rule[1] %> -j ACCEPT
+            <%
+               end
+               if icmp == true
+            %>
+                -A INPUT -i <%= node["network_interfaces"][rule[2]] %> -p icmp -m limit --limit <%= rule[1] %> -s <%= addr %> -j ACCEPT
+            <%
+               end
+               end
+               else
+                 if tcp == true
+            %>
+            -A INPUT -i <%= node["network_interfaces"][rule[2]] %> -p tcp -m tcp <%if rule[3] != "any" %>-s<% end %><%= rule[3] == "any" ? "" : rule[3] %> --dport <%= rule[1] %> -j ACCEPT
+        <%
+           end
+           if udp == true
+        %>
+            -A INPUT -i <%= node["network_interfaces"][rule[2]] %> -p udp -m udp <%if rule[3] != "any" %>-s<% end %><%= rule[3] == "any" ? "" : rule[3] %> --dport <%= rule[1] %> -j ACCEPT
+        <%
+           end
+           if icmp == true
+        %>
+            -A INPUT -i <%= node["network_interfaces"][rule[2]] %> -p icmp -m limit --limit <%= rule[1] %>  <%if rule[3] != "any" %>-s<% end %><%= rule[3] == "any" ? "" : rule[3] %> -j ACCEPT
+        <%
+           end
+           end
+           end
+        %>
+
+-N LOGGING
+-A INPUT -j LOGGING
+-A LOGGING -m limit --limit 100/min -j LOG --log-prefix "Dropped: " --log-level 4
+-A LOGGING -j DROP

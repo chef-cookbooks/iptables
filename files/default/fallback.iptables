@@ -1,0 +1,17 @@
+*filter
+:INPUT ACCEPT
+:FORWARD ACCEPT
+:OUTPUT ACCEPT
+
+# ruleset accepts all INPUT related, established by default, acception rules for new connections are defined, all other connections are dropped and logged.
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-I INPUT 1 -i lo -j ACCEPT
+
+-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+
+-N LOGGING
+-A INPUT -j LOGGING
+-A LOGGING -m limit --limit 100/min -j LOG --log-prefix "Dropped: " --log-level 4
+-A LOGGING -j DROP
+COMMIT
