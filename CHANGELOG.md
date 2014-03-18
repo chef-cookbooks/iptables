@@ -1,6 +1,11 @@
 iptables CHANGELOG
 ==================
 
+v0.12.2 (2014-03-18)
+--------------------
+- [COOK-4411] - Add newling to iptables.snat
+
+
 v0.12.0
 -------
 - [COOK-2213] - iptables disabled recipe
