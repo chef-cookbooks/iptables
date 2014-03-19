@@ -1,6 +1,11 @@
 iptables CHANGELOG
 ==================
 
+v0.13.0 (2014-03-19)
+--------------------
+- [COOK-3927] Substitute Perl version of rebuild-iptables with Ruby version
+
+
 v0.12.2 (2014-03-18)
 --------------------
 - [COOK-4411] - Add newling to iptables.snat
