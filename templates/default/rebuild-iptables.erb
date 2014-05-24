@@ -93,6 +93,21 @@ end
             'OUTPUT'      => 'ACCEPT [0,0]'
         },
         :rules => [],
+    },
+    :raw => {
+        :chains => {
+            'PREROUTING'  => 'ACCEPT [0,0]',
+            'OUTPUT'      => 'ACCEPT [0,0]'
+        },
+        :rules => [],
+    },
+    :security => {
+        :chains => {
+            'INPUT'   => 'ACCEPT [0,0]',
+            'FORWARD' => 'ACCEPT [0,0]',
+            'OUTPUT'  => 'ACCEPT [0,0]'
+        },
+        :rules => []
     }
 }
 
