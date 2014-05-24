@@ -64,6 +64,11 @@ This would go in the cookbook,
 
     iptables_rule "http"
 
+Attributes
+==========
+
+    default["iptables"]["install_rules"] = true  # install the default rules
+
 License and Author
 ==================
 
