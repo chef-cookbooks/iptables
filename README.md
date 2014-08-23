@@ -25,7 +25,7 @@ Recipes
 default
 -------
 
-The default recipe will install iptables and provides a perl script
+The default recipe will install iptables and provides a ruby script
 (installed in `/usr/sbin/rebuild-iptables`) to manage rebuilding
 firewall rules from files dropped off in `/etc/iptables.d`.
 
