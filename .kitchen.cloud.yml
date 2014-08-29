@@ -49,6 +49,11 @@ platforms:
 
 suites:
 
+- name: default
+  run_list:
+  - recipe[iptables::default]
+  attributes: {}
+
 - name: iptables_secure
   run_list:
   - recipe[iptables::default]
