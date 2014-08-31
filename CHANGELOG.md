@@ -1,5 +1,8 @@
-iptables CHANGELOG
-==================
+v0.14.0 (2014-08-31)
+--------------------
+- [#14] Adds basic testing suite including Berksfile
+- [#14] Adds basic integration/post-converge tests
+- [#14] Adds default prefix and postfix rules to disalow traffic
 
 v0.13.2 (2014-04-09)
 --------------------
