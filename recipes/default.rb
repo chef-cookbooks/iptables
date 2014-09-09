@@ -25,6 +25,19 @@ else
   package "iptables"
 end
 
+if platform_family?("rhel") || platform_family?("centos")
+  template node["iptables"]["config_file"]["location"] do
+    source "iptables-config.erb"
+    mode "0600"
+    action :create
+    notifies :run, "execute[rebuild-iptables]", :delayed
+    variables(
+      :modules => node["iptables"]["config_file"]["modules"],
+      :status_verbose => node["iptables"]["config_file"]["status_verbose"]
+    )
+  end
+end
+
 execute "rebuild-iptables" do
   command "/usr/sbin/rebuild-iptables"
   action :nothing
