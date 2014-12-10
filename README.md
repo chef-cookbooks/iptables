@@ -49,6 +49,13 @@ script with `recipe[iptables]`. Then create templates with the
 firewall rules in the cookbook where the definition will be used. See
 __Examples__.
 
+Since certain chains can be used with multiple tables (e.g., _PREROUTING_),
+you might have to include the name of the table explicitly (i.e., _*nat_,
+_*mangle_, etc.), so that the `/usr/sbin/rebuild-iptables` script can infer
+how to assemble final ruleset file that is going to be loaded. Please note,
+that unless specified otherwise, rules will be added under the __filter__
+table by default.
+
 Examples
 --------
 
@@ -63,6 +70,22 @@ This would go in the cookbook,
 `recipe[httpd]`:
 
     iptables_rule "http"
+
+To redirect port 80 to local port 8080, e.g., in the aforementioned `httpd`
+cookbook, created the following template:
+
+    *nat
+    # Redirect anything on eth0 coming to port 80 to local port 8080
+    -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+Please note, that we explicitly add name of the table (being _*nat_ in this
+example above) where the rules should be added.
+
+This would most likely go in the cookbook,
+`httpd/templates/default/http_8080.erb`. Then to use it in
+`recipe[httpd]`:
+
+    iptables_rule "http_8080"
 
 Attributes
 ==========
