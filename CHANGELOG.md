@@ -1,3 +1,7 @@
+v0.14.1 (2015-01-01)
+--------------------
+- Fixing File.exists is deprecated for File.exist
+
 v0.14.0 (2014-08-31)
 --------------------
 - [#14] Adds basic testing suite including Berksfile
