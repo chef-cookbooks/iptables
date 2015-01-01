@@ -115,9 +115,9 @@ templates = Dir["#{TEMPLATE_PATH}/*"].sort.delete_if do |template|
   %w[prefix suffix postfix].include?(File.basename(template))
 end
 
-templates.unshift 'prefix' if File.exists? "#{TEMPLATE_PATH}/prefix"
-templates.push 'suffix' if File.exists? "#{TEMPLATE_PATH}/suffix"
-templates.push 'postfix' if File.exists? "#{TEMPLATE_PATH}/postfix"
+templates.unshift 'prefix' if File.exist? "#{TEMPLATE_PATH}/prefix"
+templates.push 'suffix' if File.exist? "#{TEMPLATE_PATH}/suffix"
+templates.push 'postfix' if File.exist? "#{TEMPLATE_PATH}/postfix"
 
 templates.each { |template| read_iptables(template) }
 
@@ -133,11 +133,11 @@ iptables_rules = ""
   end
 end
 
-if File.exists?("/etc/debian_version")
+if File.exist?("/etc/debian_version")
   install_debian(iptables_rules)
-elsif File.exists?("/etc/redhat-release")
+elsif File.exist?("/etc/redhat-release")
   install_redhat(iptables_rules)
-elsif File.exists?("/etc/system-release") # Amazon Linux
+elsif File.exist?("/etc/system-release") # Amazon Linux
   install_redhat(iptables_rules)
 else
   raise "#{$0}: cannot figure out whether this is Red Hat or Debian\n";
