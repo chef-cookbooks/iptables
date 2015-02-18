@@ -1,6 +1,6 @@
 name              "iptables"
-maintainer        "Opscode, Inc."
-maintainer_email  "cookbooks@opscode.com"
+maintainer        "Chef Software, Inc."
+maintainer_email  "cookbooks@chef.io"
 license           "Apache 2.0"
 description       "Sets up iptables to use a script to maintain rules"
 version           "0.14.1"
