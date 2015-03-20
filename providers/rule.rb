@@ -1,8 +1,9 @@
 #
 # Cookbook Name:: iptables
-# Definition:: iptables_rule
+# Provider:: rule
 #
 # Copyright 2008-2015, Chef Software, Inc.
+# Copyright 2015, Tim Smith
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,20 +18,37 @@
 # limitations under the License.
 #
 
-define :iptables_rule, :enable => true, :source => nil, :variables => {}, :cookbook => nil do
-  template_source = params[:source] ? params[:source] : "#{params[:name]}.erb"
+def whyrun_supported?
+  true
+end
 
-  template "/etc/iptables.d/#{params[:name]}" do
-    source template_source
+use_inline_resources
+
+action :enable do
+  execute 'rebuild-iptables' do
+    command '/usr/sbin/rebuild-iptables'
+    action :nothing
+  end
+
+  template "/etc/iptables.d/#{new_resource.name}" do
+    source new_resource.source ? new_resource.source : "#{new_resource.name}.erb"
     mode '0644'
-    cookbook params[:cookbook] if params[:cookbook]
-    variables params[:variables]
+    cookbook new_resource.cookbook if new_resource.cookbook
+    variables new_resource.variables
     backup false
     notifies :run, resources(:execute => 'rebuild-iptables')
-    if params[:enable]
-      action :create
-    else
-      action :delete
-    end
+  end
+end
+
+action :disable do
+  execute 'rebuild-iptables' do
+    command '/usr/sbin/rebuild-iptables'
+    action :nothing
+  end
+
+  file "/etc/iptables.d/#{new_resource.name}" do
+    action :delete
+    backup false
+    notifies :run, resources(:execute => 'rebuild-iptables')
   end
 end
