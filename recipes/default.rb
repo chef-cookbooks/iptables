@@ -40,8 +40,7 @@ template '/usr/sbin/rebuild-iptables' do
   )
 end
 
-case node[:platform]
-when 'ubuntu', 'debian'
+if platform_family?('debian')
   iptables_save_file = '/etc/iptables/general'
 
   template '/etc/network/if-pre-up.d/iptables_load' do
