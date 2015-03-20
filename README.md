@@ -21,25 +21,22 @@ The default recipe will install iptables and provides a ruby script
 (installed in `/usr/sbin/rebuild-iptables`) to manage rebuilding
 firewall rules from files dropped off in `/etc/iptables.d`.
 
-Definitions
-===========
+LWRP
+=====
 
-See __Roadmap__ for plans to replace the definition with LWRPs.
+rule
+-----
 
-iptables\_rule
---------------
-
-The definition drops off a template in `/etc/iptables.d` after the
+The lwrp drops off a template in `/etc/iptables.d` after the
 `name` parameter. The rule will get added to the local system firewall
 through notifying the `rebuild-iptables` script. See __Examples__ below.
 
 Usage
 =====
 
-Ensure that the system is set up to use the definition and rebuild
-script with `recipe[iptables]`. Then create templates with the
-firewall rules in the cookbook where the definition will be used. See
-__Examples__.
+Add `recipe[iptables]` to your runlist to ensure iptables is installed / running
+and to ensure that the `rebuild-iptables` script is on the system.
+Then create use iptables_rule to add individual rules. See __Examples__.
 
 Since certain chains can be used with multiple tables (e.g., _PREROUTING_),
 you might have to include the name of the table explicitly (i.e., _*nat_,
@@ -51,19 +48,20 @@ table by default.
 Examples
 --------
 
-To enable port 80, e.g. in an `httpd` cookbook, create the following
+To enable port 80, e.g. in an `my_httpd` cookbook, create the following
 template:
 
     # Port 80 for http
     -A FWR -p tcp -m tcp --dport 80 -j ACCEPT
 
-This would go in the cookbook,
-`httpd/templates/default/http.erb`. Then to use it in
-`recipe[httpd]`:
+This template would be located at:
+`my_httpd/templates/default/http.erb`. Then within your recipe call:
 
-    iptables_rule "http"
+    iptables_rule 'http' do
+      action :enable
+    end
 
-To redirect port 80 to local port 8080, e.g., in the aforementioned `httpd`
+To redirect port 80 to local port 8080, e.g., in the aforementioned `my_httpd`
 cookbook, created the following template:
 
     *nat
@@ -74,21 +72,20 @@ Please note, that we explicitly add name of the table (being _*nat_ in this
 example above) where the rules should be added.
 
 This would most likely go in the cookbook,
-`httpd/templates/default/http_8080.erb`. Then to use it in
+`my_httpd/templates/default/http_8080.erb`. Then to use it in
 `recipe[httpd]`:
 
-    iptables_rule "http_8080"
+    iptables_rule 'http_8080' do
+      action :enable
+    end
 
-Attributes
-==========
-
-    default["iptables"]["install_rules"] = true  # install the default rules
 
 License and Author
 ==================
 
 Author:: Adam Jacob <adam@chef.io>
 Author:: Joshua Timberman <joshua@chef.io>
+Author:: Tim Smith <tsmith84@gmail.com>
 
 Copyright:: 2008-2015, Chef Software, Inc.
 
