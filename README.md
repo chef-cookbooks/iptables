@@ -1,15 +1,7 @@
 Description
 ===========
 
-Sets up iptables to use a script to maintain firewall rules. However
-this cookbook may be deprecated or heavily modified in favor of the
-general firewall cookbook, see __Roadmap__.
-
-Roadmap
--------
-
-* [COOK-652] - create a firewall cookbook
-* [COOK-688] - create iptables providers for all resources
+Sets up iptables to use a script to maintain firewall rules.
 
 Requirements
 ============
