@@ -1,1 +1,1 @@
-iptables_rule "sshd"
+iptables_rule 'sshd'

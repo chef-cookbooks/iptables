@@ -1,1 +1,1 @@
-default["iptables"]["install_rules"] = true
+default['iptables']['install_rules'] = true

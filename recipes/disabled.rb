@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-package "iptables" 
-service "iptables" do
-      action [ :disable, :stop ]
-      supports :status => true, :start => true, :stop => true, :restart => true
+package 'iptables'
+service 'iptables' do
+  action [:disable, :stop]
+  supports :status => true, :start => true, :stop => true, :restart => true
 end
