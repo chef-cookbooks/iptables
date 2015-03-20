@@ -22,7 +22,7 @@ define :iptables_rule, :enable => true, :source => nil, :variables => {}, :cookb
   
   template "/etc/iptables.d/#{params[:name]}" do
     source template_source
-    mode 0644
+    mode '0644'
     cookbook params[:cookbook] if params[:cookbook]
     variables params[:variables]
     backup false
