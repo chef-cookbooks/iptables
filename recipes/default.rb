@@ -49,10 +49,3 @@ if platform_family?('debian')
     variables :iptables_save_file => iptables_save_file
   end
 end
-
-if node['iptables']['install_rules']
-  iptables_rule 'all_established'
-  iptables_rule 'all_icmp'
-  iptables_rule 'prefix'
-  iptables_rule 'postfix'
-end
