@@ -31,6 +31,10 @@ The lwrp drops off a template in `/etc/iptables.d` after the
 `name` parameter. The rule will get added to the local system firewall
 through notifying the `rebuild-iptables` script. See __Examples__ below.
 
+NOTE: In the 1.0 release of this cookbook the iptables_rule definition was converted
+to a LWRP.  This changes the behavior of disabling iptables rules.  Previously a rule
+could be disabled by specifying `enable false`.  You must now specify `action :disable`
+
 Usage
 =====
 

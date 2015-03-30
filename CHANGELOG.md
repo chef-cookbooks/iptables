@@ -1,3 +1,24 @@
+v1.0.0 (2015-04-29)
+--------------------------
+
+NOTE: This release includes breaking changes to the behavior of this cookbook.
+The iptables_rule definition was converted to a LWRP.  This changes the behavior
+of disabling iptables rules.  Previously a rule could be disabled by specifying
+`enable false`.  You must now specify `action :disable`.  Additionally the cookbook
+no longer installs the out of the box iptables rules.  These were rules made assumptions
+about the operating environment and should not have been installed out of the box.
+This makes this recipe a library cookbook that can be better wrapped to meet the needs
+or your particular environment.
+
+- Definition converted to a LWRP to providing why-run support and
+- The out of the box iptables rules are no longer installed.  If you need these rules you'll need to wrap the cookbook and use the LWRP to define these same rules.
+- Removed all references to the roadmap and deprecation of the cookbook.  It's not going anywhere any time soon
+- Use platform_family to better support Debian derivatives
+- Converted file / directory modes to strings to preserve the leading 0
+- Added additional RHEL derivitive distributions to the metadata
+- Expanded excluded files in the gitignore and chefignore files
+- Included the latest contributing documentation to match the current process
+
 v0.14.1 (2015-01-01)
 --------------------
 - Fixing File.exists is deprecated for File.exist
