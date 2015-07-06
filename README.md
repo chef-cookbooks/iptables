@@ -66,7 +66,7 @@ This template would be located at:
     end
 
 To redirect port 80 to local port 8080, e.g., in the aforementioned `my_httpd`
-cookbook, created the following template:
+cookbook, create the following template:
 
     *nat
     # Redirect anything on eth0 coming to port 80 to local port 8080
