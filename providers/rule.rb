@@ -22,7 +22,7 @@ def whyrun_supported?
   true
 end
 
-use_inline_resources
+use_inline_resources if defined?(use_inline_resources)
 
 action :enable do
   execute 'rebuild-iptables' do
