@@ -1,5 +1,8 @@
-Description
-===========
+fail2ban Cookbook
+=================
+
+[![Build Status](https://travis-ci.org/opscode-cookbooks/iptables.svg?branch=master)](https://travis-ci.org/opscode-cookbooks/iptables)
+[![Cookbook Version](https://img.shields.io/cookbook/v/iptables.svg)](https://supermarket.chef.io/cookbooks/iptables)
 
 Sets up iptables to use a script to maintain firewall rules.
 
@@ -86,7 +89,7 @@ This would most likely go in the cookbook,
 
 License and Author
 ==================
-
+```
 Author:: Adam Jacob <adam@chef.io>
 Author:: Joshua Timberman <joshua@chef.io>
 Author:: Tim Smith <tsmith84@gmail.com>
@@ -104,3 +107,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+```
