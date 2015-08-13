@@ -1,3 +1,7 @@
+iptables Cookbook CHANGELOG
+===========================
+This file is used to list changes made in each version of the iptables cookbook.
+
 UNRELEASED
 ----------
 - Fixed metadata description of the recipe
