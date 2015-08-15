@@ -1,4 +1,4 @@
-fail2ban Cookbook
+iptables Cookbook
 =================
 
 [![Build Status](https://travis-ci.org/opscode-cookbooks/iptables.svg?branch=master)](https://travis-ci.org/opscode-cookbooks/iptables)
