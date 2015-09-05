@@ -11,4 +11,4 @@ recipe 'default', 'Installs iptables and sets up .d style config directory of ip
 end
 
 source_url 'https://github.com/opscode-cookbooks/iptables' if respond_to?(:source_url)
-issues_url 'https://github.com/opscode-cookbooks/iptables/issues'  if respond_to?(:issues_url)
+issues_url 'https://github.com/opscode-cookbooks/iptables/issues' if respond_to?(:issues_url)
