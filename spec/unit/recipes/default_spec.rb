@@ -12,16 +12,18 @@ describe 'iptables::default' do
   end
 
   it 'should create /usr/sbin/rebuild-iptables from a template' do
-    expect(chef_run).to create_template('/usr/sbin/rebuild-iptables').with(mode: '0755')
+    expect(chef_run).to create_template('/usr/sbin/rebuild-iptables').with(
+      mode => '0755'
+    )
   end
 
   # Even though ubuntu 14.04 is current default O/S for tests lets be explicit
   # about the testing in case the default used changes in the future
   context 'debian' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe)
+      ChefSpec::SoloRunner.new(platform => 'ubuntu', version => '14.04').converge(described_recipe)
     end
- 
+
     it 'should create /etc/network/if-pre-up.d/iptables_load from a template' do
       expect(chef_run).to create_template('/etc/network/if-pre-up.d/iptables_load')
     end
@@ -34,7 +36,7 @@ describe 'iptables::default' do
 
   context 'rhel 7' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'redhat', version: '7.0').converge(described_recipe)
+      ChefSpec::SoloRunner.new(platform => 'redhat', version => '7.0').converge(described_recipe)
     end
 
     it 'should not create /etc/network/if-pre-up.d/iptables_load from a template' do
