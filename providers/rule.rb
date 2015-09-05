@@ -36,7 +36,7 @@ action :enable do
     cookbook new_resource.cookbook if new_resource.cookbook
     variables new_resource.variables
     backup false
-    notifies :run, resources(:execute => 'rebuild-iptables')
+    notifies :run, 'execute[rebuild-iptables]', :delayed
   end
 end
 
@@ -49,6 +49,6 @@ action :disable do
   file "/etc/iptables.d/#{new_resource.name}" do
     action :delete
     backup false
-    notifies :run, resources(:execute => 'rebuild-iptables')
+    notifies :run, 'exec[rebuild-iptables]', :delayed
   end
 end
