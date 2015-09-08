@@ -1,7 +1,7 @@
 iptables Cookbook
 =================
 
-[![Build Status](https://travis-ci.org/opscode-cookbooks/iptables.svg?branch=master)](https://travis-ci.org/opscode-cookbooks/iptables)
+[![Build Status](https://travis-ci.org/chef-cookbooks/iptables.svg?branch=master)](https://travis-ci.org/chef-cookbooks/iptables)
 [![Cookbook Version](https://img.shields.io/cookbook/v/iptables.svg)](https://supermarket.chef.io/cookbooks/iptables)
 
 Sets up iptables to use a script to maintain firewall rules.
