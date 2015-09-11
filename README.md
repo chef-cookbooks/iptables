@@ -92,7 +92,7 @@ License and Author
 ```
 Author:: Adam Jacob <adam@chef.io>
 Author:: Joshua Timberman <joshua@chef.io>
-Author:: Tim Smith <tsmith84@gmail.com>
+Author:: Tim Smith <tsmith@chef.io>
 
 Copyright:: 2008-2015, Chef Software, Inc.
 
