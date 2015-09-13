@@ -7,7 +7,7 @@ iptables Cookbook
 Sets up iptables to use a script to maintain firewall rules.
 
 Requirements
-============
+------------
 #### Platforms
 * Ubuntu/Debian
 * RHEL/CentOS and derivatives
@@ -20,20 +20,18 @@ Requirements
 
 
 Recipes
-=======
-
-default
 -------
+
+####default
 
 The default recipe will install iptables and provides a ruby script
 (installed in `/usr/sbin/rebuild-iptables`) to manage rebuilding
 firewall rules from files dropped off in `/etc/iptables.d`.
 
 LWRP
-=====
+----
 
-rule
------
+####rule
 
 The lwrp drops off a template in `/etc/iptables.d` after the
 `name` parameter. The rule will get added to the local system firewall
@@ -44,7 +42,7 @@ to a LWRP.  This changes the behavior of disabling iptables rules.  Previously a
 could be disabled by specifying `enable false`.  You must now specify `action :disable`
 
 Usage
-=====
+-----
 
 Add `recipe[iptables]` to your runlist to ensure iptables is installed / running
 and to ensure that the `rebuild-iptables` script is on the system.
@@ -57,8 +55,7 @@ how to assemble final ruleset file that is going to be loaded. Please note,
 that unless specified otherwise, rules will be added under the __filter__
 table by default.
 
-Examples
---------
+####Examples
 
 To enable port 80, e.g. in an `my_httpd` cookbook, create the following
 template:
@@ -92,8 +89,8 @@ This would most likely go in the cookbook,
     end
 
 
-License and Author
-==================
+License & Authors
+-----------------
 ```
 Author:: Cookbook Engineering Team (<cookbooks@chef.io>)
 
