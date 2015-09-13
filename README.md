@@ -13,10 +13,10 @@ Requirements
 * RHEL/CentOS and derivatives
 
 #### Chef
-- Chef 11+
+* Chef 11+
 
 #### Cookbooks
-- none
+* none
 
 
 Recipes
@@ -91,11 +91,11 @@ This would most likely go in the cookbook,
 
 License & Authors
 -----------------
+
+**Author:** Cookbook Engineering Team (<cookbooks@chef.io>)
+
+**Copyright:** 2008-2015, Chef Software, Inc.
 ```
-Author:: Cookbook Engineering Team (<cookbooks@chef.io>)
-
-Copyright:: 2008-2015, Chef Software, Inc.
-
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
