@@ -21,5 +21,5 @@ package 'iptables'
 
 service 'iptables' do
   action [:disable, :stop]
-  supports :status => true, :start => true, :stop => true, :restart => true
+  supports status: true, start: true, stop: true, restart: true
 end

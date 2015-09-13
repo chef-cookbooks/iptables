@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - vendor/**/*
+    - test/**/*
 
 AlignParameters:
   Enabled: false

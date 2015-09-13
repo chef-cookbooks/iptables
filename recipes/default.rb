@@ -36,7 +36,7 @@ template '/usr/sbin/rebuild-iptables' do
   source 'rebuild-iptables.erb'
   mode '0755'
   variables(
-    :hashbang => ::File.exist?('/usr/bin/ruby') ? '/usr/bin/ruby' : '/opt/chef/embedded/bin/ruby'
+    hashbang: ::File.exist?('/usr/bin/ruby') ? '/usr/bin/ruby' : '/opt/chef/embedded/bin/ruby'
   )
 end
 
@@ -46,6 +46,6 @@ if platform_family?('debian')
   template '/etc/network/if-pre-up.d/iptables_load' do
     source 'iptables_load.erb'
     mode '0755'
-    variables :iptables_save_file => iptables_save_file
+    variables iptables_save_file: iptables_save_file
   end
 end

@@ -21,7 +21,7 @@ actions :enable, :disable
 
 default_action :enable
 
-attribute :name, :kind_of => String, :name_attribute => true
-attribute :source, :kind_of => String, :default => nil
-attribute :cookbook, :kind_of => String, :default => nil
-attribute :variables, :kind_of => Hash, :default => {}
+attribute :name, kind_of: String, name_attribute: true
+attribute :source, kind_of: String, default: nil
+attribute :cookbook, kind_of: String, default: nil
+attribute :variables, kind_of: Hash, default: {}
