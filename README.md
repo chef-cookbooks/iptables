@@ -8,11 +8,16 @@ Sets up iptables to use a script to maintain firewall rules.
 
 Requirements
 ============
-
-## Platform:
-
+#### Platforms
 * Ubuntu/Debian
 * RHEL/CentOS and derivatives
+
+#### Chef
+- Chef 11+
+
+#### Cookbooks
+- none
+
 
 Recipes
 =======
@@ -90,9 +95,7 @@ This would most likely go in the cookbook,
 License and Author
 ==================
 ```
-Author:: Adam Jacob <adam@chef.io>
-Author:: Joshua Timberman <joshua@chef.io>
-Author:: Tim Smith <tsmith@chef.io>
+Author:: Cookbook Engineering Team (<cookbooks@chef.io>)
 
 Copyright:: 2008-2015, Chef Software, Inc.
 
