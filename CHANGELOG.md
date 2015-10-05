@@ -2,9 +2,23 @@ iptables Cookbook CHANGELOG
 ===========================
 This file is used to list changes made in each version of the iptables cookbook.
 
-UNRELEASED
+v1.1.0 (2015-10-05)
 ----------
-- Fixed metadata description of the recipe
+- Fixed metadata description of the default recipe
+- Added Kitchen CI config
+- Added Chefspec unit tests
+- Updated to our standard Rubocop config and resolve all warnings
+- Added Travis CI config for lint / unit testing on Ruby 2/2.1/2.2
+- Updated Contributing and Testing docs
+- Added a maintainers doc
+- Added a Gemfile with development and testing dependencies
+- Added cookbook version and Travis CI badges to the readme
+- Clarified in the readme that the minimum supported Chef release is 11.0
+- Added a Rakefile easier testing
+- Added a chefignore file to limit files that are uploaded to the Chef server
+- Update to modern notification format to resolve Foodcritic warnings
+- Added source_url and issues_url to the metadata for Supermarket
+- Removed pre-Ruby 1.9 hash rockets
 
 v1.0.0 (2015-04-29)
 --------------------------
