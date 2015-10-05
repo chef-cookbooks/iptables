@@ -21,5 +21,6 @@ suites:
   - name: default
     run_list:
       - recipe[iptables::default]
+      - recipe[iptables_secure::default]
     attributes:
 
