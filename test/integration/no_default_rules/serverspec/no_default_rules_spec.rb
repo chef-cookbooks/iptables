@@ -1,7 +1,6 @@
 require 'serverspec'
 
-include Serverspec::Helper::Exec
-include SpecInfra::Helper::DetectOS
+set :backend, :exec
 
 describe iptables do
   it { should_not have_rule('-A FWR -p tcp -m tcp --dport 22 -j ACCEPT') }

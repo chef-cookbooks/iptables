@@ -1,6 +1,6 @@
 require 'serverspec'
 
-include Serverspec::Helper::Exec
+set :backend, :exec
 
 describe command('iptables-save') do
   it { should return_stdout /FWR/ }
