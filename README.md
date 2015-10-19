@@ -4,7 +4,7 @@ iptables Cookbook
 [![Build Status](https://travis-ci.org/chef-cookbooks/iptables.svg?branch=master)](https://travis-ci.org/chef-cookbooks/iptables)
 [![Cookbook Version](https://img.shields.io/cookbook/v/iptables.svg)](https://supermarket.chef.io/cookbooks/iptables)
 
-Sets up iptables to use a script to maintain firewall rules.
+Installs iptables and provides a custom resource for adding and removing iptables rules
 
 Requirements
 ------------
@@ -13,10 +13,10 @@ Requirements
 * RHEL/CentOS and derivatives
 
 #### Chef
-* Chef 11+
+* Chef 12+
 
 #### Cookbooks
-* none
+* compat_resource
 
 
 Recipes
@@ -28,18 +28,19 @@ The default recipe will install iptables and provides a ruby script
 (installed in `/usr/sbin/rebuild-iptables`) to manage rebuilding
 firewall rules from files dropped off in `/etc/iptables.d`.
 
-LWRP
-----
+Custom Resource
+-------
 
 ####rule
 
-The lwrp drops off a template in `/etc/iptables.d` after the
+The custom resource drops off a template in `/etc/iptables.d` after the
 `name` parameter. The rule will get added to the local system firewall
 through notifying the `rebuild-iptables` script. See __Examples__ below.
 
-NOTE: In the 1.0 release of this cookbook the iptables_rule definition was converted
-to a LWRP.  This changes the behavior of disabling iptables rules.  Previously a rule
-could be disabled by specifying `enable false`.  You must now specify `action :disable`
+NOTE: In the 1.0 release of this cookbook the iptables_rule definition was
+converted to a custom resource.  This changes the behavior of disabling
+iptables rules. Previously a rule could be disabled by specifying `enable false`.
+You must now specify `action :disable`
 
 Usage
 -----
