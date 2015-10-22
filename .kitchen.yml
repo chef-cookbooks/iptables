@@ -20,10 +20,14 @@ platforms:
 suites:
   - name: default
     run_list:
+      - recipe[iptables::disabled]
       - recipe[iptables::default]
   - name: rules
     run_list:
-      - recipe[iptables::disabled]
       - recipe[iptables::default]
       - recipe[iptables_secure::default]
+  - name: disabled
+    run_list:
+      - recipe[iptables::disabled]
+    
 
