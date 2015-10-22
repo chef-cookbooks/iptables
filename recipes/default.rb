@@ -40,17 +40,21 @@ template '/usr/sbin/rebuild-iptables' do
   )
 end
 
-if platform_family?('debian')
-  iptables_save_file = '/etc/iptables/general'
-
-  template '/etc/network/if-pre-up.d/iptables_load' do
-    source 'iptables_load.erb'
-    mode '0755'
-    variables iptables_save_file: iptables_save_file
-  end
+# debian based systems load iptables during the interface activation
+template '/etc/network/if-pre-up.d/iptables_load' do
+  source 'iptables_load.erb'
+  mode '0755'
+  variables iptables_save_file: '/etc/iptables/general'
+  only_if { platform_family?('debian') }
 end
 
+# iptables service exists only on RHEL based systems
 if platform_family?('rhel')
+  file '/etc/sysconfig/iptables' do
+    content '# Chef managed placeholder to allow iptables service to start'
+    action :create_if_missing
+  end
+
   service 'iptables' do
     action [:enable, :start]
     supports status: true, start: true, stop: true, restart: true
