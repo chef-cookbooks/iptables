@@ -1,0 +1,1 @@
+iptables_rule 'sshd'
