@@ -2,6 +2,14 @@ iptables Cookbook CHANGELOG
 ===========================
 This file is used to list changes made in each version of the iptables cookbook.
 
+v2.0.0 (2015-10-21)
+----------
+- Migrated LWRP to Chef 12.5 custom resources format with backwards compatibility provided via compat_resource cookbook to 12.X family
+- Added Start / enable of iptables service in the default recipe when on RHEL based systems and the management of /etc/sysconfig/iptables so the service can start
+- Added removal of /etc/iptables.d/ to the disabled recipe to allow for reenabling later on
+- Modified the iptables service disable in the disable recipe to only run when on RHEL based systems
+- Expanded the serverspec tests and test kitchen suites to better test rules custom resource and disable recipe
+
 v1.1.0 (2015-10-05)
 ----------
 - Fixed metadata description of the default recipe
