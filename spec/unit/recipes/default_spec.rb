@@ -47,5 +47,9 @@ describe 'iptables::default' do
       expect(chef_run).to install_package('iptables-services')
       expect(chef_run).to_not install_package('iptables')
     end
+
+    it 'should enable iptables-services' do
+      expect(chef_run).to enable_service('iptables')
+    end
   end
 end
