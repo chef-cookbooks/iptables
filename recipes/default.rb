@@ -52,7 +52,7 @@ end
 
 if platform_family?('rhel')
   service 'iptables' do
-    action [:enable]
+    action [:enable, :start]
     supports status: true, start: true, stop: true, restart: true
   end
 end
