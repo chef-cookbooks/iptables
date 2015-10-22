@@ -23,3 +23,10 @@ service 'iptables' do
   action [:disable, :stop]
   supports status: true, start: true, stop: true, restart: true
 end
+
+# Necessary so that if iptables::disable is used and then later
+# it is re-enabled without any rules changes, the templates will run the rebuilt script
+directory '/etc/iptables.d' do
+  action :delete
+  recursive true
+end

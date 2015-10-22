@@ -23,6 +23,7 @@ suites:
       - recipe[iptables::default]
   - name: rules
     run_list:
+      - recipe[iptables::disabled]
       - recipe[iptables::default]
       - recipe[iptables_secure::default]
 

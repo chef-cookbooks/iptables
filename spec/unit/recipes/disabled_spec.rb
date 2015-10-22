@@ -11,4 +11,8 @@ describe 'iptables::disabled' do
     expect(chef_run).to disable_service('iptables')
     expect(chef_run).to stop_service('iptables')
   end
+
+  it 'deletes /etc/iptables.d directory' do
+    expect(chef_run).to delete_directory('/etc/iptables.d')
+  end
 end

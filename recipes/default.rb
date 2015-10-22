@@ -49,3 +49,10 @@ if platform_family?('debian')
     variables iptables_save_file: iptables_save_file
   end
 end
+
+if platform_family?('rhel')
+  service 'iptables' do
+    action [:enable]
+    supports status: true, start: true, stop: true, restart: true
+  end
+end
