@@ -22,6 +22,7 @@ package 'iptables'
 service 'iptables' do
   action [:disable, :stop]
   supports status: true, start: true, stop: true, restart: true
+  only_if { node['platform_family'] == 'rhel' }
 end
 
 # Necessary so that if iptables::disable is used and then later
