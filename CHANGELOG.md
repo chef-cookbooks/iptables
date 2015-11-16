@@ -2,6 +2,10 @@ iptables Cookbook CHANGELOG
 ===========================
 This file is used to list changes made in each version of the iptables cookbook.
 
+v2.0.1 (2015-11-16)
+----------
+- Added Chefspec matchers
+
 v2.0.0 (2015-10-21)
 ----------
 - Migrated LWRP to Chef 12.5 custom resources format with backwards compatibility provided via compat_resource cookbook to 12.X family
