@@ -1,6 +1,9 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## v2.0.2 (2016-01-15)
+- Fixed rules not being rebuilt when using the disable action in the custom resource
+
 ## v2.0.1 (2015-11-16)
 - Added Chefspec matchers
 
