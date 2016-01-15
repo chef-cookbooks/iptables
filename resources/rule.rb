@@ -47,6 +47,6 @@ action :disable do
   file "/etc/iptables.d/#{new_resource.name}" do
     action :delete
     backup false
-    notifies :run, 'exec[rebuild-iptables]', :delayed
+    notifies :run, 'execute[rebuild-iptables]', :delayed
   end
 end
