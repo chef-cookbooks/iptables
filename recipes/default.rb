@@ -2,7 +2,7 @@
 # Cookbook Name:: iptables
 # Recipe:: default
 #
-# Copyright 2008-2009, Chef Software, Inc.
+# Copyright 2008-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -53,6 +53,18 @@ if platform_family?('rhel')
   file '/etc/sysconfig/iptables' do
     content '# Chef managed placeholder to allow iptables service to start'
     action :create_if_missing
+  end
+
+  template '/etc/sysconfig/iptables-config' do
+    source 'iptables-config.erb'
+    mode '600'
+    variables config: node['iptables']['iptables_sysconfig']
+  end
+
+  template '/etc/sysconfig/ip6tables-config' do
+    source 'iptables-config.erb'
+    mode '600'
+    variables config: node['iptables']['ip6tables_sysconfig']
   end
 
   service 'iptables' do

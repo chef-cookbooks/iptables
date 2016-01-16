@@ -18,6 +18,9 @@ Installs iptables and provides a custom resource for adding and removing iptable
 ### default
 The default recipe will install iptables and provides a ruby script (installed in `/usr/sbin/rebuild-iptables`) to manage rebuilding firewall rules from files dropped off in `/etc/iptables.d`.
 
+## Attributes
+ `default['iptables']['iptables_sysconfig']` and `default['iptables']['iptables_sysconfig']` are hashes that are used to template /etc/sysconfig/iptables-config and /etc/sysconfig/ip6tables-config. The keys must be upper case and any key / value pair included will be added to the config file.
+
 ## Custom Resource
 ### rule
 The custom resource drops off a template in `/etc/iptables.d` after the `name` parameter. The rule will get added to the local system firewall through notifying the `rebuild-iptables` script. See **Examples** below.
