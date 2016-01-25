@@ -1,6 +1,10 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## v2.1.0 (2016-01-25)
+- Improved compatbility with Fedora
+- Added management of the iptables sysconfig files using 2 new attributes. See the readme for more information
+
 ## v2.0.2 (2016-01-15)
 - Fixed rules not being rebuilt when using the disable action in the custom resource
 
