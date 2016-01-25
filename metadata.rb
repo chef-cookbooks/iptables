@@ -9,7 +9,6 @@ version '2.1.0'
 recipe 'default', 'Installs iptables and sets up .d style config directory of iptables rules'
 recipe 'disabled', 'Disables iptables'
 
-
 %w(redhat centos debian ubuntu amazon scientific oracle amazon).each do |os|
   supports os
 end
