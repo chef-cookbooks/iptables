@@ -49,7 +49,7 @@ template '/etc/network/if-pre-up.d/iptables_load' do
 end
 
 # iptables service exists only on RHEL based systems
-if platform_family?('rhel')
+if platform_family?('rhel') || platform_family?('fedora')
   file '/etc/sysconfig/iptables' do
     content '# Chef managed placeholder to allow iptables service to start'
     action :create_if_missing
@@ -70,5 +70,6 @@ if platform_family?('rhel')
   service 'iptables' do
     action [:enable, :start]
     supports status: true, start: true, stop: true, restart: true
+    not_if { platform_family?('fedora') }
   end
 end
