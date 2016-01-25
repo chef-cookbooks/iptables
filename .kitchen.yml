@@ -11,8 +11,10 @@ platforms:
     run_list: apt::default
   - name: debian-8.1
     run_list: apt::default
-  - name: fedora-21
   - name: fedora-22
+    run_list: yum::dnf_yum_compat
+  - name: fedora-23
+    run_list: yum::dnf_yum_compat
   - name: ubuntu-12.04
     run_list: apt::default
   - name: ubuntu-14.04
@@ -21,8 +23,13 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[iptables::disabled]
       - recipe[iptables::default]
+    attributes:
+      iptables:
+        iptables_sysconfig:
+          IPTABLES_STATUS_VERBOSE: 'yes'
+        ip6tables_sysconfig:
+          IPTABLES_STATUS_VERBOSE: 'yes'
   - name: rules
     run_list:
       - recipe[iptables::default]
@@ -30,5 +37,5 @@ suites:
   - name: disabled
     run_list:
       - recipe[iptables::disabled]
-    
+
 

@@ -32,3 +32,13 @@ if ['debian', 'ubuntu'].include?(os[:family])
     it { should exist }
   end
 end
+
+if ['centos', 'fedora'].include?(os[:family])
+  describe file('/etc/sysconfig/iptables-config') do
+    its(:content) { should match /IPTABLES_STATUS_VERBOSE="yes"/ }
+  end
+
+  describe file('/etc/sysconfig/ip6tables-config') do
+    its(:content) { should match /IPTABLES_STATUS_VERBOSE="yes"/ }
+  end
+end
