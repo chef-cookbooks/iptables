@@ -4,6 +4,7 @@ set :backend, :exec
 
 if os[:family] == 'redhat'
   describe service('iptables') do
+    it { should be_installed }
     it { should_not be_enabled }
     it { should_not be_running }
   end
