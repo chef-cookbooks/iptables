@@ -17,11 +17,7 @@
 # limitations under the License.
 #
 
-if platform_family?('rhel') && node['platform_version'].to_i == 7
-  package 'iptables-services'
-else
-  package 'iptables'
-end
+include_recipe 'iptables::_package'
 
 execute 'rebuild-iptables' do
   command '/usr/sbin/rebuild-iptables'
