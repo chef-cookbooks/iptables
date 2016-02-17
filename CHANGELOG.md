@@ -1,6 +1,9 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## v2.2.0 (2016-02-17)
+- Remove the dependency on compat_resource cookbook. This fixes RHEL systems, but increases the required Chef version to 12.5 or later
+
 ## v2.1.1 (2016-01-26)
 - Fixed failures on RHEL in the disabled recipe
 
