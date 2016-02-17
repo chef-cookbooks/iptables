@@ -33,7 +33,7 @@ suites:
   - name: rules
     run_list:
       - recipe[iptables::default]
-      - recipe[iptables_secure::default]
+      - recipe[iptables_test::default]
   - name: disabled
     run_list:
       - recipe[iptables::disabled]
