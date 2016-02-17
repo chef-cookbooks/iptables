@@ -24,19 +24,13 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[iptables::default]
+      - recipe[iptables_test::default]
     attributes:
       iptables:
         iptables_sysconfig:
           IPTABLES_STATUS_VERBOSE: 'yes'
         ip6tables_sysconfig:
           IPTABLES_STATUS_VERBOSE: 'yes'
-  - name: rules
-    run_list:
-      - recipe[iptables::default]
-      - recipe[iptables_test::default]
   - name: disabled
     run_list:
       - recipe[iptables::disabled]
-
-
