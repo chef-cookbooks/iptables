@@ -9,10 +9,10 @@ Installs iptables and provides a custom resource for adding and removing iptable
 - RHEL/CentOS and derivatives
 
 ### Chef
-- Chef 12+
+- Chef 12.5+
 
 ### Cookbooks
-- compat_resource
+- none
 
 ## Recipes
 ### default
