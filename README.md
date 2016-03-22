@@ -69,7 +69,7 @@ iptables_rule 'http_8080' do
 end
 ```
 
-To create a rule without using a template resource use the `lines` property
+To create a rule without using a template resource use the `lines` property:
 
 ```ruby
 iptables_rule 'http_8080' do
