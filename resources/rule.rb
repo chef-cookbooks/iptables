@@ -23,6 +23,8 @@ property :cookbook, kind_of: String, default: nil
 property :variables, kind_of: Hash, default: {}
 property :content, kind_of: String, default: nil
 
+default_action :enable
+
 action :enable do
   execute 'rebuild-iptables' do
     command '/usr/sbin/rebuild-iptables'
