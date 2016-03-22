@@ -77,7 +77,7 @@ iptables_rule 'http_8080' do
 end
 ```
 
-To get attribute-driven rules you can (for example) feed a hash of attributes into a single file like this:
+To get attribute-driven rules you can (for example) feed a hash of attributes into named iptables.d files like this:
 
 ```ruby
 node.default['iptables']['http_80'] = '-A FWR -p tcp -m tcp --dport 80 -j ACCEPT'
