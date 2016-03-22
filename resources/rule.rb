@@ -21,6 +21,7 @@ property :name, kind_of: String, name_attribute: true
 property :source, kind_of: String, default: nil
 property :cookbook, kind_of: String, default: nil
 property :variables, kind_of: Hash, default: {}
+property :content, kind_of: String, default: nil
 
 action :enable do
   execute 'rebuild-iptables' do
@@ -28,13 +29,22 @@ action :enable do
     action :nothing
   end
 
-  template "/etc/iptables.d/#{new_resource.name}" do
-    source new_resource.source ? new_resource.source : "#{new_resource.name}.erb"
-    mode '0644'
-    cookbook new_resource.cookbook if new_resource.cookbook
-    variables new_resource.variables
-    backup false
-    notifies :run, 'execute[rebuild-iptables]', :delayed
+  if content.nil?
+    template "/etc/iptables.d/#{new_resource.name}" do
+      source new_resource.source ? new_resource.source : "#{new_resource.name}.erb"
+      mode '0644'
+      cookbook new_resource.cookbook if new_resource.cookbook
+      variables new_resource.variables
+      backup false
+      notifies :run, 'execute[rebuild-iptables]', :delayed
+    end
+  else
+    file "/etc/iptables.d/#{new_resource.name}" do
+      content new_resource.content
+      mode '0644'
+      backup false
+      notifies :run, 'execute[rebuild-iptables]', :delayed
+    end
   end
 end
 

@@ -34,3 +34,12 @@ suites:
   - name: disabled
     run_list:
       - recipe[iptables::disabled]
+  - name: no_template
+    run_list:
+      - recipe[iptables_test::no_template]
+    attributes:
+      iptables:
+        iptables_sysconfig:
+          IPTABLES_STATUS_VERBOSE: 'yes'
+        ip6tables_sysconfig:
+          IPTABLES_STATUS_VERBOSE: 'yes'
