@@ -69,6 +69,27 @@ iptables_rule 'http_8080' do
 end
 ```
 
+To create a rule without using a template resource use the `lines` property
+
+```ruby
+iptables_rule 'http_8080' do
+  lines '-A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080'
+end
+```
+
+To get attribute-driven rules you can (for example) feed a hash of attributes into a single file like this:
+
+```ruby
+node.default['iptables']['http_80'] = '-A FWR -p tcp -m tcp --dport 80 -j ACCEPT'
+node.default['iptables']['http_443'] = '-A FWR -p tcp -m tcp --dport 443 -j ACCEPT'
+
+node['iptables'].map do |rule_name, rule_body|
+  iptables_rule rule_name do
+    lines rule_body
+  end
+end
+```
+
 ## Chefspec Matchers
 - enable_iptables_rule(resource_name)
 - disable_iptables_rule(resource_name)
