@@ -55,6 +55,7 @@ def install_redhat(data)
   Dir.mkdir("/etc/iptables") unless File.directory?("/etc/iptables")
   write_iptables("/etc/iptables/general", data)
   system("/sbin/iptables-restore < /etc/iptables/general")
+  system("cp /etc/iptables/general /etc/sysconfig/iptables")
 end
 
 # Install iptables on a Debian system. Takes the new iptables data.
