@@ -22,7 +22,7 @@ The default recipe will install iptables and provides a ruby script (installed i
 The disabled recipe will install iptables, disable the `iptables` service (on RHEL platforms), and delete the rules directory `/etc/iptables.d`.
 
 ## Attributes
- `default['iptables']['iptables_sysconfig']` and `default['iptables']['iptables_sysconfig']` are hashes that are used to template /etc/sysconfig/iptables-config and /etc/sysconfig/ip6tables-config. The keys must be upper case and any key / value pair included will be added to the config file.
+ `default['iptables']['iptables_sysconfig']` and `default['iptables']['ip6tables_sysconfig']` are hashes that are used to template /etc/sysconfig/iptables-config and /etc/sysconfig/ip6tables-config. The keys must be upper case and any key / value pair included will be added to the config file.
 
 ## Custom Resource
 ### rule
