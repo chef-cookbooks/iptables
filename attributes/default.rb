@@ -37,3 +37,5 @@ default['iptables']['ip6tables_sysconfig'] = {
   'IP6TABLES_STATUS_VERBOSE' => 'no',
   'IP6TABLES_STATUS_LINENUMBERS' => 'yes'
 }
+
+default['iptables']['system_ruby'] = '/usr/bin/ruby'
