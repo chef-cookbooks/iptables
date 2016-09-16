@@ -9,10 +9,10 @@ Installs iptables and provides a custom resource for adding and removing iptable
 - RHEL/CentOS and derivatives
 
 ### Chef
-- Chef 12.5+
+- Chef 12.1+
 
 ### Cookbooks
-- none
+- compat_resource
 
 ## Recipes
 ### default
@@ -100,7 +100,7 @@ end
 ## License & Authors
 **Author:** Cookbook Engineering Team ([cookbooks@chef.io](mailto:cookbooks@chef.io))
 
-**Copyright:** 2008-2015, Chef Software, Inc.
+**Copyright:** 2008-2016, Chef Software, Inc.
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
