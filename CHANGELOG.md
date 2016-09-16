@@ -1,6 +1,19 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 3.0.0 (2016-09-16)
+- Remove kitchen cloud config
+- Fix default specs to work properly on RHEL and other general spec cleanup
+- Simplify testing and fix failing tests on RHEL
+- allow using a file provider instead of a template
+- rename 'content' to 'lines' and add documentation
+- make the attributes example a bit more useful
+- using iptables-restore logic for rhel - same as debian
+- copy new config to default location in case of iptables restart
+- refactored rebuild-iptables script
+- Update supported os
+- Use compat_resource to restore Chef 12.1 - 12.4 compatibility
+
 ## v2.2.0 (2016-02-17)
 - Remove the dependency on compat_resource cookbook. This fixes RHEL systems, but increases the required Chef version to 12.5 or later
 
