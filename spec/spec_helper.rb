@@ -2,9 +2,7 @@ require 'chefspec'
 require 'chefspec/berkshelf'
 
 RSpec.configure do |config|
-  config.log_level = :error
-  config.platform = 'ubuntu'
-  config.version = '14.04'
+  config.color = true               # Use color in STDOUT
+  config.formatter = :documentation # Use the specified formatter
+  config.log_level = :error         # Avoid deprecation notice SPAM
 end
-
-at_exit { ChefSpec::Coverage.report! }

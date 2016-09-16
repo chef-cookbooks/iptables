@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'iptables::disabled' do
-  let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe) }
 
   it 'deletes /etc/iptables.d directory' do
     expect(chef_run).to delete_directory('/etc/iptables.d')
@@ -9,7 +9,7 @@ describe 'iptables::disabled' do
 
   context 'debian' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe)
+      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe)
     end
 
     it 'installs package iptables' do
@@ -20,7 +20,7 @@ describe 'iptables::disabled' do
 
   context 'rhel 7' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'redhat', version: '7.0').converge(described_recipe)
+      ChefSpec::ServerRunner.new(platform: 'redhat', version: '7.0').converge(described_recipe)
     end
 
     it 'should install iptables-services' do

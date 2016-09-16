@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'iptables::default' do
-  let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe) }
 
   it 'should execute rebuild-iptables' do
     expect(chef_run).to_not run_execute('rebuild-iptables')
@@ -17,11 +17,9 @@ describe 'iptables::default' do
     )
   end
 
-  # Even though ubuntu 14.04 is current default O/S for tests lets be explicit
-  # about the testing in case the default used changes in the future
   context 'debian' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04').converge(described_recipe)
+      ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe)
     end
 
     it 'should create /etc/network/if-pre-up.d/iptables_load from a template' do
