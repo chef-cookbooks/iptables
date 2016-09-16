@@ -20,7 +20,6 @@ Check out [How Cookbooks are Maintained](https://github.com/chef-cookbooks/commu
 
       maintainers = [
         'sigje',
-        'someara',
         'tas50',
         'thommay'
       ]
@@ -29,10 +28,6 @@ Check out [How Cookbooks are Maintained](https://github.com/chef-cookbooks/commu
   [people.sigje]
     name = "Jennifer Davis"
     github = "sigje"
-
-  [people.someara]
-    name = "Sean OMeara"
-    github = "someara"
 
   [people.tas50]
     name = "Tim Smith"
