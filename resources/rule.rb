@@ -26,9 +26,12 @@ property :lines, kind_of: String, default: nil
 default_action :enable
 
 action :enable do
-  execute 'rebuild-iptables' do
-    command '/usr/sbin/rebuild-iptables'
-    action :nothing
+  # ensure we have execute[rebuild-iptables] in the outer run_context
+  with_run_context :root do
+    find_resource(:execute, 'rebuild-iptables') do
+      command '/usr/sbin/rebuild-iptables'
+      action :nothing
+    end
   end
 
   if lines.nil?
@@ -51,9 +54,12 @@ action :enable do
 end
 
 action :disable do
-  execute 'rebuild-iptables' do
-    command '/usr/sbin/rebuild-iptables'
-    action :nothing
+  # ensure we have execute[rebuild-iptables] in the outer run_context
+  with_run_context :root do
+    find_resource(:execute, 'rebuild-iptables') do
+      command '/usr/sbin/rebuild-iptables'
+      action :nothing
+    end
   end
 
   file "/etc/iptables.d/#{new_resource.name}" do
