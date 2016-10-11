@@ -24,6 +24,8 @@ The disabled recipe will install iptables, disable the `iptables` service (on RH
 ## Attributes
  `default['iptables']['iptables_sysconfig']` and `default['iptables']['ip6tables_sysconfig']` are hashes that are used to template /etc/sysconfig/iptables-config and /etc/sysconfig/ip6tables-config. The keys must be upper case and any key / value pair included will be added to the config file.
 
+`default['iptables']['system_ruby']` allows users to override the system ruby path if ruby is installed into a non standard location and Chef has been installed without an embedded ruby (eg. from the Gem).
+
 ## Custom Resource
 ### rule
 The custom resource drops off a template in `/etc/iptables.d` after the `name` parameter. The rule will get added to the local system firewall through notifying the `rebuild-iptables` script. See **Examples** below.
