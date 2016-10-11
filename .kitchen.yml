@@ -45,3 +45,12 @@ suites:
           IPTABLES_STATUS_VERBOSE: 'yes'
         ip6tables_sysconfig:
           IPTABLES_STATUS_VERBOSE: 'yes'
+  - name: nested
+    run_list:
+      - recipe[iptables_test::nested]
+    attributes:
+      iptables:
+        iptables_sysconfig:
+          IPTABLES_STATUS_VERBOSE: 'yes'
+        ip6tables_sysconfig:
+          IPTABLES_STATUS_VERBOSE: 'yes'
