@@ -1,6 +1,11 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 3.0.1 (2016-10-10)
+- Fix rules resource so rebuild-iptables only runs once
+- Add tests for nested resources
+- Add system ruby attribute so that it can be overridden
+
 ## 3.0.0 (2016-09-16)
 - Remove kitchen cloud config
 - Fix default specs to work properly on RHEL and other general spec cleanup
