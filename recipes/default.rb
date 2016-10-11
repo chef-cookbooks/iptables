@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+system_ruby = node['iptables']['system_ruby']
+
 include_recipe 'iptables::_package'
 
 execute 'rebuild-iptables' do
@@ -32,7 +34,7 @@ template '/usr/sbin/rebuild-iptables' do
   source 'rebuild-iptables.erb'
   mode '0755'
   variables(
-    hashbang: ::File.exist?('/usr/bin/ruby') ? '/usr/bin/ruby' : '/opt/chef/embedded/bin/ruby'
+    hashbang: ::File.exist?(system_ruby) ? system_ruby : '/opt/chef/embedded/bin/ruby'
   )
 end
 
