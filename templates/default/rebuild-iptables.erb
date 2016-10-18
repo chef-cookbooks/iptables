@@ -52,10 +52,13 @@ end
 
 # Install iptables on a Red Hat or Debian system. Takes the new iptables data.
 def install_rules(data)
-  Dir.mkdir("/etc/iptables") unless File.directory?("/etc/iptables")
-  write_iptables("/etc/iptables/general", data)
-  system("/sbin/iptables-restore < /etc/iptables/general")
-  system("cp /etc/iptables/general /etc/sysconfig/iptables")
+  Dir.mkdir('/etc/iptables') unless File.directory?('/etc/iptables')
+  write_iptables('/etc/iptables/general', data)
+  return false unless system('/sbin/iptables-restore < /etc/iptables/general')
+  if File.exist?('/etc/sysconfig/iptables')
+    return false unless system("cp /etc/iptables/general /etc/sysconfig/iptables")
+  end
+  true
 end
 
 ##############################################################################
@@ -130,7 +133,8 @@ end
 
 system_files = %w(/etc/debian_version /etc/redhat-release /etc/system-release)
 if system_files.any? { |file| File.exist?(file) }
-  install_rules(iptables_rules)
+  success = install_rules(iptables_rules)
+  raise "#{$0}: failed to install iptables rules" unless success
 else
   raise "#{$0}: cannot figure out whether this is Red Hat or Debian\n";
 end
