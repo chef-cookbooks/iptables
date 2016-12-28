@@ -25,7 +25,7 @@ default['iptables']['iptables_sysconfig'] = {
   'IPTABLES_SAVE_COUNTER' => 'no',
   'IPTABLES_STATUS_NUMERIC' => 'yes',
   'IPTABLES_STATUS_VERBOSE' => 'no',
-  'IPTABLES_STATUS_LINENUMBERS' => 'yes'
+  'IPTABLES_STATUS_LINENUMBERS' => 'yes',
 }
 default['iptables']['ip6tables_sysconfig'] = {
   'IP6TABLES_MODULES' => '',
@@ -35,7 +35,7 @@ default['iptables']['ip6tables_sysconfig'] = {
   'IP6TABLES_SAVE_COUNTER' => 'no',
   'IP6TABLES_STATUS_NUMERIC' => 'yes',
   'IP6TABLES_STATUS_VERBOSE' => 'no',
-  'IP6TABLES_STATUS_LINENUMBERS' => 'yes'
+  'IP6TABLES_STATUS_LINENUMBERS' => 'yes',
 }
 
 default['iptables']['system_ruby'] = '/usr/bin/ruby'
