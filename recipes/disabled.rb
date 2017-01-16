@@ -31,3 +31,8 @@ directory '/etc/iptables.d' do
   action :delete
   recursive true
 end
+
+# Flush and delete iptables rules
+execute 'iptables flush' do
+  command 'iptables -F'
+end
