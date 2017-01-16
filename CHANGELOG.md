@@ -1,6 +1,12 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 3.1.0 (2017-01-16)
+
+- Update readme to include new attribute
+- Check subcmd exit codes in rebuild-iptables script
+- fixed iptables disabled recipe to flush iptables after disabling the service
+
 ## 3.0.1 (2016-10-10)
 - Fix rules resource so rebuild-iptables only runs once
 - Add tests for nested resources
