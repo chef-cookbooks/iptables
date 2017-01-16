@@ -30,9 +30,12 @@ end
 directory '/etc/iptables.d' do
   action :delete
   recursive true
+  notifies :run, 'execute[iptablesFlush]', :immediately
 end
 
 # Flush and delete iptables rules
-execute 'iptables flush' do
+execute 'iptablesFlush' do
   command 'iptables -F'
+  action  :nothing
 end
+
