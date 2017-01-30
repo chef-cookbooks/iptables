@@ -14,3 +14,13 @@ end
 describe file('/etc/iptables.d') do
   it { should_not be_directory }
 end
+
+# some RHEL/CentOS versions use these files to persist rules. disable recipe
+# "clears" these files out.
+%w( /etc/sysconfig/iptables /etc/sysconfig/iptables.fallback ).each do |file|
+  describe file(file) do
+    it { should exist }
+    it { should be_file }
+    its(:content) { should match(/^# iptables rules files cleared by chef via iptables::disabled$/) }
+  end
+end
