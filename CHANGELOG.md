@@ -1,6 +1,11 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.0.0 (2017-02-27)
+
+- Remove EOL platforms from testing
+- Require Chef 12.5 and remove compat_resource dependency
+
 ## 3.1.0 (2017-01-16)
 
 - Update readme to include new attribute
