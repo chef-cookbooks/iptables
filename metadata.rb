@@ -13,8 +13,6 @@ recipe 'disabled', 'Disables iptables'
   supports os
 end
 
-depends 'compat_resource', '>= 12.14.3'
-
 source_url 'https://github.com/chef-cookbooks/iptables'
 issues_url 'https://github.com/chef-cookbooks/iptables/issues'
-chef_version '>= 12.1'
+chef_version '>= 12.5'

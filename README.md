@@ -1,43 +1,56 @@
 # iptables Cookbook
+
 [![Build Status](https://travis-ci.org/chef-cookbooks/iptables.svg?branch=master)](https://travis-ci.org/chef-cookbooks/iptables) [![Cookbook Version](https://img.shields.io/cookbook/v/iptables.svg)](https://supermarket.chef.io/cookbooks/iptables)
 
 Installs iptables and provides a custom resource for adding and removing iptables rules
 
 ## Requirements
+
 ### Platforms
+
 - Ubuntu/Debian
 - RHEL/CentOS and derivatives
 
 ### Chef
-- Chef 12.1+
+
+- Chef 12.5+
 
 ### Cookbooks
-- compat_resource
+
+- none
 
 ## Recipes
+
 ### default
+
 The default recipe will install iptables and provides a ruby script (installed in `/usr/sbin/rebuild-iptables`) to manage rebuilding firewall rules from files dropped off in `/etc/iptables.d`.
 
 ### disabled
+
 The disabled recipe will install iptables, disable the `iptables` service (on RHEL platforms), and delete the rules directory `/etc/iptables.d`.
 
 ## Attributes
- `default['iptables']['iptables_sysconfig']` and `default['iptables']['ip6tables_sysconfig']` are hashes that are used to template /etc/sysconfig/iptables-config and /etc/sysconfig/ip6tables-config. The keys must be upper case and any key / value pair included will be added to the config file.
+
+`default['iptables']['iptables_sysconfig']` and `default['iptables']['ip6tables_sysconfig']` are hashes that are used to template /etc/sysconfig/iptables-config and /etc/sysconfig/ip6tables-config. The keys must be upper case and any key / value pair included will be added to the config file.
 
 `default['iptables']['system_ruby']` allows users to override the system ruby path if ruby is installed into a non standard location and Chef has been installed without an embedded ruby (eg. from the Gem).
 
 ## Custom Resource
+
 ### rule
+
 The custom resource drops off a template in `/etc/iptables.d` after the `name` parameter. The rule will get added to the local system firewall through notifying the `rebuild-iptables` script. See **Examples** below.
 
-NOTE: In the 1.0 release of this cookbook the iptables_rule definition was converted to a custom resource.  This changes the behavior of disabling iptables rules. Previously a rule could be disabled by specifying `enable false`. You must now specify `action :disable`
+NOTE: In the 1.0 release of this cookbook the iptables_rule definition was converted to a custom resource. This changes the behavior of disabling iptables rules. Previously a rule could be disabled by specifying `enable false`. You must now specify `action :disable`
 
 ## Usage
+
 Add `recipe[iptables]` to your runlist to ensure iptables is installed / running and to ensure that the `rebuild-iptables` script is on the system. Then create use iptables_rule to add individual rules. See **Examples**.
 
 Since certain chains can be used with multiple tables (e.g., _PREROUTING_), you might have to include the name of the table explicitly (i.e., _*nat_, _*mangle_, etc.), so that the `/usr/sbin/rebuild-iptables` script can infer how to assemble final ruleset file that is going to be loaded. Please note, that unless specified otherwise, rules will be added under the **filter** table by default.
 
 ### Examples
+
 To enable port 80, e.g. in an `my_httpd` cookbook, create the following template:
 
 ```text
@@ -96,10 +109,12 @@ end
 ```
 
 ## Chefspec Matchers
+
 - enable_iptables_rule(resource_name)
 - disable_iptables_rule(resource_name)
 
 ## License & Authors
+
 **Author:** Cookbook Engineering Team ([cookbooks@chef.io](mailto:cookbooks@chef.io))
 
 **Copyright:** 2008-2016, Chef Software, Inc.

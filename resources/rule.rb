@@ -23,8 +23,6 @@ property :cookbook, kind_of: String, default: nil
 property :variables, kind_of: Hash, default: {}
 property :lines, kind_of: String, default: nil
 
-default_action :enable
-
 action :enable do
   # ensure we have execute[rebuild-iptables] in the outer run_context
   with_run_context :root do
