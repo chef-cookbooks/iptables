@@ -1,6 +1,9 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.0.1 (2017-03-29)
+- Update metadata to require Chef 12.10+ due to use of with_run_context 
+
 ## 4.0.0 (2017-02-27)
 
 - Remove EOL platforms from testing
