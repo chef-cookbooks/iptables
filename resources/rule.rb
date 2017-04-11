@@ -22,6 +22,7 @@ property :source, kind_of: String, default: nil
 property :cookbook, kind_of: String, default: nil
 property :variables, kind_of: Hash, default: {}
 property :lines, kind_of: String, default: nil
+property :table, kind_of: Symbol, default: nil
 
 action :enable do
   # ensure we have execute[rebuild-iptables] in the outer run_context
@@ -42,6 +43,7 @@ action :enable do
       notifies :run, 'execute[rebuild-iptables]', :delayed
     end
   else
+    new_resource.lines = "*#{new_resource.table}\n" + new_resource.lines if new_resource.table
     file "/etc/iptables.d/#{new_resource.name}" do
       content new_resource.lines
       mode '0644'

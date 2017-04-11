@@ -84,11 +84,12 @@ iptables_rule 'http_8080' do
 end
 ```
 
-To create a rule without using a template resource use the `lines` property:
+To create a rule without using a template resource use the `lines` property (you can optionally specify `table` when using `lines`):
 
 ```ruby
 iptables_rule 'http_8080' do
   lines '-A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080'
+  table :nat
 end
 ```
 
