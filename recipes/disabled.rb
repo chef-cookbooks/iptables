@@ -33,7 +33,7 @@ directory '/etc/iptables.d' do
   notifies :run, 'execute[iptablesFlush]', :immediately
 end
 
-%w( /etc/sysconfig/iptables /etc/sysconfig/iptables.fallback ).each do |f|
+%w(/etc/sysconfig/iptables /etc/sysconfig/iptables.fallback).each do |f|
   file f do
     content '# iptables rules files cleared by chef via iptables::disabled'
     only_if { node['platform_family'] == 'rhel' }

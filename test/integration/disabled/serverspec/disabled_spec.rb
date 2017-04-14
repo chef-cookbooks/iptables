@@ -17,7 +17,7 @@ end
 
 # some RHEL/CentOS versions use these files to persist rules. disable recipe
 # "clears" these files out.
-%w( /etc/sysconfig/iptables /etc/sysconfig/iptables.fallback ).each do |file|
+%w(/etc/sysconfig/iptables /etc/sysconfig/iptables.fallback).each do |file|
   describe file(file) do
     it { should exist }
     it { should be_file }

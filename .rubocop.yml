@@ -1,8 +1,0 @@
-# cookstyle todo:
-#
-Lint/AmbiguousRegexpLiteral:
-  Exclude:
-    - 'test/integration/default/serverspec/default_spec.rb'
-    - 'test/integration/default/serverspec/rules_spec.rb'
-    - 'test/integration/no_template/serverspec/default_spec.rb'
-    - 'test/integration/no_template/serverspec/rules_spec.rb'
