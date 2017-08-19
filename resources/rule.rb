@@ -33,7 +33,7 @@ action :enable do
     end
   end
 
-  if lines.nil?
+  if new_resource.lines.nil?
     template "/etc/iptables.d/#{new_resource.name}" do
       source new_resource.source ? new_resource.source : "#{new_resource.name}.erb"
       mode '0644'
