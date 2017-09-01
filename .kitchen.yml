@@ -5,14 +5,14 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: centos-6.9
-  - name: centos-7.3
-  - name: debian-7.11
+  - name: centos-6
+  - name: centos-7
+  - name: debian-7
     run_list: apt::default
-  - name: debian-8.8
+  - name: debian-8
     run_list: apt::default
-  - name: fedora-25
-  - name: opensuse-leap-42.2
+  - name: fedora-26
+  - name: opensuse-leap-42
   - name: ubuntu-14.04
     run_list: apt::default
   - name: ubuntu-16.04
