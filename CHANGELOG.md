@@ -1,6 +1,10 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.2.1 (2017-09-08)
+
+- Resolve deprecation warning
+
 ## 4.2.0 (2017-04-14)
 
 - [GH-69] - Clearing out iptables rule files on RHEL with the iptables::disabled recipe
