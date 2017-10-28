@@ -10,6 +10,7 @@ Installs iptables and provides a custom resource for adding and removing iptable
 
 - Ubuntu/Debian
 - RHEL/CentOS and derivatives
+- Amazon Linux
 
 ### Chef
 
