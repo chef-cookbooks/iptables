@@ -1,6 +1,10 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.3.0 (2017-10-28)
+
+- Add Amazon Linux support on Chef 13
+
 ## 4.2.1 (2017-09-08)
 
 - Resolve deprecation warning
