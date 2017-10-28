@@ -22,7 +22,7 @@ include_recipe 'iptables::_package'
 service 'iptables' do
   action [:disable, :stop]
   supports status: true, start: true, stop: true, restart: true
-  only_if { node['platform_family'] == 'rhel' }
+  only_if { %w(rhel amazon).include?(node['platform_family']) }
 end
 
 # Necessary so that if iptables::disable is used and then later
@@ -36,7 +36,7 @@ end
 %w(/etc/sysconfig/iptables /etc/sysconfig/iptables.fallback).each do |f|
   file f do
     content '# iptables rules files cleared by chef via iptables::disabled'
-    only_if { node['platform_family'] == 'rhel' }
+    only_if { %w(rhel amazon).include?(node['platform_family']) }
     notifies :run, 'execute[iptablesFlush]', :immediately
   end
 end
