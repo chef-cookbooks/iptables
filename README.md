@@ -97,13 +97,13 @@ end
 To get attribute-driven rules you can (for example) feed a hash of attributes into named iptables.d files like this:
 
 ```ruby
-node.default['iptables']['http_80'] = '-A FWR -p tcp -m tcp --dport 80 -j ACCEPT'
-node.default['iptables']['http_443'] = [
+node.default['iptables']['rules']['http_80'] = '-A FWR -p tcp -m tcp --dport 80 -j ACCEPT'
+node.default['iptables']['rules']['http_443'] = [
   '# an example with multiple lines',
   '-A FWR -p tcp -m tcp --dport 443 -j ACCEPT',
 ]
 
-node['iptables'].map do |rule_name, rule_body|
+node['iptables']['rules'].map do |rule_name, rule_body|
   iptables_rule rule_name do
     lines [ rule_body ].flatten.join("\n")
   end
