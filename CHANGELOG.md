@@ -1,6 +1,10 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.3.1 (2017-11-06)
+
+- Updating namespace for attribute-based rules in the readme
+
 ## 4.3.0 (2017-10-28)
 
 - Add Amazon Linux support on Chef 13
