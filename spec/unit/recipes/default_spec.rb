@@ -34,7 +34,7 @@ describe 'iptables::default' do
 
   context 'rhel 7' do
     let(:chef_run) do
-      ChefSpec::SoloRunner.new(platform: 'redhat', version: '7.0').converge(described_recipe)
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.4.1708').converge(described_recipe)
     end
 
     it 'should not create /etc/network/if-pre-up.d/iptables_load from a template' do
