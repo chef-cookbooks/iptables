@@ -17,7 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-property :name, kind_of: String, name_attribute: true
 property :source, kind_of: String, default: nil
 property :cookbook, kind_of: String, default: nil
 property :variables, kind_of: Hash, default: {}

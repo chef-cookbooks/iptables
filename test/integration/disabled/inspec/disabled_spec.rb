@@ -1,7 +1,3 @@
-require 'serverspec'
-
-set :backend, :exec
-
 if os[:family] == 'redhat'
   describe service('iptables') do
     it { should be_installed }

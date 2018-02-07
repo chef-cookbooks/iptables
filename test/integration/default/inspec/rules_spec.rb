@@ -1,7 +1,3 @@
-require 'serverspec'
-
-set :backend, :exec
-
 if os[:family] == 'redhat'
   describe command('/etc/init.d/iptables status') do
     its(:stdout) { should match /ACCEPT.*tcp dpt:22/ }
