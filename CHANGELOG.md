@@ -1,6 +1,13 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.3.2 (2018-02-07)
+
+- Fix FC108 to resolve test failures
+- Switch from ServerSpec to InSpec
+- Resolve ChefSpec warnings
+- Remove ChefSpec matchers that are no longer needed since ChefSpec autogenerates these
+
 ## 4.3.1 (2017-11-06)
 
 - Updating namespace for attribute-based rules in the readme
