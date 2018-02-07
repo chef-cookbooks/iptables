@@ -1,6 +1,8 @@
-require 'serverspec'
-
-set :backend, :exec
+if os[:family] == 'redhat'
+  describe command('/etc/init.d/iptables status') do
+    its(:stdout) { should match /Table: filter/ }
+  end
+end
 
 # the disable recipe will delete this, but the install should add it back
 describe file('/etc/iptables.d') do
@@ -19,10 +21,10 @@ end
 
 if %w(redhat fedora).include?(os[:family])
   describe file('/etc/sysconfig/iptables-config') do
-    its(:content) { should match(/IPTABLES_STATUS_VERBOSE="yes"/) }
+    its(:content) { should match /IPTABLES_STATUS_VERBOSE="yes"/ }
   end
 
   describe file('/etc/sysconfig/ip6tables-config') do
-    its(:content) { should match(/IPTABLES_STATUS_VERBOSE="yes"/) }
+    its(:content) { should match /IPTABLES_STATUS_VERBOSE="yes"/ }
   end
 end

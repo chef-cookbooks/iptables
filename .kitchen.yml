@@ -18,6 +18,9 @@ platforms:
   - name: ubuntu-16.04
     run_list: apt::default
 
+verifier:
+  name: inspec
+
 suites:
   - name: default
     run_list:
