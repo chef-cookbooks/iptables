@@ -1,6 +1,10 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.3.3 (2018-02-15)
+
+- Don't use kind_of in the custom resource (FC117)
+
 ## 4.3.2 (2018-02-07)
 
 - Fix FC108 to resolve test failures
