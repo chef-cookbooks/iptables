@@ -17,11 +17,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-property :source, String, default: nil
-property :cookbook, String, default: nil
+property :source, String
+property :cookbook, String
 property :variables, Hash, default: {}
-property :lines, String, default: nil
-property :table, Symbol, default: nil
+property :lines, String
+property :table, Symbol
 
 action :enable do
   # ensure we have execute[rebuild-iptables] in the outer run_context
@@ -32,17 +32,23 @@ action :enable do
     end
   end
 
-  if new_resource.lines.nil?
+  if property_is_set?(:source)
+    template_source = new_resource.source
+  else
+    template_source = "#{new_resource.name}.erb"
+  end
+
+  if property_is_set?(:lines)
     template "/etc/iptables.d/#{new_resource.name}" do
-      source new_resource.source ? new_resource.source : "#{new_resource.name}.erb"
+      source template_source
       mode '0644'
-      cookbook new_resource.cookbook if new_resource.cookbook
+      cookbook new_resource.cookbook if property_is_set?(:cookbook)
       variables new_resource.variables
       backup false
       notifies :run, 'execute[rebuild-iptables]', :delayed
     end
   else
-    new_resource.lines = "*#{new_resource.table}\n" + new_resource.lines if new_resource.table
+    new_resource.lines = "*#{new_resource.table}\n" + new_resource.lines if property_is_set?(:table)
     file "/etc/iptables.d/#{new_resource.name}" do
       content new_resource.lines
       mode '0644'
