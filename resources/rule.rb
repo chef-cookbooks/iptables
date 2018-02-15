@@ -17,11 +17,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-property :source, kind_of: String, default: nil
-property :cookbook, kind_of: String, default: nil
-property :variables, kind_of: Hash, default: {}
-property :lines, kind_of: String, default: nil
-property :table, kind_of: Symbol, default: nil
+property :source, String, default: nil
+property :cookbook, String, default: nil
+property :variables, Hash, default: {}
+property :lines, String, default: nil
+property :table, Symbol, default: nil
 
 action :enable do
   # ensure we have execute[rebuild-iptables] in the outer run_context
