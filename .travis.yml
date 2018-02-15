@@ -1,6 +1,5 @@
 # Use Travis's cointainer based infrastructure
 sudo: false
-distro: trusty
 
 addons:
   apt:
