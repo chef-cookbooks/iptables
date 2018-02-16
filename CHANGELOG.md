@@ -1,6 +1,14 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.3.4 (2018-02-15)
+
+- Fix converge failures in the custom resource introduced in 4.3.3
+- Remove stove and tomlrb from the Gemfile
+- use apt_update not apt cookbook in testing
+- Add Amazon Linux to test kitchen
+- Simplify the platform family check using our helpers
+
 ## 4.3.3 (2018-02-15)
 
 - Don't use kind_of in the custom resource (FC117)
