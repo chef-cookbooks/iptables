@@ -9,3 +9,7 @@ end
     it { should exist }
   end
 end
+
+describe file("/etc/ip6tables.d/sshd") do
+  it { should exist }
+end
