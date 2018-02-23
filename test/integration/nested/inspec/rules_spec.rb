@@ -10,6 +10,6 @@ end
   end
 end
 
-describe file("/etc/ip6tables.d/sshd") do
+describe file('/etc/ip6tables.d/sshd') do
   it { should exist }
 end
