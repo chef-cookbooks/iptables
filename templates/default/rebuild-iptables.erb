@@ -1,7 +1,7 @@
 #!<%= @hashbang %> -w
 
 #
-# rebuild-iptables.rb -- Construct an iptables rules file from fragments.
+# rebuild-<%= @ipt %>.rb -- Construct an iptables rules file from fragments.
 #
 # Written by Phil Cohen <github@phlippers.net>
 # Copyright 2011, Phil Cohen
@@ -17,7 +17,7 @@
 ##############################################################################
 
 # Path to the iptables template area.
-TEMPLATE_PATH = "/etc/iptables.d"
+TEMPLATE_PATH = "/etc/<%= @ipt %>.d"
 
 ##############################################################################
 # Installation
@@ -52,7 +52,7 @@ end
 
 # Install iptables on a Red Hat or Debian system. Takes the new iptables data.
 def install_rules(data)
-  Dir.mkdir('/etc/iptables') unless File.directory?('/etc/iptables')
+  Dir.mkdir('/etc/<%= @ipt %>') unless File.directory?('/etc/<%= @ipt %>')
   write_iptables("<%= @persisted_file %>", data)
   return false unless system("/sbin/iptables-restore < <%= @persisted_file %>")
   true

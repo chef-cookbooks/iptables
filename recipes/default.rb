@@ -21,53 +21,65 @@ system_ruby = node['iptables']['system_ruby']
 
 case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
-  node.default['iptables']['persisted_rules'] = '/etc/sysconfig/iptables'
+  node.default['iptables']['persisted_rules_iptables'] =
+    '/etc/sysconfig/iptables'
+  node.default['iptables']['persisted_rules_ip6tables'] =
+    '/etc/sysconfig/ip6tables'
 when 'debian'
-  node.default['iptables']['persisted_rules'] = '/etc/iptables/rules.v4'
+  node.default['iptables']['persisted_rules_iptables'] =
+    '/etc/iptables/rules.v4'
+  node.default['iptables']['persisted_rules_ip6tables'] =
+    '/etc/iptables/rules.v6'
 end
 
 include_recipe 'iptables::_package'
 
-execute 'rebuild-iptables' do
-  command '/usr/sbin/rebuild-iptables'
-  action :nothing
-end
-
-directory '/etc/iptables.d' do
-  action :create
-end
-
-template '/usr/sbin/rebuild-iptables' do
-  source 'rebuild-iptables.erb'
-  mode '0755'
-  variables(
-    hashbang: ::File.exist?(system_ruby) ? system_ruby : '/opt/chef/embedded/bin/ruby',
-    persisted_file: node['iptables']['persisted_rules']
-  )
-end
-
-# iptables service exists only on RHEL based systems
-if platform_family?('rhel', 'fedora', 'amazon')
-  file '/etc/sysconfig/iptables' do
-    content '# Chef managed placeholder to allow iptables service to start'
-    action :create_if_missing
+%w(iptables ip6tables).each do |ipt|
+  execute "rebuild-#{ipt}" do
+    command "/usr/sbin/rebuild-#{ipt}"
+    action :nothing
   end
 
-  template '/etc/sysconfig/iptables-config' do
-    source 'iptables-config.erb'
-    mode '600'
-    variables config: node['iptables']['iptables_sysconfig']
+  directory "/etc/#{ipt}.d" do
+    action :create
   end
 
-  template '/etc/sysconfig/ip6tables-config' do
-    source 'iptables-config.erb'
-    mode '600'
-    variables config: node['iptables']['ip6tables_sysconfig']
+  template "/usr/sbin/rebuild-#{ipt}" do
+    source 'rebuild-iptables.erb'
+    mode '0755'
+    variables(
+      ipt: ipt,
+      hashbang: ::File.exist?(system_ruby) ? system_ruby : '/opt/chef/embedded/bin/ruby',
+      persisted_file: node['iptables']["persisted_rules_#{ipt}"]
+    )
   end
 
-  service 'iptables' do
-    action [:enable, :start]
-    supports status: true, start: true, stop: true, restart: true
-    not_if { platform_family?('fedora') }
+  # debian based systems load iptables during the interface activation
+  template "/etc/network/if-pre-up.d/#{ipt}_load" do
+    source 'iptables_load.erb'
+    mode '0755'
+    variables iptables_save_file: "/etc/#{ipt}/general",
+              iptables_restore_binary: "/sbin/#{ipt}-restore"
+    only_if { platform_family?('debian') }
+  end
+
+  # iptables service exists only on RHEL based systems
+  if platform_family?('rhel', 'fedora', 'amazon')
+    file "/etc/sysconfig/#{ipt}" do
+      content '# Chef managed placeholder to allow iptables service to start'
+      action :create_if_missing
+    end
+
+    template "/etc/sysconfig/#{ipt}-config" do
+      source 'iptables-config.erb'
+      mode '600'
+      variables config: node['iptables']["#{ipt}_sysconfig"]
+    end
+
+    service ipt do
+      action [:enable, :start]
+      supports status: true, start: true, stop: true, restart: true
+      not_if { platform_family?('fedora') }
+    end
   end
 end
