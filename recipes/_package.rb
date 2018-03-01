@@ -21,4 +21,8 @@ if platform_family?('rhel') && node['platform_version'].to_i == 7
   package 'iptables-services'
 else
   package 'iptables'
+  if platform_family?('debian')
+    # Since Ubuntu 10.04LTS and Debian6, this package takes over the automatic loading of the saved iptables rules
+    package 'iptables-persistent'
+  end
 end
