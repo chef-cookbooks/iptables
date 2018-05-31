@@ -14,6 +14,7 @@ describe 'iptables::disabled' do
 
     it 'installs package iptables' do
       expect(chef_run).to install_package('iptables')
+      expect(chef_run).to install_package('iptables-persistent')
       expect(chef_run).to_not install_package('iptables-services')
     end
   end
@@ -26,6 +27,7 @@ describe 'iptables::disabled' do
     it 'should install iptables-services' do
       expect(chef_run).to install_package('iptables-services')
       expect(chef_run).to_not install_package('iptables')
+      expect(chef_run).to_not install_package('iptables-persistent')
     end
 
     it 'disables and stops iptables service' do

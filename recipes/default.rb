@@ -19,6 +19,13 @@
 
 system_ruby = node['iptables']['system_ruby']
 
+case node['platform_family']
+when 'rhel', 'fedora', 'amazon'
+  node.default['iptables']['persisted_rules'] = '/etc/sysconfig/iptables'
+when 'debian'
+  node.default['iptables']['persisted_rules'] = '/etc/iptables/rules.v4'
+end
+
 include_recipe 'iptables::_package'
 
 execute 'rebuild-iptables' do
@@ -34,16 +41,9 @@ template '/usr/sbin/rebuild-iptables' do
   source 'rebuild-iptables.erb'
   mode '0755'
   variables(
-    hashbang: ::File.exist?(system_ruby) ? system_ruby : '/opt/chef/embedded/bin/ruby'
+    hashbang: ::File.exist?(system_ruby) ? system_ruby : '/opt/chef/embedded/bin/ruby',
+    persisted_file: node['iptables']['persisted_rules']
   )
-end
-
-# debian based systems load iptables during the interface activation
-template '/etc/network/if-pre-up.d/iptables_load' do
-  source 'iptables_load.erb'
-  mode '0755'
-  variables iptables_save_file: '/etc/iptables/general'
-  only_if { platform_family?('debian') }
 end
 
 # iptables service exists only on RHEL based systems

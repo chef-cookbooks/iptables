@@ -22,12 +22,9 @@ describe 'iptables::default' do
       ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04').converge(described_recipe)
     end
 
-    it 'should create /etc/network/if-pre-up.d/iptables_load from a template' do
-      expect(chef_run).to create_template('/etc/network/if-pre-up.d/iptables_load')
-    end
-
     it 'should install iptables' do
       expect(chef_run).to install_package('iptables')
+      expect(chef_run).to install_package('iptables-persistent')
       expect(chef_run).to_not install_package('iptables-services')
     end
   end
@@ -37,13 +34,10 @@ describe 'iptables::default' do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '7.4.1708').converge(described_recipe)
     end
 
-    it 'should not create /etc/network/if-pre-up.d/iptables_load from a template' do
-      expect(chef_run).to_not create_template('/etc/network/if-pre-up.d/iptables_load')
-    end
-
     it 'should install iptables-services' do
       expect(chef_run).to install_package('iptables-services')
       expect(chef_run).to_not install_package('iptables')
+      expect(chef_run).to_not install_package('iptables-persistent')
     end
 
     it 'should enable iptables-services' do

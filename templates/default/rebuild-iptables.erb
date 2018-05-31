@@ -53,11 +53,8 @@ end
 # Install iptables on a Red Hat or Debian system. Takes the new iptables data.
 def install_rules(data)
   Dir.mkdir('/etc/iptables') unless File.directory?('/etc/iptables')
-  write_iptables('/etc/iptables/general', data)
-  return false unless system('/sbin/iptables-restore < /etc/iptables/general')
-  if File.exist?('/etc/sysconfig/iptables')
-    return false unless system("cp /etc/iptables/general /etc/sysconfig/iptables")
-  end
+  write_iptables("<%= @persisted_file %>", data)
+  return false unless system("/sbin/iptables-restore < <%= @persisted_file %>")
   true
 end
 
