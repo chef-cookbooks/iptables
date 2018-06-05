@@ -110,6 +110,12 @@ node['iptables']['rules'].map do |rule_name, rule_body|
 end
 ```
 
+## IPv6 supports
+
+The `iptables_rule6` provides IPv6 support with the same behavior as the original `iptable_rule`.
+
+A `/usr/sbin/rebuild-ip6tables` script perform iptables configuration and the IPv6 rules are stored in `/etc/ip6tables.d`
+
 ## Chefspec Matchers
 
 - enable_iptables_rule(resource_name)
