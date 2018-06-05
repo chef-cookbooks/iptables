@@ -12,9 +12,7 @@
     describe file("/etc/network/if-pre-up.d/#{variant}_load") do
       it { should exist }
     end
-  end
-
-  if %w(redhat fedora).include?(os[:family])
+  elsif %w(redhat fedora).include?(os[:family])
     describe file("/etc/sysconfig/#{variant}-config") do
       its(:content) { should match(/IPTABLES_STATUS_VERBOSE="yes"/) }
     end

@@ -54,17 +54,16 @@ include_recipe 'iptables::_package'
     )
   end
 
-  # debian based systems load iptables during the interface activation
-  template "/etc/network/if-pre-up.d/#{ipt}_load" do
-    source 'iptables_load.erb'
-    mode '0755'
-    variables iptables_save_file: "/etc/#{ipt}/general",
-              iptables_restore_binary: "/sbin/#{ipt}-restore"
-    only_if { platform_family?('debian') }
-  end
-
-  # iptables service exists only on RHEL based systems
-  if platform_family?('rhel', 'fedora', 'amazon')
+  if platform_family?('debian')
+    # debian based systems load iptables during the interface activation
+    template "/etc/network/if-pre-up.d/#{ipt}_load" do
+      source 'iptables_load.erb'
+      mode '0755'
+      variables iptables_save_file: "/etc/#{ipt}/general",
+                iptables_restore_binary: "/sbin/#{ipt}-restore"
+    end
+  elsif platform_family?('rhel', 'fedora', 'amazon')
+    # iptables service exists only on RHEL based systems
     file "/etc/sysconfig/#{ipt}" do
       content '# Chef managed placeholder to allow iptables service to start'
       action :create_if_missing
