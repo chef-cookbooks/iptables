@@ -6,6 +6,10 @@ iptables_rule 'sshd' do
   lines '-A FWR -p tcp -m tcp --dport 22 -j ACCEPT'
 end
 
+iptables_rule6 'sshd' do
+  lines '-A FWR -p tcp -m tcp --dport 22 -j ACCEPT'
+end
+
 nested 'httpd' do
   lines '-A FWR -p tcp -m tcp --dport 80 -j ACCEPT'
 end

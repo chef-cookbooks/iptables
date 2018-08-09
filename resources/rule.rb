@@ -23,48 +23,53 @@ property :cookbook, String
 property :variables, Hash, default: {}
 property :lines, String
 property :table, Symbol
+property :ipv6, [TrueClass, FalseClass], default: false
 
 action :enable do
+  ipt = new_resource.ipv6 ? 'ip6tables' : 'iptables'
+
   # ensure we have execute[rebuild-iptables] in the outer run_context
   with_run_context :root do
-    find_resource(:execute, 'rebuild-iptables') do
-      command '/usr/sbin/rebuild-iptables'
+    find_resource(:execute, "rebuild-#{ipt}") do
+      command "/usr/sbin/rebuild-#{ipt}"
       action :nothing
     end
   end
 
   if new_resource.lines.nil?
-    template "/etc/iptables.d/#{new_resource.name}" do
+    template "/etc/#{ipt}.d/#{new_resource.name}" do
       source new_resource.source ? new_resource.source : "#{new_resource.name}.erb"
       mode '0644'
       cookbook new_resource.cookbook if new_resource.cookbook
       variables new_resource.variables
       backup false
-      notifies :run, 'execute[rebuild-iptables]', :delayed
+      notifies :run, "execute[rebuild-#{ipt}]", :delayed
     end
   else
     new_resource.lines = "*#{new_resource.table}\n" + new_resource.lines if new_resource.table
-    file "/etc/iptables.d/#{new_resource.name}" do
+    file "/etc/#{ipt}.d/#{new_resource.name}" do
       content new_resource.lines
       mode '0644'
       backup false
-      notifies :run, 'execute[rebuild-iptables]', :delayed
+      notifies :run, "execute[rebuild-#{ipt}]", :delayed
     end
   end
 end
 
 action :disable do
+  ipt = new_resource.ipv6 ? 'ip6tables' : 'iptables'
+
   # ensure we have execute[rebuild-iptables] in the outer run_context
   with_run_context :root do
-    find_resource(:execute, 'rebuild-iptables') do
-      command '/usr/sbin/rebuild-iptables'
+    find_resource(:execute, "rebuild-#{ipt}") do
+      command "/usr/sbin/rebuild-#{ipt}"
       action :nothing
     end
   end
 
-  file "/etc/iptables.d/#{new_resource.name}" do
+  file "/etc/#{ipt}.d/#{new_resource.name}" do
     action :delete
     backup false
-    notifies :run, 'execute[rebuild-iptables]', :delayed
+    notifies :run, "execute[rebuild-#{ipt}]", :delayed
   end
 end
