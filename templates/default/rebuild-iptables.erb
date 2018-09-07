@@ -54,7 +54,7 @@ end
 def install_rules(data)
   Dir.mkdir('/etc/<%= @ipt %>') unless File.directory?('/etc/<%= @ipt %>')
   write_iptables("<%= @persisted_file %>", data)
-  return false unless system("/sbin/iptables-restore < <%= @persisted_file %>")
+  return false unless system("/sbin/<%= @ipt %>-restore < <%= @persisted_file %>")
   true
 end
 

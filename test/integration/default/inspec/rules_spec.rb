@@ -15,4 +15,8 @@ else
   describe file('/etc/ip6tables.d/sshd') do
     it { should exist }
   end
+
+  describe file('/etc/ip6tables.d/dhcpv6') do
+    it { should exist }
+  end
 end
