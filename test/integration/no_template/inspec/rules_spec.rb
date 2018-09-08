@@ -1,5 +1,5 @@
 if os[:family] == 'redhat'
-  describe command('/etc/init.d/iptables status') do
+  describe command('/sbin/iptables -nvL') do
     its(:stdout) { should match /ACCEPT.*tcp dpt:22/ }
   end
 else

@@ -22,6 +22,7 @@ include_recipe 'iptables::_package'
 %w(iptables ip6tables).each do |ipt|
   service ipt do
     action [:disable, :stop]
+    delayed_action :stop
     supports status: true, start: true, stop: true, restart: true
     only_if { %w(rhel amazon).include?(node['platform_family']) }
   end
@@ -45,6 +46,6 @@ include_recipe 'iptables::_package'
   # Flush and delete iptables rules
   execute "#{ipt}Flush" do
     command "#{ipt} -F"
-    action  :nothing
+    action :nothing
   end
 end

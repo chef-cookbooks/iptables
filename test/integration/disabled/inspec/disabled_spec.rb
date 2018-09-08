@@ -15,6 +15,9 @@ end
 # "clears" these files out.
 %w(/etc/sysconfig/iptables /etc/sysconfig/iptables.fallback).each do |file|
   describe file(file) do
+    before :each do
+      skip if os[:family] != 'redhat'
+    end
     it { should exist }
     it { should be_file }
     its(:content) { should match(/^# iptables rules files cleared by chef via iptables::disabled$/) }
