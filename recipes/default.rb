@@ -78,7 +78,6 @@ include_recipe 'iptables::_package'
     service ipt do
       action [:enable, :start]
       supports status: true, start: true, stop: true, restart: true
-      not_if { platform_family?('fedora') }
     end
   end
 end

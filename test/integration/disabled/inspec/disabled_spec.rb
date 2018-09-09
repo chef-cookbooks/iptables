@@ -1,4 +1,4 @@
-if os[:family] == 'redhat'
+if %w(redhat fedora amazon).include?(os[:family])
   describe service('iptables') do
     it { should be_installed }
     it { should_not be_enabled }

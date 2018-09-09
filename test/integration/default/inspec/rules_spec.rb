@@ -19,14 +19,8 @@ else
   describe file('/etc/ip6tables.d/dhcpv6') do
     it { should exist }
   end
-  
-  if os[:family] == 'debian'
-    describe command('/sbin/ip6tables-save') do
-      its(:stdout) { should match %r{-A INPUT -d fe80::/10 -p udp -m udp --dport 546 -m state --state NEW -j ACCEPT} }
-    end
-  else
-    describe command('/usr/sbin/ip6tables-save') do
-      its(:stdout) { should match %r{-A INPUT -d fe80::/10 -p udp -m udp --dport 546 -m state --state NEW -j ACCEPT} }
-    end
+
+  describe command('/sbin/ip6tables-save') do
+    its(:stdout) { should match %r{-A INPUT -d fe80::/10 -p udp -m udp --dport 546 -m state --state NEW -j ACCEPT} }
   end
 end
