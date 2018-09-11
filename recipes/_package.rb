@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+# amazon linux, any fedora, and amazon linux 2
 if (platform_family?('rhel') && node['platform_version'].to_i == 7) ||
    (platform_family?('amazon') && node['platform_version'].to_i < 2013) ||
    platform_family?('fedora')
