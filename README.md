@@ -116,16 +116,11 @@ The `iptables_rule6` provides IPv6 support with the same behavior as the origina
 
 A `/usr/sbin/rebuild-ip6tables` script perform iptables configuration and the IPv6 rules are stored in `/etc/ip6tables.d`
 
-## Chefspec Matchers
-
-- enable_iptables_rule(resource_name)
-- disable_iptables_rule(resource_name)
-
 ## License & Authors
 
 **Author:** Cookbook Engineering Team ([cookbooks@chef.io](mailto:cookbooks@chef.io))
 
-**Copyright:** 2008-2016, Chef Software, Inc.
+**Copyright:** 2008-2018, Chef Software, Inc.
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
