@@ -17,12 +17,12 @@
 # limitations under the License.
 #
 
-if platform_family?('rhel', 'fedora')
-  package 'iptables-services'
-else
-  package 'iptables'
-  if platform_family?('debian')
-    # Since Ubuntu 10.04LTS and Debian6, this package takes over the automatic loading of the saved iptables rules
-    package 'iptables-persistent'
-  end
+package 'iptables' do
+  package_name value_for_platform(
+    %w(centos fedora redhat) => {
+      '>= 7' => 'iptables-services',
+      '< 7' => 'iptables'
+    },
+    'debian' => { 'default' => 'iptables-persistent' } # Since Ubuntu 10.04LTS and Debian6, this package takes over the automatic loading of the saved iptables rules
+  )
 end

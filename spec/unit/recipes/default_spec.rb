@@ -29,6 +29,22 @@ describe 'iptables::default' do
     end
   end
 
+  context 'rhel 6' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '6.9').converge(described_recipe)
+    end
+
+    it 'should install iptables' do
+      expect(chef_run).to install_package('iptables')
+      expect(chef_run).to_not install_package('iptables-services')
+      expect(chef_run).to_not install_package('iptables-persistent')
+    end
+
+    it 'should enable iptables' do
+      expect(chef_run).to enable_service('iptables')
+    end
+  end
+
   context 'rhel 7' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'centos', version: '7.4.1708').converge(described_recipe)
