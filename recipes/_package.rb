@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-if platform_family?('rhel') && node['platform_version'].to_i == 7
+if platform_family?('rhel', 'fedora')
   package 'iptables-services'
 else
   package 'iptables'

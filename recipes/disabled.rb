@@ -22,8 +22,9 @@ include_recipe 'iptables::_package'
 %w(iptables ip6tables).each do |ipt|
   service ipt do
     action [:disable, :stop]
+    delayed_action :stop
     supports status: true, start: true, stop: true, restart: true
-    only_if { %w(rhel amazon).include?(node['platform_family']) }
+    only_if { %w(rhel fedora amazon).include?(node['platform_family']) }
   end
 
   # Necessary so that if iptables::disable is used and then later
@@ -37,7 +38,7 @@ include_recipe 'iptables::_package'
   ["/etc/sysconfig/#{ipt}", "/etc/sysconfig/#{ipt}.fallback"].each do |f|
     file f do
       content '# iptables rules files cleared by chef via iptables::disabled'
-      only_if { %w(rhel amazon).include?(node['platform_family']) }
+      only_if { %w(rhel fedora amazon).include?(node['platform_family']) }
       notifies :run, "execute[#{ipt}Flush]", :immediately
     end
   end
@@ -45,6 +46,6 @@ include_recipe 'iptables::_package'
   # Flush and delete iptables rules
   execute "#{ipt}Flush" do
     command "#{ipt} -F"
-    action  :nothing
+    action :nothing
   end
 end
