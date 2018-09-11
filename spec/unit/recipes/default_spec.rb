@@ -77,6 +77,22 @@ describe 'iptables::default' do
     end
   end
 
+  context 'amazon 2' do
+    cached(:chef_run) do
+      ChefSpec::SoloRunner.new(platform: 'amazon', version: '2').converge(described_recipe)
+    end
+
+    it 'should install iptables-services' do
+      expect(chef_run).to install_package('iptables-services')
+      expect(chef_run).to_not install_package('iptables')
+      expect(chef_run).to_not install_package('iptables-persistent')
+    end
+
+    it 'should enable iptables-services' do
+      expect(chef_run).to enable_service('iptables')
+    end
+  end
+
   context 'fedora' do
     cached(:chef_run) do
       ChefSpec::SoloRunner.new(platform: 'fedora').converge(described_recipe)
