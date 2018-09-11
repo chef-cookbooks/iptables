@@ -19,10 +19,10 @@
 
 package 'iptables' do
   package_name value_for_platform(
-    ['centos', 'fedora', 'redhat' ] => {
+    %w(centos fedora redhat) => {
       '>= 7' => 'iptables-services',
       '< 7' => 'iptables'
     },
-    'debian' => { 'default' => 'iptables-persistent' }  # Since Ubuntu 10.04LTS and Debian6, this package takes over the automatic loading of the saved iptables rules
+    'debian' => { 'default' => 'iptables-persistent' } # Since Ubuntu 10.04LTS and Debian6, this package takes over the automatic loading of the saved iptables rules
   )
 end
