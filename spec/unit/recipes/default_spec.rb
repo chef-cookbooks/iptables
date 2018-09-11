@@ -108,5 +108,4 @@ describe 'iptables::default' do
       expect(chef_run).to enable_service('iptables')
     end
   end
-
 end
