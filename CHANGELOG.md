@@ -1,6 +1,12 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.4.0 (2018-09-10)
+
+- Use persistent iptables package for Debian config
+- Add IPv6 support to iptables_rule and Add iptables_rule6
+- Extend disabled recipe for Fedora and Amazon distros
+
 ## 4.3.4 (2018-02-15)
 
 - Fix converge failures in the custom resource introduced in 4.3.3
