@@ -1,6 +1,12 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.4.1 (2018-09-11)
+
+- Remove mention of matchers in the readme
+- Add back support for RHEL 6 + fix Amazon Linux 2 support
+- Add additional specs for the package installs so we don't break this in the future
+
 ## 4.4.0 (2018-09-10)
 
 - Use persistent iptables package for Debian config
