@@ -24,6 +24,7 @@ property :variables, Hash, default: {}
 property :lines, String
 property :table, Symbol
 property :ipv6, [TrueClass, FalseClass], default: false
+property :sensitive, [TrueClass, FalseClass], default: false
 
 action :enable do
   ipt = new_resource.ipv6 ? 'ip6tables' : 'iptables'
@@ -43,6 +44,7 @@ action :enable do
       cookbook new_resource.cookbook if new_resource.cookbook
       variables new_resource.variables
       backup false
+      sensitive new_resource.sensitive
       notifies :run, "execute[rebuild-#{ipt}]", :delayed
     end
   else
@@ -51,6 +53,7 @@ action :enable do
       content new_resource.lines
       mode '0644'
       backup false
+      sensitive new_resource.sensitive
       notifies :run, "execute[rebuild-#{ipt}]", :delayed
     end
   end
@@ -70,6 +73,7 @@ action :disable do
   file "/etc/#{ipt}.d/#{new_resource.name}" do
     action :delete
     backup false
+    sensitive new_resource.sensitive
     notifies :run, "execute[rebuild-#{ipt}]", :delayed
   end
 end

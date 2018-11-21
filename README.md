@@ -94,6 +94,16 @@ iptables_rule 'http_8080' do
 end
 ```
 
+Additionally, a rule can be marked as sensitive so it's contents does not get output to the the console or logged with the sensitive property set to `true`:
+
+```ruby
+iptables_rule 'http_8080' do
+  lines '-A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080'
+  table :nat
+  sensitive true
+end
+```
+
 To get attribute-driven rules you can (for example) feed a hash of attributes into named iptables.d files like this:
 
 ```ruby
