@@ -24,7 +24,6 @@ property :variables, Hash, default: {}
 property :lines, String
 property :table, Symbol
 property :ipv6, [TrueClass, FalseClass], default: false
-property :sensitive, [TrueClass, FalseClass], default: false
 
 action :enable do
   ipt = new_resource.ipv6 ? 'ip6tables' : 'iptables'

@@ -22,7 +22,6 @@ property :cookbook, String
 property :variables, Hash, default: {}
 property :lines, String
 property :table, Symbol
-property :sensitive, [TrueClass, FalseClass], default: false
 
 action :enable do
   iptables_rule new_resource.name do
