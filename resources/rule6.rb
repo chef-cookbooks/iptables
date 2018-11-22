@@ -22,6 +22,7 @@ property :cookbook, String
 property :variables, Hash, default: {}
 property :lines, String
 property :table, Symbol
+property :filemode, [String, Integer], default: '0644'
 
 action :enable do
   iptables_rule new_resource.name do
@@ -32,6 +33,7 @@ action :enable do
     lines new_resource.lines
     table new_resource.table
     sensitive new_resource.sensitive
+    filemode new_resource.filemode
     action :enable
   end
 end
@@ -45,6 +47,7 @@ action :disable do
     lines new_resource.lines
     table new_resource.table
     sensitive new_resource.sensitive
+    filemode new_resource.filemode
     action :disable
   end
 end
