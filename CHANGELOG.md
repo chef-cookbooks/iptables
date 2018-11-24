@@ -1,6 +1,11 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 4.5.0 (2018-11-24)
+
+- Add sensitive option to resources
+- Added filemode property to generated rule files
+
 ## 4.4.1 (2018-09-11)
 
 - Remove mention of matchers in the readme
