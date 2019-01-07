@@ -35,11 +35,6 @@ end
 include_recipe 'iptables::_package'
 
 %w(iptables ip6tables).each do |ipt|
-  execute "rebuild-#{ipt}" do
-    command "/usr/sbin/rebuild-#{ipt}"
-    action :nothing
-  end
-
   directory "/etc/#{ipt}.d" do
     action :create
   end
@@ -52,6 +47,11 @@ include_recipe 'iptables::_package'
       hashbang: ::File.exist?(system_ruby) ? system_ruby : '/opt/chef/embedded/bin/ruby',
       persisted_file: node['iptables']["persisted_rules_#{ipt}"]
     )
+  end
+
+  execute "rebuild-#{ipt}" do
+    command "/usr/sbin/rebuild-#{ipt}"
+    action :nothing
   end
 
   if platform_family?('debian')
