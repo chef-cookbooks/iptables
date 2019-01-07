@@ -94,6 +94,40 @@ iptables_rule 'http_8080' do
 end
 ```
 
+Rebuild script executes all rules in the alphabetical order. If you want to place some REJECT rules in the end then you should prefix rule name with number. For example "00_" prefix is for default policies, "99_" prefix is for the last rules. And you can add any other rules with anu prefix from "01_" to "98_". See complex example with multiline rules and with correct execution order:
+```
+include_recipe 'iptables::default'
+
+iptables_rule '00_default-policies' do
+  lines '
+  -P INPUT DROP
+  -P FORWARD DROP
+  -P OUTPUT DROP'
+end
+
+iptables_rule '10_icmp' do
+  lines '
+  -A INPUT  -p icmp -m state --state NEW --icmp-type 8 -j ACCEPT
+  -A INPUT  -p icmp -m state --state ESTABLISHED,RELATED -j ACCEPT
+  -A OUTPUT -p icmp -j ACCEPT'
+end
+
+iptables_rule '10_allow-dns-resolution' do
+  lines '
+  -A INPUT  -i eth0 -p udp -m state --state ESTABLISHED     --sport 53 -j ACCEPT
+  -A OUTPUT -o eth0 -p udp -m state --state NEW,ESTABLISHED --dport 53 -j ACCEPT
+  -A INPUT  -i eth0 -p tcp -m state --state ESTABLISHED     --sport 53 -j ACCEPT
+  -A OUTPUT -o eth0 -p tcp -m state --state NEW,ESTABLISHED --dport 53 -j ACCEPT'
+end
+
+iptables_rule '99_reject-all-other' do
+  lines '
+  -A FORWARD -j REJECT
+  -A INPUT   -j REJECT
+  -A OUTPUT  -j REJECT'
+end
+```
+
 Additionally, a rule can be marked as sensitive so it's contents does not get output to the the console or logged with the sensitive property set to `true`. The mode of the generated rule file can be set with the filemode property:
 
 ```ruby
