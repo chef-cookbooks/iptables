@@ -39,7 +39,7 @@ action :enable do
 
   if new_resource.lines.nil?
     template "/etc/#{ipt}.d/#{new_resource.name}" do
-      source new_resource.source ? new_resource.source : "#{new_resource.name}.erb"
+      source new_resource.source || "#{new_resource.name}.erb"
       mode new_resource.filemode
       cookbook new_resource.cookbook if new_resource.cookbook
       variables new_resource.variables
