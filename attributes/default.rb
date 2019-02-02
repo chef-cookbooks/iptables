@@ -38,4 +38,57 @@ default['iptables']['ip6tables_sysconfig'] = {
   'IP6TABLES_STATUS_LINENUMBERS' => 'yes',
 }
 
-default['iptables']['system_ruby'] = '/usr/bin/ruby'
+case node['platform_family']
+when 'rhel', 'fedora', 'amazon'
+  default['iptables']['persisted_rules_iptables'] = '/etc/sysconfig/iptables'
+  default['iptables']['persisted_rules_ip6tables'] = '/etc/sysconfig/ip6tables'
+when 'debian'
+  default['iptables']['persisted_rules_iptables'] = '/etc/iptables/rules.v4'
+  default['iptables']['persisted_rules_ip6tables'] = '/etc/iptables/rules.v6'
+end
+
+default['iptables']['persisted_rules_template']['filter'] = {
+  'chains' => {
+    'INPUT' => 'ACCEPT [0:0]',
+    'FORWARD' => 'ACCEPT [0:0]',
+    'OUTPUT' => 'ACCEPT [0:0]',
+  },
+  'rules' => [],
+}
+
+default['iptables']['persisted_rules_template']['mangle'] = {
+  'chains' => {
+    'PREROUTING' => 'ACCEPT [0:0]',
+    'INPUT' => 'ACCEPT [0:0]',
+    'FORWARD' => 'ACCEPT [0:0]',
+    'OUTPUT' => 'ACCEPT [0:0]',
+    'POSTROUTING' => 'ACCEPT [0:0]',
+  },
+  'rules' => [],
+}
+
+default['iptables']['persisted_rules_template']['nat'] = {
+  'chains' => {
+    'PREROUTING' => 'ACCEPT [0:0]',
+    'OUTPUT' => 'ACCEPT [0:0]',
+    'POSTROUTING' => 'ACCEPT [0:0]',
+  },
+  'rules' => [],
+}
+
+default['iptables']['persisted_rules_template']['raw'] = {
+  'chains' => {
+    'PREROUTING' => 'ACCEPT [0:0]',
+    'OUTPUT' => 'ACCEPT [0:0]',
+  },
+  'rules' => [],
+}
+
+default['iptables']['persisted_rules_template']['security'] = {
+  'chains' => {
+    'INPUT' => 'ACCEPT [0:0]',
+    'FORWARD' => 'ACCEPT [0:0]',
+    'OUTPUT' => 'ACCEPT [0:0]',
+  },
+  'rules' => [],
+}

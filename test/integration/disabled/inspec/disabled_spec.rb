@@ -5,12 +5,6 @@ if %w(redhat fedora amazon).include?(os[:family])
     it { should_not be_running }
   end
 end
-
-# the disable recipe will delete this, but the install should add it back
-describe file('/etc/iptables.d') do
-  it { should_not be_directory }
-end
-
 # some RHEL/CentOS versions use these files to persist rules. disable recipe
 # "clears" these files out.
 %w(/etc/sysconfig/iptables /etc/sysconfig/iptables.fallback).each do |file|

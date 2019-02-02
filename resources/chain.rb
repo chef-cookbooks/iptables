@@ -1,7 +1,7 @@
 #
 # Author:: Ben Hughes <bmhughes@bmhughes.co.uk>
 # Cookbook:: iptables
-# Resource:: rule
+# Resource:: chain
 #
 # Copyright:: 2019, Ben Hughes
 # Copyright:: 2017-2019, Chef Software, Inc.
@@ -22,16 +22,10 @@ property :source, String, default: 'iptables.erb'
 property :cookbook, String, default: 'iptables'
 property :config_file, String, default: node['iptables']['persisted_rules_iptables']
 property :table, String, equal_to: %w(filter mangle nat raw security), default: 'filter'
-property :chain, String
-property :match, String
-property :target, String
-property :line, String
-property :comment, [String, TrueClass, FalseClass], default: true
-property :extra_options, String
+property :chain, [String, Array, Hash]
 property :filemode, [String, Integer], default: '0644'
 
 action :create do
-  Chef::Resource::Template.send(:include, Iptables::RuleHelpers)
   Chef::Resource::Template.send(:include, Iptables::ChainHelpers)
 
   with_run_context :root do
@@ -44,19 +38,9 @@ action :create do
       variables['iptables'] ||= {}
       variables['iptables'][new_resource.table] ||= node['iptables']['persisted_rules_template'][new_resource.table].dup
 
-      variables['iptables'][new_resource.table]['rules'] ||= []
-      unless new_resource.line.nil? && new_resource.chain.nil? && new_resource.match.nil? && new_resource.target.nil?
-        rule = rule_builder(
-          line: new_resource.line,
-          chain: new_resource.chain,
-          match: new_resource.match,
-          target: new_resource.target,
-          extra_options: new_resource.extra_options)
-
-        rule.concat(comment_builder(name: new_resource.name, comment: new_resource.comment)) unless comment_exists?(rule)
-
-        Chef::Log.info("Running accumulator template resource for rule '#{rule}' and file #{new_resource.config_file}")
-        variables['iptables'][new_resource.table]['rules'] << rule
+      variables['iptables'][new_resource.table]['chains'] ||= {}
+      unless chain_exists?(chainhash: variables['iptables'][new_resource.table]['chains'], chain: new_resource.chain)
+        variables['iptables'][new_resource.table]['chains'].update(chain_builder(chain: new_resource.chain))
       end
 
       action :nothing

@@ -1,5 +1,10 @@
 # iptables Cookbook CHANGELOG
+
 This file is used to list changes made in each version of the iptables cookbook.
+
+## 5.0.0 (2019-02-02)
+
+- Rule resources refactored to accumulator style
 
 ## 4.5.0 (2018-11-24)
 
