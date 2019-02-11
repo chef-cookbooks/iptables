@@ -1,26 +1,13 @@
-# Use Travis's cointainer based infrastructure
-sudo: false
+services:
+  - docker
 
-addons:
-  apt:
-    sources:
-      - chef-current-trusty
-    packages:
-      - chefdk
-
-# Don't `bundle install`
-install: echo "skip bundle install"
+install:
+  - docker pull chef/chefdk
 
 branches:
   only:
     - master
 
-# Ensure we make ChefDK's Ruby the default
-before_script:
-  - eval "$(chef shell-init bash)"
-
 script:
-  - chef --version
-  - cookstyle --version
-  - foodcritic --version
-  - chef exec delivery local all
+  - docker run -t chef/chefdk chef -v
+  - docker run -v $PWD:/cookbook -w /cookbook -t chef/chefdk delivery local all
