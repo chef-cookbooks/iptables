@@ -2,9 +2,10 @@
 
 This file is used to list changes made in each version of the iptables cookbook.
 
-## 5.0.0 (2019-02-02)
+## 5.0.0 (2019-11-06)
 
 - Rule resources refactored to accumulator style
+- CentOS 8 support
 
 ## 4.5.0 (2018-11-24)
 

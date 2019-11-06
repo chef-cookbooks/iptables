@@ -1,0 +1,62 @@
+---
+driver:
+  name: dokken
+  privileged: true
+  chef_version: current
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+  deprecations_as_errors: false
+
+platforms:
+- name: centos-7
+  driver:
+    image: dokken/centos-7
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+       - RUN /usr/bin/yum makecache -y -q
+       - RUN /usr/bin/yum install rsync -y
+       - RUN /usr/bin/yum install libselinux-utils -y
+    volumes:
+      - /tmp/gitlab-runner-artifacts:/var/gitlab-runner-artifacts
+- name: centos-8
+  driver:
+    image: dokken/centos-8
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+       - RUN /usr/bin/yum makecache -y -q
+       - RUN /usr/bin/yum install rsync -y
+       - RUN /usr/bin/yum install libselinux-utils -y
+    volumes:
+      - /tmp/gitlab-runner-artifacts:/var/gitlab-runner-artifacts
+- name: fedora-30
+  driver:
+    image: dokken/fedora-30
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+       - RUN /usr/bin/yum makecache -y -q
+       - RUN /usr/bin/yum install rsync -y
+       - RUN /usr/bin/yum install libselinux-utils -y
+    volumes:
+      - /tmp/gitlab-runner-artifacts:/var/gitlab-runner-artifacts
+- name: ubuntu-18.04
+  driver:
+    image: dokken/ubuntu-18.04
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+       - RUN apt-get update
+       - RUN apt-get install rsync -y -q
+       - RUN apt-get install selinux-utils -y
+
+- name: debian-10
+  driver:
+    image: dokken/debian-10
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+       - RUN apt-get update
+       - RUN apt-get install rsync -y -q
+       - RUN apt-get install selinux-utils -y
+...
