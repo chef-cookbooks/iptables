@@ -1,7 +1,7 @@
 provides :nested
 resource_name :nested
 
-property :name, kind_of: String, name_attribute: true
+property :name, kind_of: String, name_property: true
 property :source, kind_of: String, default: nil
 property :cookbook, kind_of: String, default: nil
 property :variables, kind_of: Hash, default: {}
