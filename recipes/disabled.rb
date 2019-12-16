@@ -24,7 +24,7 @@ include_recipe 'iptables::_package'
     action [:disable, :stop]
     delayed_action :stop
     supports status: true, start: true, stop: true, restart: true
-    only_if { %w(rhel fedora amazon).include?(node['platform_family']) }
+    only_if { platform_family?('rhel', 'fedora', 'amazon') }
   end
 
   # Necessary so that if iptables::disable is used and then later
@@ -38,7 +38,7 @@ include_recipe 'iptables::_package'
   ["/etc/sysconfig/#{ipt}", "/etc/sysconfig/#{ipt}.fallback"].each do |f|
     file f do
       content '# iptables rules files cleared by chef via iptables::disabled'
-      only_if { %w(rhel fedora amazon).include?(node['platform_family']) }
+      only_if { platform_family?('rhel', 'fedora', 'amazon') }
       notifies :run, "execute[#{ipt}Flush]", :immediately
     end
   end
