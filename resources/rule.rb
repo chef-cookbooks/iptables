@@ -23,7 +23,7 @@ property :cookbook, String
 property :variables, Hash, default: {}
 property :lines, String
 property :table, Symbol
-property :ipv6, [TrueClass, FalseClass], default: false
+property :ipv6, [true, false], default: false
 property :filemode, [String, Integer], default: '0644'
 
 action :enable do
