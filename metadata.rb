@@ -11,4 +11,4 @@ end
 
 source_url 'https://github.com/chef-cookbooks/iptables'
 issues_url 'https://github.com/chef-cookbooks/iptables/issues'
-chef_version '>= 12.10' if respond_to?(:chef_version)
+chef_version '>= 12.10'
