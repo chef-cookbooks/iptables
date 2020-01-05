@@ -11,4 +11,4 @@ end
 
 source_url 'https://github.com/chef-cookbooks/iptables'
 issues_url 'https://github.com/chef-cookbooks/iptables/issues'
-chef_version '>= 12.10'
+chef_version '>= 12.15'
