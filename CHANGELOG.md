@@ -1,5 +1,11 @@
 # iptables Cookbook CHANGELOG
+
 This file is used to list changes made in each version of the iptables cookbook.
+
+## 6.0.0 (2020-01-08)
+
+- Rule resources refactored to accumulator style. See the new usage in the readme
+- CentOS 8 support
 
 ## 5.0.0 (2020-01-08)
 

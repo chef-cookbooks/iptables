@@ -2,12 +2,22 @@ apt_update
 
 include_recipe 'iptables::default'
 
+iptables_chain 'fwr_chain' do
+  chain 'FWR -'
+end
+
 iptables_rule 'sshd' do
-  lines '-A FWR -p tcp -m tcp --dport 22 -j ACCEPT'
+  line '-A FWR -p tcp -m tcp --dport 22 -j ACCEPT'
+  comment false
+end
+
+iptables_chain6 'fwr_chain' do
+  chain 'FWR'
 end
 
 iptables_rule6 'sshd' do
-  lines '-A FWR -p tcp -m tcp --dport 22 -j ACCEPT'
+  line '-A FWR -p tcp -m tcp --dport 22 -j ACCEPT'
+  comment false
 end
 
 nested 'httpd' do
