@@ -1,6 +1,15 @@
 # iptables Cookbook CHANGELOG
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 5.0.0 (2020-01-08)
+
+- Cookstyle fixes - [@tas50](https://github.com/tas50)
+- name_attributes -> name_properties - [@tas50](https://github.com/tas50)
+- Remove recipe and long_description metadata - [@tas50](https://github.com/tas50)
+- Simplify platform check logic - [@tas50](https://github.com/tas50)
+- Remove respond_to? from metadata.rb - [@tas50](https://github.com/tas50)
+- Require Chef 12.15+ - [@tas50](https://github.com/tas50)
+
 ## 4.5.0 (2018-11-24)
 
 - Add sensitive option to resources
@@ -58,7 +67,7 @@ This file is used to list changes made in each version of the iptables cookbook.
 - specify optional table property for use with lines
 
 ## 4.0.1 (2017-03-29)
-- Update metadata to require Chef 12.10+ due to use of with_run_context 
+- Update metadata to require Chef 12.10+ due to use of with_run_context
 
 ## 4.0.0 (2017-02-27)
 
