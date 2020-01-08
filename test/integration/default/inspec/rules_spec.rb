@@ -9,18 +9,10 @@ if os[:family] == 'redhat' && os[:release].start_with?('6')
 
 else
   describe iptables do
-    it { should have_rule('-A FWR -p tcp -m tcp --dport 22 -j ACCEPT') }
-  end
-
-  describe file('/etc/ip6tables.d/sshd') do
-    it { should exist }
-  end
-
-  describe file('/etc/ip6tables.d/dhcpv6') do
-    it { should exist }
+    it { should have_rule('-A FWR -p tcp -m tcp --dport 22 -m comment --comment "Allow SSH" -j ACCEPT') }
   end
 
   describe command('/sbin/ip6tables-save') do
-    its(:stdout) { should match %r{-A INPUT -d fe80::/10 -p udp -m udp --dport 546 -m state --state NEW -j ACCEPT} }
+    its(:stdout) { should match %r{-A INPUT -d fe80::/10 -p udp -m udp --dport 546 -m state --state NEW -m comment --comment dhcpv6 -j ACCEPT} }
   end
 end

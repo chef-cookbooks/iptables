@@ -27,24 +27,16 @@ include_recipe 'iptables::_package'
     only_if { platform_family?('rhel', 'fedora', 'amazon') }
   end
 
-  # Necessary so that if iptables::disable is used and then later
-  # it is re-enabled without any rules changes, the templates will run the rebuilt script
-  directory "/etc/#{ipt}.d" do
-    action :delete
-    recursive true
-    notifies :run, "execute[#{ipt}Flush]", :immediately
-  end
-
   ["/etc/sysconfig/#{ipt}", "/etc/sysconfig/#{ipt}.fallback"].each do |f|
     file f do
       content '# iptables rules files cleared by chef via iptables::disabled'
       only_if { platform_family?('rhel', 'fedora', 'amazon') }
-      notifies :run, "execute[#{ipt}Flush]", :immediately
+      notifies :run, "execute[flush #{ipt}]", :immediately
     end
   end
 
   # Flush and delete iptables rules
-  execute "#{ipt}Flush" do
+  execute "flush #{ipt}" do
     command "#{ipt} -F"
     action :nothing
   end
