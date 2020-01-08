@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 6.0.1 (2020-01-08)
+
+- Update readme to require 12.15+ - [@tas50](https://github.com/tas50)
+- Lazy eval the node attributes in the resources so we can override them and not fail on non-Linux platforms- [@tas50](https://github.com/tas50)
+
 ## 6.0.0 (2020-01-08)
 
 - Rule resources refactored to accumulator style. See the new usage in the readme
