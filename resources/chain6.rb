@@ -20,7 +20,7 @@
 
 property :source, String
 property :cookbook, String
-property :config_file, String, default: node['iptables']['persisted_rules_ip6tables']
+property :config_file, String, default: node['iptables']['persisted_rules_ip6tables'].to_s
 property :table, String, equal_to: %w(filter mangle nat raw security), default: 'filter'
 property :chain, [String, Array, Hash]
 property :filemode, [String, Integer], default: '0644'

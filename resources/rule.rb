@@ -20,7 +20,7 @@
 
 property :source, String, default: 'iptables.erb'
 property :cookbook, String, default: 'iptables'
-property :config_file, String, default: node['iptables']['persisted_rules_iptables']
+property :config_file, String, default: node['iptables']['persisted_rules_iptables'].to_s
 property :table, String, equal_to: %w(filter mangle nat raw security), default: 'filter'
 property :chain, String
 property :match, String
