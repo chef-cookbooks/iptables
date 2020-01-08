@@ -14,7 +14,7 @@ Installs iptables and provides a custom resource for adding and removing iptable
 
 ### Chef
 
-- Chef 12.10+
+- Chef 12.15+
 
 ### Cookbooks
 
