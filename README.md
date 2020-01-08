@@ -1,6 +1,7 @@
 # iptables Cookbook
 
-[![Build Status](https://travis-ci.org/chef-cookbooks/iptables.svg?branch=master)](https://travis-ci.org/chef-cookbooks/iptables) [![Cookbook Version](https://img.shields.io/cookbook/v/iptables.svg)](https://supermarket.chef.io/cookbooks/iptables)
+[![CI State](https://github.com/chef-cookbooks/iptables/workflows/ci/badge.svg)](https://github.com/chef-cookbooks/iptables/actions?query=workflow%3Aci)
+[![Cookbook Version](https://img.shields.io/cookbook/v/iptables.svg)](https://supermarket.chef.io/cookbooks/iptables)
 
 Installs iptables and provides a custom resource for adding and removing iptables rules
 
