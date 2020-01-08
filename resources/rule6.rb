@@ -19,7 +19,7 @@
 
 property :source, String
 property :cookbook, String
-property :config_file, String, default: node['iptables']['persisted_rules_ip6tables']
+property :config_file, String, default: lazy { node['iptables']['persisted_rules_ip6tables'] }
 property :table, String, equal_to: %w(filter mangle nat raw security), default: 'filter'
 property :chain, String
 property :match, String
