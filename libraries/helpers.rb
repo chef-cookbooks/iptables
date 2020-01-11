@@ -38,10 +38,11 @@ module Iptables
           when 'debian'
             '/etc/iptables/rules.v6'
           end
-        else 
-          raise "#{ip_version.to_s} is unknown"
+        else
+          raise "#{ip_version} is unknown"
         end
       end
+
       def get_default_chains_for_table(table_name)
         # This function will take in a table and look for default chains
         # that should exist for that table, it will then return a structured hash
@@ -49,34 +50,34 @@ module Iptables
         case table_name
         when :filter
           {
-            INPUT: {value: 'ACCEPT [0:0]'},
-            FORWARD: {value: 'ACCEPT [0:0]'},
-            OUTPUT: {value: 'ACCEPT [0:0]'},
+            INPUT: { value: 'ACCEPT [0:0]' },
+            FORWARD: { value: 'ACCEPT [0:0]' },
+            OUTPUT: { value: 'ACCEPT [0:0]' },
           }
         when :mangle
           {
-            PREROUTING: {value: 'ACCEPT [0:0]'},
-            INPUT: {value: 'ACCEPT [0:0]'},
-            FORWARD: {value: 'ACCEPT [0:0]'},
-            OUTPUT: {value: 'ACCEPT [0:0]'},
-            POSTROUTING: {value: 'ACCEPT [0:0]'},
+            PREROUTING: { value: 'ACCEPT [0:0]' },
+            INPUT: { value: 'ACCEPT [0:0]' },
+            FORWARD: { value: 'ACCEPT [0:0]' },
+            OUTPUT: { value: 'ACCEPT [0:0]' },
+            POSTROUTING: { value: 'ACCEPT [0:0]' },
           }
         when :nat
           {
-            PREROUTING: {value: 'ACCEPT [0:0]'},
-            OUTPUT: {value: 'ACCEPT [0:0]'},
-            POSTROUTING: {value: 'ACCEPT [0:0]'},
+            PREROUTING: { value: 'ACCEPT [0:0]' },
+            OUTPUT: { value: 'ACCEPT [0:0]' },
+            POSTROUTING: { value: 'ACCEPT [0:0]' },
           }
         when :raw
           {
-            PREROUTING: {value: 'ACCEPT [0:0]'},
-            OUTPUT: {value: 'ACCEPT [0:0]'},
+            PREROUTING: { value: 'ACCEPT [0:0]' },
+            OUTPUT: { value: 'ACCEPT [0:0]' },
           }
         when :security
           {
-            INPUT: {value: 'ACCEPT [0:0]'},
-            FORWARD: {value: 'ACCEPT [0:0]'},
-            OUTPUT: {value: 'ACCEPT [0:0]'},
+            INPUT: { value: 'ACCEPT [0:0]' },
+            FORWARD: { value: 'ACCEPT [0:0]' },
+            OUTPUT: { value: 'ACCEPT [0:0]' },
           }
         else
           {}

@@ -1,8 +1,7 @@
 include Iptables::Cookbook::Helpers
 
-
 property :table, Symbol,
-          equal_to: %i(filter mangle nat raw security), 
+          equal_to: %i(filter mangle nat raw security),
           default: :filter,
           description: 'The table the chain should exist on'
 
@@ -18,15 +17,15 @@ property :ip_version, Symbol,
           default: :ipv4,
           description: 'The IP version, 4 or 6'
 
-property :source_template, String, 
+property :source_template, String,
           default: 'iptables.erb',
           description: 'Source template to use to create the rules'
 
-property :cookbook, String, 
+property :cookbook, String,
           default: 'iptables',
           description: 'Source cookbook to find the template in'
 
-property :sensitive, [true, false], 
+property :sensitive, [true, false],
           default: false,
           description: 'mark the resource as senstive'
 
@@ -45,7 +44,7 @@ action :create do
       source new_resource.source_template
       cookbook new_resource.cookbook
       sensitive new_resource.sensitive
-      mode 0644
+      mode '644'
 
       variables['iptables'] ||= {}
       # We have to make sure default exists, so this is a hack to do that ...
@@ -57,7 +56,7 @@ action :create do
       variables['iptables'][table_name]['chains'] ||= {}
       variables['iptables'][table_name]['chains'] = get_default_chains_for_table(new_resource.table) if variables['iptables'][table_name]['chains'] == {}
 
-      variables['iptables'][table_name]['chains'][new_resource.chain] = {value: new_resource.value} if new_resource.chain
+      variables['iptables'][table_name]['chains'][new_resource.chain] = { value: new_resource.value } if new_resource.chain
 
       action :nothing
       delayed_action :create

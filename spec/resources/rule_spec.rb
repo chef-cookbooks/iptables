@@ -48,7 +48,6 @@ describe 'iptables_rule' do
 
   context 'Creates rules with extra options under a different table with a custom chain' do
     recipe do
-
       iptables_chain 'filter' do
         table :mangle
         chain :DIVERT
@@ -85,28 +84,28 @@ describe 'iptables_rule' do
 
     it 'has the default filter chain' do
       is_expected.to render_file('/etc/sysconfig/iptables')
-      .with_content(/\*filter/)
-      .with_content(/:INPUT\sACCEPT\s\[0\:0\]/)
-      .with_content(/:OUTPUT\sACCEPT\s\[0\:0\]/)
-      .with_content(/:FORWARD\sACCEPT\s\[0\:0\]/)
+        .with_content(/\*filter/)
+        .with_content(/:INPUT\sACCEPT\s\[0\:0\]/)
+        .with_content(/:OUTPUT\sACCEPT\s\[0\:0\]/)
+        .with_content(/:FORWARD\sACCEPT\s\[0\:0\]/)
     end
-  
+
     it 'has the default mangle chain' do
       is_expected.to render_file('/etc/sysconfig/iptables')
-      .with_content(/\*mangle/)
-      .with_content(/:INPUT\sACCEPT\s\[0\:0\]/)
-      .with_content(/:FORWARD\sACCEPT\s\[0\:0\]/)
-      .with_content(/:OUTPUT\sACCEPT\s\[0\:0\]/)
-      .with_content(/:POSTROUTING\sACCEPT\s\[0\:0\]/)
+        .with_content(/\*mangle/)
+        .with_content(/:INPUT\sACCEPT\s\[0\:0\]/)
+        .with_content(/:FORWARD\sACCEPT\s\[0\:0\]/)
+        .with_content(/:OUTPUT\sACCEPT\s\[0\:0\]/)
+        .with_content(/:POSTROUTING\sACCEPT\s\[0\:0\]/)
     end
 
     it 'has the DIVERT chain under table mangle' do
       is_expected.to render_file('/etc/sysconfig/iptables')
-      .with_content(/\*mangle/)
-      .with_content(/:DIVERT\s-\s\[0\:0\]\s+\-A/m)
-      .with_content(/\-A\sPREROUTING\s\-p\stcp\s\-m\ssocket\s\-j\sDIVERT/)
-      .with_content(/\-A\sDIVERT\s\-j\sMARK\s\-\-set\-xmark\s0x1\/0xffffffff/)
-      .with_content(/\-A\sDIVERT\s\-j\sACCEPT/m)
+        .with_content(/\*mangle/)
+        .with_content(/:DIVERT\s-\s\[0\:0\]\s+\-A/m)
+        .with_content(/\-A\sPREROUTING\s\-p\stcp\s\-m\ssocket\s\-j\sDIVERT/)
+        .with_content(%r{\-A\sDIVERT\s\-j\sMARK\s\-\-set\-xmark\s0x1/0xffffffff})
+        .with_content(/\-A\sDIVERT\s\-j\sACCEPT/m)
     end
   end
 end

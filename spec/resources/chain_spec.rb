@@ -58,7 +58,6 @@ describe 'iptables_chain' do
     end
   end
 
-
   context 'When creating a custom table filter is also created' do
     recipe do
       iptables_chain 'nat' do

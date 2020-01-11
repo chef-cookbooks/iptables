@@ -45,7 +45,6 @@ RSpec.describe Iptables::Cookbook::Helpers do
   #     end
   #   end
 
-
   #   context 'When given an ipv4 on fedora' do
   #     let(:ip_version) { :ipv4 }
   #     let(:platform_family) { 'fedora' }
@@ -82,9 +81,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
   #     end
   #   end
 
-
   # end
-
 
   describe '#get_default_chains_for_table' do
     before do
@@ -102,9 +99,9 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
       it 'returns the correct default chains' do
         expect(subject.get_default_chains_for_table(table_name)).to include(
-          INPUT: {:value => 'ACCEPT [0:0]'},
-          FORWARD: {:value => 'ACCEPT [0:0]'},
-          OUTPUT: {:value => 'ACCEPT [0:0]'}
+          INPUT: { value: 'ACCEPT [0:0]' },
+          FORWARD: { value: 'ACCEPT [0:0]' },
+          OUTPUT: { value: 'ACCEPT [0:0]' }
         )
       end
     end
@@ -113,11 +110,11 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
       it 'returns the correct default chains' do
         expect(subject.get_default_chains_for_table(table_name)).to include(
-          PREROUTING: {:value => 'ACCEPT [0:0]'}, 
-          INPUT: {:value => 'ACCEPT [0:0]'},
-          FORWARD: {:value => 'ACCEPT [0:0]'},
-          OUTPUT: {:value => 'ACCEPT [0:0]'},
-          POSTROUTING: {:value => 'ACCEPT [0:0]'}
+          PREROUTING: { value: 'ACCEPT [0:0]' },
+          INPUT: { value: 'ACCEPT [0:0]' },
+          FORWARD: { value: 'ACCEPT [0:0]' },
+          OUTPUT: { value: 'ACCEPT [0:0]' },
+          POSTROUTING: { value: 'ACCEPT [0:0]' }
         )
       end
     end
@@ -126,9 +123,9 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
       it 'returns the correct default chains' do
         expect(subject.get_default_chains_for_table(table_name)).to include(
-          PREROUTING: {:value => 'ACCEPT [0:0]'}, 
-          OUTPUT: {:value => 'ACCEPT [0:0]'},
-          POSTROUTING: {:value => 'ACCEPT [0:0]'}
+          PREROUTING: { value: 'ACCEPT [0:0]' },
+          OUTPUT: { value: 'ACCEPT [0:0]' },
+          POSTROUTING: { value: 'ACCEPT [0:0]' }
         )
       end
     end
@@ -138,8 +135,8 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
       it 'returns the correct default chains' do
         expect(subject.get_default_chains_for_table(table_name)).to include(
-          PREROUTING: {:value => 'ACCEPT [0:0]'}, 
-          OUTPUT: {:value => 'ACCEPT [0:0]'}
+          PREROUTING: { value: 'ACCEPT [0:0]' },
+          OUTPUT: { value: 'ACCEPT [0:0]' }
         )
       end
     end
@@ -149,9 +146,9 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
       it 'returns the correct default chains' do
         expect(subject.get_default_chains_for_table(table_name)).to include(
-          INPUT: {:value => 'ACCEPT [0:0]'}, 
-          FORWARD: {:value => 'ACCEPT [0:0]'},
-          OUTPUT: {:value => 'ACCEPT [0:0]'}
+          INPUT: { value: 'ACCEPT [0:0]' },
+          FORWARD: { value: 'ACCEPT [0:0]' },
+          OUTPUT: { value: 'ACCEPT [0:0]' }
         )
       end
     end
