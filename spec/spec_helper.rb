@@ -1,11 +1,10 @@
 require 'chefspec'
 require 'chefspec/berkshelf'
+require_relative '../libraries/helpers'
+
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
 RSpec.configure do |config|
-  config.color = true               # Use color in STDOUT
-  config.formatter = :documentation # Use the specified formatter
-  config.log_level = :error         # Avoid deprecation notice SPAM
+  config.formatter = :documentation
+  config.color = true
 end
-
-# Require all our libraries
-Dir['libraries/*.rb'].each { |f| require File.expand_path(f) }
