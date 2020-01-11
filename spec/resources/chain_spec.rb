@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe 'iptables_chain' do
-  step_into :iptables_xorima_chain
+  step_into :iptables_chain
   platform 'centos'
 
   context 'Creates a basic chain for table filter' do
     recipe do
-      iptables_xorima_chain 'filter' do
+      iptables_chain 'filter' do
         table :filter
       end
     end
@@ -23,7 +23,7 @@ describe 'iptables_chain' do
 
   context 'Creates a custom chain with default value for table filter' do
     recipe do
-      iptables_xorima_chain 'filter' do
+      iptables_chain 'filter' do
         table :filter
         chain :FOO
       end
@@ -41,7 +41,7 @@ describe 'iptables_chain' do
 
   context 'Creates a custom chain with custom value for table filter' do
     recipe do
-      iptables_xorima_chain 'filter' do
+      iptables_chain 'filter' do
         table :filter
         chain :FOO
         value 'BAR [1:2]'
@@ -61,7 +61,7 @@ describe 'iptables_chain' do
 
   context 'When creating a custom table filter is also created' do
     recipe do
-      iptables_xorima_chain 'nat' do
+      iptables_chain 'nat' do
         table :nat
       end
     end
@@ -75,7 +75,7 @@ describe 'iptables_chain' do
 
   context 'When setting a default chain to another value' do
     recipe do
-      iptables_xorima_chain 'filter chain input should drop by default' do
+      iptables_chain 'filter chain input should drop by default' do
         table :filter
         chain :INPUT
         value 'DROP [0:0]'
@@ -93,12 +93,12 @@ describe 'iptables_chain' do
 
   context 'Creates a custom chain with custom value for multiple tables' do
     recipe do
-      iptables_xorima_chain 'mangle' do
+      iptables_chain 'mangle' do
         table :mangle
         chain :DIVERT
         value '- [0:0]'
       end
-      iptables_xorima_chain 'filter input should drop' do
+      iptables_chain 'filter input should drop' do
         table :filter
         chain :INPUT
         value 'DROP [0:0]'
