@@ -13,6 +13,6 @@ else
   end
 
   describe command('/sbin/ip6tables-save') do
-    its(:stdout) { should match %r{\-A\sINPUT\s\-d\sfe80\:\:/64\s\-p\sudp\s\-m\sudp\s\-\-dport\s546\s\-m\sstate\s\-\-state\sNEW\s\-j\sACCEPT} }
+    its(:stdout) { should match %r{\-A\sINPUT\s\-d\sfe80\:\:/\d+\s\-p\sudp\s\-m\sudp\s\-\-dport\s546\s\-m\sstate\s\-\-state\sNEW\s\-j\sACCEPT} }
   end
 end
