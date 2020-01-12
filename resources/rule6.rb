@@ -6,8 +6,7 @@ property :table, [Symbol, String],
           description: 'The table the chain exists on for the rule'
 
 property :chain, [Symbol, String],
-          description: 'The name of the Chain to put this rule on',
-          required: true
+          description: 'The name of the Chain to put this rule on'
 
 property :ip_version, Symbol,
           equal_to: %i(ipv4 ipv6),
