@@ -6,11 +6,12 @@ property :table, [Symbol, String],
           description: 'The table the chain exists on for the rule'
 
 property :chain, [Symbol, String],
-          description: 'The name of the Chain to put this rule on'
+          description: 'The name of the Chain to put this rule on',
+          required: true
 
 property :ip_version, Symbol,
           equal_to: %i(ipv4 ipv6),
-          default: :ipv4,
+          default: :ipv6,
           description: 'The IP version, 4 or 6'
 
 property :protocol, Symbol, #--protocol (-p)
@@ -74,80 +75,27 @@ property :config_file, String,
           description: 'The full path to find the rules on disk'
 
 action :create do
-  # We are using the accumalator pattern here
-  # This is as we are managing a single config file but using multiple
-  # resouces to allow a cleaner api for the end user
-  # Note, this will only ever go as a file on disk at the end of a chef run
-  if new_resource.table.class == 'String'
-    Chef::Log.warn("Table #{new_resource.table} should be a symbol, the property will no longer accept Strings in the next major version")
-    table = new_resource.table.to_sym
-  else
-    table = new_resource.table
-  end
-  table_name = new_resource.table.to_s
-
-  if new_resource.chain.class == 'String'
-    Chef::Log.warn("Chain #{new_resource.chain} should be a symbol, the property will no longer accept Strings in the next major version")
-    chain = new_resource.chain.to_sym
-  else
-    chain = new_resource.chain
-  end
-
-  jump = new_resource.jump
-  if new_resource.target
-    Chef::Log.warn('property target has been renamed to jump, please reference this new property name')
-    if new_resource.jump
-      Chef::Log.Error('property target has been renamed to Jump and both have been detected, please only use the jump property')
-    end
-    jump = new_resource.target
-  end
-
-  if new_resource.line
-    rule = new_resource.line
-  else
-    rule = "-A #{chain}"
-    # rule << " -t #{new_resource.table.to_s}"
-    rule << " -p #{new_resource.protocol}" if new_resource.protocol
-    rule << " -m #{new_resource.match}" if new_resource.match
-    rule << " -s #{new_resource.source}" if new_resource.source
-    rule << " -d #{new_resource.destination}" if new_resource.destination
-    rule << " -j #{jump}" if jump
-    rule << " -g #{new_resource.go_to}" if new_resource.go_to
-    rule << " -i #{new_resource.in_interface}" if new_resource.in_interface
-    rule << " -o #{new_resource.out_interface}" if new_resource.out_interface
-    rule << " -f #{new_resource.fragment}" if new_resource.fragment
-    rule << " #{new_resource.extra_options}" if new_resource.extra_options
-  end
-
-  with_run_context :root do
-    edit_resource(:template, new_resource.config_file) do |new_resource|
-      source new_resource.source_template
-      cookbook new_resource.cookbook
-      sensitive new_resource.sensitive
-      mode '644'
-
-      variables['iptables'] ||= {}
-      # We have to make sure default exists, so this is a hack to do that ...
-      variables['iptables']['filter'] ||= {}
-      variables['iptables']['filter']['chains'] ||= {}
-      variables['iptables']['filter']['chains'] = get_default_chains_for_table(:filter) if variables['iptables']['filter']['chains'] == {}
-
-      # We have to ensure the tables are initalised so we can insert rules into them
-      variables['iptables'][table_name] ||= {}
-      variables['iptables'][table_name]['chains'] ||= {}
-      variables['iptables'][table_name]['chains'] = get_default_chains_for_table(table) if variables['iptables'][table_name]['chains'] == {}
-
-      variables['iptables'][table_name]['rules'] ||= []
-      # If there is a line number let's insert it into the rules
-      # for the chain at that point
-      if new_resource.line_number
-        variables['iptables'][table_name]['rules'].insert(new_resource.line_number, rule)
-      else
-        variables['iptables'][table_name]['rules'].push(rule)
-      end
-
-      action :nothing
-      delayed_action :create
-    end
+  Chef::Log.warn('iptables_rule6 is deprecated, please use the normal iptable_rule with property ip_version set to :ipv6')
+  iptables_rule new_resource.name do
+    table new_resource.table
+    chain new_resource.chain
+    ip_version new_resource.ip_version
+    protocol new_resource.protocol
+    match new_resource.match
+    source new_resource.source
+    destination new_resource.destination
+    target new_resource.target
+    jump  new_resource.jump
+    go_to new_resource.go_to
+    in_interface  new_resource.in_interface
+    out_interface new_resource.out_interface
+    fragment new_resource.fragment
+    line_number new_resource.line_number
+    line new_resource.line
+    extra_options new_resource.extra_options
+    source_template new_resource.source_template
+    cookbook  new_resource.cookbook
+    sensitive new_resource.sensitive
+    config_file new_resource.config_file
   end
 end

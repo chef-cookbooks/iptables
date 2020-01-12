@@ -50,34 +50,34 @@ module Iptables
         case table_name
         when :filter
           {
-            INPUT: { value: 'ACCEPT [0:0]' },
-            FORWARD: { value: 'ACCEPT [0:0]' },
-            OUTPUT: { value: 'ACCEPT [0:0]' },
+            INPUT: 'ACCEPT [0:0]',
+            FORWARD: 'ACCEPT [0:0]',
+            OUTPUT: 'ACCEPT [0:0]',
           }
         when :mangle
           {
-            PREROUTING: { value: 'ACCEPT [0:0]' },
-            INPUT: { value: 'ACCEPT [0:0]' },
-            FORWARD: { value: 'ACCEPT [0:0]' },
-            OUTPUT: { value: 'ACCEPT [0:0]' },
-            POSTROUTING: { value: 'ACCEPT [0:0]' },
+            PREROUTING: 'ACCEPT [0:0]',
+            INPUT: 'ACCEPT [0:0]',
+            FORWARD: 'ACCEPT [0:0]',
+            OUTPUT: 'ACCEPT [0:0]',
+            POSTROUTING: 'ACCEPT [0:0]',
           }
         when :nat
           {
-            PREROUTING: { value: 'ACCEPT [0:0]' },
-            OUTPUT: { value: 'ACCEPT [0:0]' },
-            POSTROUTING: { value: 'ACCEPT [0:0]' },
+            PREROUTING: 'ACCEPT [0:0]',
+            OUTPUT: 'ACCEPT [0:0]',
+            POSTROUTING: 'ACCEPT [0:0]',
           }
         when :raw
           {
-            PREROUTING: { value: 'ACCEPT [0:0]' },
-            OUTPUT: { value: 'ACCEPT [0:0]' },
+            PREROUTING: 'ACCEPT [0:0]',
+            OUTPUT: 'ACCEPT [0:0]',
           }
         when :security
           {
-            INPUT: { value: 'ACCEPT [0:0]' },
-            FORWARD: { value: 'ACCEPT [0:0]' },
-            OUTPUT: { value: 'ACCEPT [0:0]' },
+            INPUT: 'ACCEPT [0:0]',
+            FORWARD: 'ACCEPT [0:0]',
+            OUTPUT: 'ACCEPT [0:0]',
           }
         else
           {}

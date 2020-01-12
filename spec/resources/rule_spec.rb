@@ -8,7 +8,6 @@ describe 'iptables_rule' do
     recipe do
       iptables_rule 'basic chain rule' do
         table :filter
-        chain_target :INPUT
         chain :INPUT
         ip_version :ipv4
       end
@@ -28,7 +27,6 @@ describe 'iptables_rule' do
     recipe do
       iptables_rule 'Allow from loopback interface' do
         table :filter
-        chain_target :INPUT
         chain :INPUT
         ip_version :ipv4
         jump 'ACCEPT'
@@ -39,10 +37,10 @@ describe 'iptables_rule' do
     it 'Creates the chain template' do
       is_expected.to render_file('/etc/sysconfig/iptables')
         .with_content(/\*filter/)
-        .with_content(/:INPUT\sACCEPT\s\[0\:0\]\s+\-A\sINPUT/m)
-        .with_content(/\-A\sINPUT\s\-j\sACCEPT\s\-i\slo\s\-\-comment\s\"Allow from loopback interface\"/)
+        .with_content(/:INPUT\sACCEPT\s\[0\:0\]/)
         .with_content(/:OUTPUT\sACCEPT\s\[0\:0\]/)
         .with_content(/:FORWARD\sACCEPT\s\[0\:0\]/)
+        .with_content(/\-A\sINPUT\s\-j\sACCEPT\s\-i\slo\s/)
     end
   end
 
@@ -56,7 +54,6 @@ describe 'iptables_rule' do
 
       iptables_rule 'Divert tcp prerouting' do
         table :mangle
-        chain_target :DIVERT
         chain :PREROUTING
         protocol :tcp
         match 'socket'
@@ -66,7 +63,6 @@ describe 'iptables_rule' do
 
       iptables_rule 'Mark Diverted rules' do
         table :mangle
-        chain_target :DIVERT
         chain :DIVERT
         ip_version :ipv4
         jump 'MARK'
@@ -75,7 +71,6 @@ describe 'iptables_rule' do
 
       iptables_rule 'accept divert trafic' do
         table :mangle
-        chain_target :DIVERT
         chain :DIVERT
         ip_version :ipv4
         jump 'ACCEPT'
@@ -99,6 +94,8 @@ describe 'iptables_rule' do
         .with_content(/:POSTROUTING\sACCEPT\s\[0\:0\]/)
     end
 
+    # This one validates that the rules come under the final item in the 
+    # table, which is the custom chain, hence the multiline
     it 'has the DIVERT chain under table mangle' do
       is_expected.to render_file('/etc/sysconfig/iptables')
         .with_content(/\*mangle/)

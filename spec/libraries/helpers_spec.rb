@@ -6,82 +6,81 @@ RSpec.describe Iptables::Cookbook::Helpers do
   end
 
   subject { DummyClass.new }
-  # describe '#default_iptables_rules_file' do
-  #   before do
-  #     allow(subject).to receive(:[]).with('ip_version').with('platform_family').and_return(ip_version).and_return(platform_family)
-  #   end
-  #   context 'When given an ipv4 on rhel' do
-  #     let(:ip_version) { :ipv4 }
-  #     let(:platform_family) { 'rhel' }
+  describe '#default_iptables_rules_file' do
+    before do
+      allow(subject).to receive(:[]).with('ip_version').with('platform_family').and_return(ip_version).and_return(platform_family)
+    end
+    context 'When given an ipv4 on rhel' do
+      let(:ip_version) { :ipv4 }
+      let(:platform_family) { 'rhel' }
 
-  #     it 'returns the correct path' do
-  #       expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/iptables')
-  #     end
-  #   end
-  #   context 'When given an ipv6 on rhel' do
-  #     let(:ip_version) { :ipv6 }
-  #     let(:platform_family) { 'rhel' }
+      it 'returns the correct path' do
+        expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/iptables')
+      end
+    end
+    context 'When given an ipv6 on rhel' do
+      let(:ip_version) { :ipv6 }
+      let(:platform_family) { 'rhel' }
 
-  #     it 'returns the correct path' do
-  #       expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/ip6tables')
-  #     end
-  #   end
+      it 'returns the correct path' do
+        expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/ip6tables')
+      end
+    end
 
-  #   context 'When given an ipv4 on amazon' do
-  #     let(:ip_version) { :ipv4 }
-  #     let(:platform_family) { 'amazon' }
+    context 'When given an ipv4 on amazon' do
+      let(:ip_version) { :ipv4 }
+      let(:platform_family) { 'amazon' }
 
-  #     it 'returns the correct path' do
-  #       expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/iptables')
-  #     end
-  #   end
+      it 'returns the correct path' do
+        expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/iptables')
+      end
+    end
 
-  #   context 'When given an ipv6 on amazon' do
-  #     let(:ip_version) { :ipv6 }
-  #     let(:platform_family) { 'amazon' }
+    context 'When given an ipv6 on amazon' do
+      let(:ip_version) { :ipv6 }
+      let(:platform_family) { 'amazon' }
 
-  #     it 'returns the correct path' do
-  #       expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/ip6tables')
-  #     end
-  #   end
+      it 'returns the correct path' do
+        expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/ip6tables')
+      end
+    end
 
-  #   context 'When given an ipv4 on fedora' do
-  #     let(:ip_version) { :ipv4 }
-  #     let(:platform_family) { 'fedora' }
+    context 'When given an ipv4 on fedora' do
+      let(:ip_version) { :ipv4 }
+      let(:platform_family) { 'fedora' }
 
-  #     it 'returns the correct path' do
-  #       expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/iptables')
-  #     end
-  #   end
+      it 'returns the correct path' do
+        expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/iptables')
+      end
+    end
 
-  #   context 'When given an ipv6 on fedora' do
-  #     let(:ip_version) { :ipv6 }
-  #     let(:platform_family) { 'fedora' }
+    context 'When given an ipv6 on fedora' do
+      let(:ip_version) { :ipv6 }
+      let(:platform_family) { 'fedora' }
 
-  #     it 'returns the correct path' do
-  #       expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/ip6tables')
-  #     end
-  #   end
+      it 'returns the correct path' do
+        expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/sysconfig/ip6tables')
+      end
+    end
 
-  #   context 'When given an ipv4 on debian' do
-  #     let(:ip_version) { :ipv4 }
-  #     let(:platform_family) { 'debian' }
+    context 'When given an ipv4 on debian' do
+      let(:ip_version) { :ipv4 }
+      let(:platform_family) { 'debian' }
 
-  #     it 'returns the correct path' do
-  #       expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/iptables/rules.v4')
-  #     end
-  #   end
+      it 'returns the correct path' do
+        expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/iptables/rules.v4')
+      end
+    end
 
-  #   context 'When given an ipv6 on debian' do
-  #     let(:ip_version) { :ipv6 }
-  #     let(:platform_family) { 'debian' }
+    context 'When given an ipv6 on debian' do
+      let(:ip_version) { :ipv6 }
+      let(:platform_family) { 'debian' }
 
-  #     it 'returns the correct path' do
-  #       expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/iptables/rules.v6')
-  #     end
-  #   end
-
-  # end
+      it 'returns the correct path' do
+        expect(subject.default_iptables_rules_file(ip_version)).to match('/etc/iptables/rules.v6')
+      end
+    end
+  end
 
   describe '#get_default_chains_for_table' do
     before do
@@ -99,9 +98,9 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
       it 'returns the correct default chains' do
         expect(subject.get_default_chains_for_table(table_name)).to include(
-          INPUT: { value: 'ACCEPT [0:0]' },
-          FORWARD: { value: 'ACCEPT [0:0]' },
-          OUTPUT: { value: 'ACCEPT [0:0]' }
+          INPUT: 'ACCEPT [0:0]',
+          FORWARD: 'ACCEPT [0:0]',
+          OUTPUT: 'ACCEPT [0:0]'
         )
       end
     end
@@ -110,11 +109,11 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
       it 'returns the correct default chains' do
         expect(subject.get_default_chains_for_table(table_name)).to include(
-          PREROUTING: { value: 'ACCEPT [0:0]' },
-          INPUT: { value: 'ACCEPT [0:0]' },
-          FORWARD: { value: 'ACCEPT [0:0]' },
-          OUTPUT: { value: 'ACCEPT [0:0]' },
-          POSTROUTING: { value: 'ACCEPT [0:0]' }
+          PREROUTING: 'ACCEPT [0:0]',
+          INPUT: 'ACCEPT [0:0]',
+          FORWARD: 'ACCEPT [0:0]',
+          OUTPUT: 'ACCEPT [0:0]',
+          POSTROUTING: 'ACCEPT [0:0]'
         )
       end
     end
@@ -123,9 +122,9 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
       it 'returns the correct default chains' do
         expect(subject.get_default_chains_for_table(table_name)).to include(
-          PREROUTING: { value: 'ACCEPT [0:0]' },
-          OUTPUT: { value: 'ACCEPT [0:0]' },
-          POSTROUTING: { value: 'ACCEPT [0:0]' }
+          PREROUTING: 'ACCEPT [0:0]',
+          OUTPUT: 'ACCEPT [0:0]',
+          POSTROUTING: 'ACCEPT [0:0]'
         )
       end
     end
@@ -135,8 +134,8 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
       it 'returns the correct default chains' do
         expect(subject.get_default_chains_for_table(table_name)).to include(
-          PREROUTING: { value: 'ACCEPT [0:0]' },
-          OUTPUT: { value: 'ACCEPT [0:0]' }
+          PREROUTING: 'ACCEPT [0:0]',
+          OUTPUT: 'ACCEPT [0:0]'
         )
       end
     end
@@ -146,9 +145,9 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
       it 'returns the correct default chains' do
         expect(subject.get_default_chains_for_table(table_name)).to include(
-          INPUT: { value: 'ACCEPT [0:0]' },
-          FORWARD: { value: 'ACCEPT [0:0]' },
-          OUTPUT: { value: 'ACCEPT [0:0]' }
+          INPUT: 'ACCEPT [0:0]',
+          FORWARD: 'ACCEPT [0:0]',
+          OUTPUT: 'ACCEPT [0:0]'
         )
       end
     end

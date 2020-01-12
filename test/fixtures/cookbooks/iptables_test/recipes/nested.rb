@@ -8,7 +8,6 @@ end
 
 iptables_rule 'sshd' do
   line '-A FWR -p tcp -m tcp --dport 22 -j ACCEPT'
-  comment false
 end
 
 iptables_chain6 'fwr_chain' do
@@ -17,7 +16,6 @@ end
 
 iptables_rule6 'sshd' do
   line '-A FWR -p tcp -m tcp --dport 22 -j ACCEPT'
-  comment false
 end
 
 nested 'httpd' do

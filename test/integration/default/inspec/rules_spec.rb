@@ -9,10 +9,10 @@ if os[:family] == 'redhat' && os[:release].start_with?('6')
 
 else
   describe iptables do
-    it { should have_rule('-A FWR -p tcp -m tcp --dport 22 -m comment --comment "Allow SSH" -j ACCEPT') }
+    it { should have_rule('-A FWR -p tcp -m tcp --dport 22 -j ACCEPT') }
   end
 
   describe command('/sbin/ip6tables-save') do
-    its(:stdout) { should match %r{-A INPUT -d fe80::/10 -p udp -m udp --dport 546 -m state --state NEW -m comment --comment dhcpv6 -j ACCEPT} }
+    its(:stdout) { should match /\-A\sINPUT\s\-d\sfe80\:\:\/64\s\-p\sudp\s\-m\sudp\s\-\-dport\s546\s\-m\sstate\s\-\-state\sNEW\s\-j\sACCEPT/ }
   end
 end

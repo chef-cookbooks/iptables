@@ -1,11 +1,11 @@
 include Iptables::Cookbook::Helpers
 
-property :table, Symbol,
-          equal_to: %i(filter mangle nat raw security),
+property :table, [Symbol, String],
+          equal_to: [:filter, :mangle, :nat, :raw, :security, 'filter', 'mangle', 'nat', 'raw', 'security'],
           default: :filter,
           description: 'The table the chain should exist on'
 
-property :chain, Symbol,
+property :chain, [Symbol, String],
           description: 'The name of the Chain'
 
 property :value, String,
@@ -38,7 +38,16 @@ action :create do
   # This is as we are managing a single config file but using multiple
   # resouces to allow a cleaner api for the end user
   # Note, this will only ever go as a file on disk at the end of a chef run
-  table_name = new_resource.table.to_s
+  if new_resource.table.class == 'String'
+    Chef::Log.warn("Table #{new_resource.table} should be a symbol, the property will no longer accept Strings in the next major version")
+    table = new_resource.table.to_sym
+  else
+    table = new_resource.table
+  end
+
+  Chef::Log.warn("Chain #{new_resource.chain} should be a symbol, the property will no longer accept Strings in the next major version") if new_resource.chain.class == 'String'
+
+  table_name = table.to_s
   with_run_context :root do
     edit_resource(:template, new_resource.config_file) do |new_resource|
       source new_resource.source_template
@@ -54,9 +63,9 @@ action :create do
 
       variables['iptables'][table_name] ||= {}
       variables['iptables'][table_name]['chains'] ||= {}
-      variables['iptables'][table_name]['chains'] = get_default_chains_for_table(new_resource.table) if variables['iptables'][table_name]['chains'] == {}
+      variables['iptables'][table_name]['chains'] = get_default_chains_for_table(table) if variables['iptables'][table_name]['chains'] == {}
 
-      variables['iptables'][table_name]['chains'][new_resource.chain] = { value: new_resource.value } if new_resource.chain
+      variables['iptables'][table_name]['chains'][new_resource.chain.to_sym] = new_resource.value if new_resource.chain
 
       action :nothing
       delayed_action :create
