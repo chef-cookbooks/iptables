@@ -94,7 +94,7 @@ describe 'iptables_rule' do
         .with_content(/:POSTROUTING\sACCEPT\s\[0\:0\]/)
     end
 
-    # This one validates that the rules come under the final item in the 
+    # This one validates that the rules come under the final item in the
     # table, which is the custom chain, hence the multiline
     it 'has the DIVERT chain under table mangle' do
       is_expected.to render_file('/etc/sysconfig/iptables')
