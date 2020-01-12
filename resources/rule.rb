@@ -72,7 +72,7 @@ property :sensitive, [true, false],
           default: false,
           description: 'mark the resource as senstive'
 
-property :config_file_full_path, String,
+property :config_file, String,
           default: lazy { default_iptables_rules_file(ip_version) },
           description: 'The full path to find the rules on disk'
 
@@ -109,7 +109,7 @@ action :create do
   rule << " --comment \"#{new_resource.comment}\"" if new_resource.comment
 
   with_run_context :root do
-    edit_resource(:template, new_resource.config_file_full_path) do |new_resource|
+    edit_resource(:template, new_resource.config_file) do |new_resource|
       source new_resource.source_template
       cookbook new_resource.cookbook
       sensitive new_resource.sensitive

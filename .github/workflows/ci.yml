@@ -18,34 +18,27 @@ jobs:
         env:
           CHEF_LICENSE: accept-no-persist
 
-  yamllint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
-      - name: Run yaml Lint
-        uses: actionshub/yamllint@master
-
-  mdl:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
-      - name: Run Markdown Lint
-        uses: actionshub/markdownlint@master
-
   dokken:
-    needs: [mdl, yamllint, delivery]
+    needs: [delivery]
     runs-on: ubuntu-latest
     strategy:
       matrix:
         os:
           - 'amazonlinux'
+          - 'amazonlinux-2'
           - 'debian-9'
+          - 'debian-10'
           - 'ubuntu-1604'
+          - 'ubuntu-1804'
           - 'centos-7'
+          - 'centos-8'
+          - 'opensuse-leap'
+          - 'fedora-latest'
         suite:
           - 'default'
+          - 'nested'
+          - 'no-template'
+          - 'disabled'
       fail-fast: false
 
     steps:
@@ -61,10 +54,3 @@ jobs:
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
-
-  final:
-    needs: [dokken]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@master
