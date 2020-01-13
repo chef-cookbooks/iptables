@@ -25,9 +25,6 @@ property :source, String, # --source (-s)
 property :destination, String, # --destination (-d)
           description: "Destination specification,  Address can be either a network name, a hostname (please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea), a network IP address (with /mask), or a plain IP address. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A \"!\" argument before the address specification inverts the sense of the address. The flag --src is an alias for this option."
 
-property :target, String, # --jump (-j)
-          description: 'Deprecated, see Jump'
-
 property :jump, String, # --jump (-j)
           description: "This specifies the target of the rule; i.e., what to do if the packet matches it. The target can be a user-defined chain (other than the one this rule is in), one of the special builtin targets which decide the fate of the packet immediately, or an extension (see EXTENSIONS below). If this option is omitted in a rule (and goto is not used), then matching the rule will have no effect on the packet\'s fate, but the counters on the rule will be incremented."
 
@@ -81,6 +78,9 @@ property :sensitive, [true, false],
 property :config_file, String,
           default: lazy { default_iptables_rules_file(ip_version) },
           description: 'The full path to find the rules on disk'
+
+property :target, String, # --jump (-j)
+          description: 'The target property was renamed jump in 7.0.0 and will be removed in 8.0.0'
 
 action :create do
   # We are using the accumalator pattern here

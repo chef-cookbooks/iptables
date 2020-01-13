@@ -25,9 +25,9 @@ module Iptables
         # for the given ip version
         case ip_version
         when :ipv4
-          '/etc/sysconfig/iptables'
+          '/etc/sysconfig/iptables-config'
         when :ipv6
-          '/etc/sysconfig/ip6tables'
+          '/etc/sysconfig/ip6tables-config'
         else
           raise "#{ip_version} is unknown"
         end

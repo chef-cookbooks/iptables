@@ -7,6 +7,66 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
   subject { DummyClass.new }
 
+  describe '#get_sysconfig_path' do
+    before do
+      allow(subject).to receive(:[]).with('ip_version').and_return(ip_version)
+    end
+    context 'When given an ipv4' do
+      let(:ip_version) { :ipv4 }
+
+      it 'returns the correct path' do
+        expect(subject.get_sysconfig_path(ip_version)).to match('/etc/sysconfig/iptables-config')
+      end
+    end
+
+    context 'When given an ipv6' do
+      let(:ip_version) { :ipv6 }
+
+      it 'returns the correct path' do
+        expect(subject.get_sysconfig_path(ip_version)).to match('/etc/sysconfig/ip6tables-config')
+      end
+    end
+  end
+
+  describe '#get_sysconfig' do
+    before do
+      allow(subject).to receive(:[]).with('ip_version').and_return(ip_version)
+    end
+    context 'When given an ipv4' do
+      let(:ip_version) { :ipv4 }
+
+      it 'returns the correct path' do
+        expect(subject.get_sysconfig(ip_version)).to match(
+          'IPTABLES_MODULES' => '',
+          'IPTABLES_MODULES_UNLOAD' => 'yes',
+          'IPTABLES_SAVE_ON_STOP' => 'no',
+          'IPTABLES_SAVE_ON_RESTART' => 'no',
+          'IPTABLES_SAVE_COUNTER' => 'no',
+          'IPTABLES_STATUS_NUMERIC' => 'yes',
+          'IPTABLES_STATUS_VERBOSE' => 'no',
+          'IPTABLES_STATUS_LINENUMBERS' => 'yes'
+        )
+      end
+    end
+
+    context 'When given an ipv6' do
+      let(:ip_version) { :ipv6 }
+
+      it 'returns the correct path' do
+        expect(subject.get_sysconfig(ip_version)).to match(
+          'IP6TABLES_MODULES' => '',
+          'IP6TABLES_MODULES_UNLOAD' => 'yes',
+          'IP6TABLES_SAVE_ON_STOP' => 'no',
+          'IP6TABLES_SAVE_ON_RESTART' => 'no',
+          'IP6TABLES_SAVE_COUNTER' => 'no',
+          'IP6TABLES_STATUS_NUMERIC' => 'yes',
+          'IP6TABLES_STATUS_VERBOSE' => 'no',
+          'IP6TABLES_STATUS_LINENUMBERS' => 'yes'
+        )
+      end
+    end
+  end
+
   describe '#package_names' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
