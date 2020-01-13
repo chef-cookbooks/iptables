@@ -19,6 +19,7 @@ Installs iptables and provides a custom resource for adding and removing iptable
 
 ## Resources
 
+- [iptables_packages](https://github.com/chef-cookbooks/iptables/tree/master/documentation/iptables_packages.md)
 - [iptables_chain](https://github.com/chef-cookbooks/iptables/tree/master/documentation/iptables_chain.md)
 - [iptables_rule](https://github.com/chef-cookbooks/iptables/tree/master/documentation/iptables_rule.md)
 

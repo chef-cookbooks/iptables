@@ -21,6 +21,8 @@ This document will give you help on upgrading major versions of iptables
   - Property `out_interface` which is the name of the interface the packet is going to be sent from
   - Property `line_number` which is where gives you the ability to place a rule at a certian location
 
+- Resource `iptables_packages` to install iptables
+
 ### Removed
 
 - Resource `iptables_chain`

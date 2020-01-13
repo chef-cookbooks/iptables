@@ -6,6 +6,31 @@ RSpec.describe Iptables::Cookbook::Helpers do
   end
 
   subject { DummyClass.new }
+
+  describe '#get_package_names' do
+    before do
+      allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
+    end
+
+    context 'When platform family is debian' do
+      let(:platform_family) { 'debian' }
+
+      it 'returns the correct packages' do
+        expect(subject.get_package_names()).to match(%w(iptables iptables-persistent))
+      end
+    end
+
+    %w(rhel fedora amazon).each do |platform|
+      context "When platform family is #{platform}" do
+        let(:platform_family) { platform }
+
+        it 'returns the correct packages' do
+          expect(subject.get_package_names()).to match(%w(iptables iptables-services iptables-utils))
+        end
+      end
+    end
+  end
+
   describe '#default_iptables_rules_file' do
     before do
       allow(subject).to receive(:[]).with('ip_version').with('platform_family').and_return(ip_version).and_return(platform_family)

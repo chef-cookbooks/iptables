@@ -20,6 +20,16 @@
 module Iptables
   module Cookbook
     module Helpers
+      def get_package_names
+        case node['platform_family']
+        when 'rhel', 'fedora', 'amazon'
+          %w(iptables iptables-services iptables-utils)
+        when 'debian'
+          %w(iptables iptables-persistent)
+        else
+          raise "#{node['platform_family']} is not known"
+        end
+      end
       def convert_to_symbol_and_mark_deprecated(parameter_name, parameter_value)
         if parameter_value.class == 'String'
           Chef::Log.warn("Property #{parameter_name} should be a symbol, the property will no longer accept Strings in the next major version (8.0.0)")
