@@ -1,12 +1,10 @@
 include Iptables::Cookbook::Helpers
 
 property :packages, Array,
-  default: lazy { get_package_names },
-  required: true
+  default: lazy { package_names },
   description: 'The packages to install for iptables'
 
 action :installl do
-  
   package 'iptables' do
     package_name new_resources.packages
     action :install

@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the iptables cookbook.
 - Expose all basic options on rules - [@Xorima](https://github.com/Xorima)
 - Deprecate all recipes - [@Xorima](https://github.com/Xorima)
 - Remove a lot of Attributes - [@Xorima](https://github.com/Xorima)
+- Added new resources to manage install and service for iptables - [@Xorima](https://github.com/Xorima)
 
 For Upgrading notes see [UPGRADING.md](https://github.com/chef-cookbooks/iptables/tree/master/documentation/UPGRADING.md)
 
@@ -86,6 +87,7 @@ For Upgrading notes see [UPGRADING.md](https://github.com/chef-cookbooks/iptable
 - specify optional table property for use with lines
 
 ## 4.0.1 (2017-03-29)
+
 - Update metadata to require Chef 12.10+ due to use of with_run_context
 
 ## 4.0.0 (2017-02-27)
@@ -100,11 +102,13 @@ For Upgrading notes see [UPGRADING.md](https://github.com/chef-cookbooks/iptable
 - fixed iptables disabled recipe to flush iptables after disabling the service
 
 ## 3.0.1 (2016-10-10)
+
 - Fix rules resource so rebuild-iptables only runs once
 - Add tests for nested resources
 - Add system ruby attribute so that it can be overridden
 
 ## 3.0.0 (2016-09-16)
+
 - Remove kitchen cloud config
 - Fix default specs to work properly on RHEL and other general spec cleanup
 - Simplify testing and fix failing tests on RHEL
@@ -118,22 +122,28 @@ For Upgrading notes see [UPGRADING.md](https://github.com/chef-cookbooks/iptable
 - Use compat_resource to restore Chef 12.1 - 12.4 compatibility
 
 ## v2.2.0 (2016-02-17)
+
 - Remove the dependency on compat_resource cookbook. This fixes RHEL systems, but increases the required Chef version to 12.5 or later
 
 ## v2.1.1 (2016-01-26)
+
 - Fixed failures on RHEL in the disabled recipe
 
 ## v2.1.0 (2016-01-25)
+
 - Improved compatbility with Fedora
 - Added management of the iptables sysconfig files using 2 new attributes. See the readme for more information
 
 ## v2.0.2 (2016-01-15)
+
 - Fixed rules not being rebuilt when using the disable action in the custom resource
 
 ## v2.0.1 (2015-11-16)
+
 - Added Chefspec matchers
 
 ## v2.0.0 (2015-10-21)
+
 - Migrated LWRP to Chef 12.5 custom resources format with backwards compatibility provided via compat_resource cookbook to 12.X family
 - Added Start / enable of iptables service in the default recipe when on RHEL based systems and the management of /etc/sysconfig/iptables so the service can start
 - Added removal of /etc/iptables.d/ to the disabled recipe to allow for reenabling later on
@@ -141,6 +151,7 @@ For Upgrading notes see [UPGRADING.md](https://github.com/chef-cookbooks/iptable
 - Expanded the serverspec tests and test kitchen suites to better test rules custom resource and disable recipe
 
 ## v1.1.0 (2015-10-05)
+
 - Fixed metadata description of the default recipe
 - Added Kitchen CI config
 - Added Chefspec unit tests
@@ -158,7 +169,9 @@ For Upgrading notes see [UPGRADING.md](https://github.com/chef-cookbooks/iptable
 - Removed pre-Ruby 1.9 hash rockets
 
 ## v1.0.0 (2015-04-29)
+
 NOTE: This release includes breaking changes to the behavior of this cookbook. The iptables_rule definition was converted to a LWRP.  This changes the behavior of disabling iptables rules.  Previously a rule could be disabled by specifying `enable false`.  You must now specify `action :disable`.  Additionally the cookbook no longer installs the out of the box iptables rules.  These were rules made assumptions about the operating environment and should not have been installed out of the box. This makes this recipe a library cookbook that can be better wrapped to meet the needs or your particular environment.
+
 - Definition converted to a LWRP to providing why-run support and
 - The out of the box iptables rules are no longer installed.  If you need these rules you'll need to wrap the cookbook and use the LWRP to define these same rules.
 - Removed all references to the roadmap and deprecation of the cookbook.  It's not going anywhere any time soon
@@ -169,31 +182,40 @@ NOTE: This release includes breaking changes to the behavior of this cookbook. T
 - Included the latest contributing documentation to match the current process
 
 ## v0.14.1 (2015-01-01)
+
 - Fixing File.exists is deprecated for File.exist
 
 ## v0.14.0 (2014-08-31)
+
 - [#14] Adds basic testing suite including Berksfile
 - [#14] Adds basic integration/post-converge tests
 - [#14] Adds default prefix and postfix rules to disalow traffic
 
 ## v0.13.2 (2014-04-09)
+
 - [COOK-4496] Added Amazon Linux support
 
 ## v0.13.0 (2014-03-19)
+
 - [COOK-3927] Substitute Perl version of rebuild-iptables with Ruby version
 
 ## v0.12.2 (2014-03-18)
+
 - [COOK-4411] - Add newling to iptables.snat
 
 ## v0.12.0
+
 - [COOK-2213] - iptables disabled recipe
 
 ## v0.11.0
+
 - [COOK-1883] - add perl package so rebuild script works
 
 ## v0.10.0
+
 - [COOK-641] - be able to save output on rhel-family
 - [COOK-655] - use a template from other cookbooks
 
 ## v0.9.3
+
 - Current public release.

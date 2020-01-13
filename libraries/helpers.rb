@@ -20,7 +20,52 @@
 module Iptables
   module Cookbook
     module Helpers
-      def get_package_names
+      def get_sysconfig_path(ip_version)
+        # This function will return the sysconfig path
+        # for the given ip version
+        case ip_version
+        when :ipv4
+          '/etc/sysconfig/iptables'
+        when :ipv6
+          '/etc/sysconfig/ip6tables'
+        else
+          raise "#{ip_version} is unknown"
+        end
+      end
+
+      def get_sysconfig(ip_version)
+        # This function will return the sysconfig settings
+        # for the given ip version
+        case ip_version
+        when :ipv4
+          {
+            'IPTABLES_MODULES' => '',
+            'IPTABLES_MODULES_UNLOAD' => 'yes',
+            'IPTABLES_SAVE_ON_STOP' => 'no',
+            'IPTABLES_SAVE_ON_RESTART' => 'no',
+            'IPTABLES_SAVE_COUNTER' => 'no',
+            'IPTABLES_STATUS_NUMERIC' => 'yes',
+            'IPTABLES_STATUS_VERBOSE' => 'no',
+            'IPTABLES_STATUS_LINENUMBERS' => 'yes',
+          }
+        when :ipv6
+          {
+            'IP6TABLES_MODULES' => '',
+            'IP6TABLES_MODULES_UNLOAD' => 'yes',
+            'IP6TABLES_SAVE_ON_STOP' => 'no',
+            'IP6TABLES_SAVE_ON_RESTART' => 'no',
+            'IP6TABLES_SAVE_COUNTER' => 'no',
+            'IP6TABLES_STATUS_NUMERIC' => 'yes',
+            'IP6TABLES_STATUS_VERBOSE' => 'no',
+            'IP6TABLES_STATUS_LINENUMBERS' => 'yes',
+          }
+        else
+          raise "#{ip_version} is unknown"
+        end
+      end
+
+      def package_names
+        # This function will return all package names
         case node['platform_family']
         when 'rhel', 'fedora', 'amazon'
           %w(iptables iptables-services iptables-utils)
@@ -30,6 +75,7 @@ module Iptables
           raise "#{node['platform_family']} is not known"
         end
       end
+
       def convert_to_symbol_and_mark_deprecated(parameter_name, parameter_value)
         if parameter_value.class == 'String'
           Chef::Log.warn("Property #{parameter_name} should be a symbol, the property will no longer accept Strings in the next major version (8.0.0)")

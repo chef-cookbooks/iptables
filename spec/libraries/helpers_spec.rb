@@ -7,7 +7,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
   subject { DummyClass.new }
 
-  describe '#get_package_names' do
+  describe '#package_names' do
     before do
       allow(subject).to receive(:[]).with('platform_family').and_return(platform_family)
     end
@@ -16,7 +16,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
       let(:platform_family) { 'debian' }
 
       it 'returns the correct packages' do
-        expect(subject.get_package_names()).to match(%w(iptables iptables-persistent))
+        expect(subject.package_names()).to match(%w(iptables iptables-persistent))
       end
     end
 
@@ -25,7 +25,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
         let(:platform_family) { platform }
 
         it 'returns the correct packages' do
-          expect(subject.get_package_names()).to match(%w(iptables iptables-services iptables-utils))
+          expect(subject.package_names()).to match(%w(iptables iptables-services iptables-utils))
         end
       end
     end

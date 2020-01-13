@@ -31,7 +31,7 @@ This document will give you help on upgrading major versions of iptables
 - Resource `iptables_rule6` has been marked as deprecated and will be removed in the next version, use `iptables_rule` with property `ip_version` set to `:ipv6`
 - Attributes
   - `['iptables']['persisted_rules_template']` if you still wish to use these it is recommended you loop through them to call the `iptables_chain` and `iptables_rule` resources
-  -   `['iptables']['persisted_rules_iptables']` has been replaced with a helper library and the ability to override it on the resources using the `source_template` resource
+  - `['iptables']['persisted_rules_iptables']` has been replaced with a helper library and the ability to override it on the resources using the `source_template` resource
 
 ### Changed
 

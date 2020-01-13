@@ -36,9 +36,9 @@ If the property `line` is used all other properties around configuring the iptab
 | `line`                  | `String`      | | Specify the entire line yourself, overrides all other options | |
 | `extra_options`                  | `String`      | | Pass in extra arguments which are not available directly, useful with modules | |
 | `comment`             | `String` | | A comment to put on the rule | |
-| `file_mode`            | `file_mode`     | `0644` | Permissions on the saved output file | |
+| `file_mode`            | `String`     | `0644` | Permissions on the saved output file | |
 | `source_template`                       | `source_template`      | `iptables.erb` | Source template to use to create the rules | |
-| `cookbook`               | `cookbook`      | `iptables` | Source cookbook to find the template in | |
+| `cookbook`               | `String`      | `iptables` | Source cookbook to find the template in | |
 | `sensitive`               | `true, false`      | `false` | mark the resource as senstive | |
 | `config_file`          | `String`     | The default location on disk of the config file, see resource for details | The full path to find the rules on disk | |
 

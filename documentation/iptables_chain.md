@@ -22,9 +22,9 @@ As this is an accumalator pattern resource not declaring a chain will have it re
 | `chain`         | `Symbol`      | `nil` | The name of the Chain | |
 | `value`                     | `String`      | `ACCEPT [0:0]` | The default action and the Packets : Bytes count | |
 | `ip_version`                  | `Symbol`      | `:ipv4` | The IP version | `:ipv4`, `:ipv6` |
-| `file_mode`            | `file_mode`     | `0644` | Permissions on the saved output file | |
+| `file_mode`            | `String`     | `0644` | Permissions on the saved output file | |
 | `source_template`                       | `source_template`      | `iptables.erb` | Source template to use to create the rules | |
-| `cookbook`               | `cookbook`      | `iptables` | Source cookbook to find the template in | |
+| `cookbook`               | `String`      | `iptables` | Source cookbook to find the template in | |
 | `sensitive`               | `true, false`      | `false` | mark the resource as senstive | |
 | `config_file`          | `String`     | The default location on disk of the config file, see resource for details | The full path to find the rules on disk | |
 
