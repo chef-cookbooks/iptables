@@ -57,6 +57,10 @@ property :line, String,
 property :extra_options, String,
           description: 'Pass in extra arguments which are not available directly, useful with modules'
 ### Section here is for the accumalator pattern
+property :file_mode, String,
+          default: '0644',
+          description: 'Permissions on the saved output file'
+
 property :source_template, String,
           default: 'iptables.erb',
           description: 'Source template to use to create the rules'
@@ -92,6 +96,7 @@ action :create do
     line_number new_resource.line_number
     line new_resource.line
     extra_options new_resource.extra_options
+    file_mode new_resource.file_mode
     source_template new_resource.source_template
     cookbook  new_resource.cookbook
     sensitive new_resource.sensitive

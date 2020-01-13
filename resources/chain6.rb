@@ -17,6 +17,10 @@ property :ip_version, Symbol,
           default: :ipv6,
           description: 'The IP version, 4 or 6'
 
+property :file_mode, String,
+          default: '0644',
+          description: 'Permissions on the saved output file'
+
 property :source_template, String,
           default: 'iptables.erb',
           description: 'Source template to use to create the rules'
@@ -40,6 +44,7 @@ action :create do
     chain new_resource.chain
     value new_resource.value
     ip_version new_resource.ip_version
+    file_mode new_resource.file_mode
     source_template new_resource.source_template
     cookbook  new_resource.cookbook
     sensitive new_resource.sensitive
