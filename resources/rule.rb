@@ -17,7 +17,7 @@ property :protocol, Symbol, #--protocol (-p)
           description: 'The protocol of the rule or of the packet to check. The specified protocol can be one of :tcp, :udp, :icmp, or :all, or it can be a numeric value, representing one of these protocols or a different one. A protocol name from /etc/protocols is also allowed. A "!" argument before the protocol inverts the test. The number zero is equivalent to all. Protocol all will match with all protocols and is taken as default when this option is omitted. '
 
 property :match, String, # --match (-m)
-          description: 'extended packet matching module to use'
+          description: 'Extended packet matching module to use'
 
 property :source, String, # --source (-s)
           description: "Source specification. Address can be either a network name, a hostname (please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea), a network IP address (with /mask), or a plain IP address. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A \"!\" argument before the address specification inverts the sense of the address. The flag --src is an alias for this option. "
@@ -46,7 +46,7 @@ property :fragment, String, # --fragment (-f)
 property :line_number, Integer,
           callbacks: {
             'should be a number greater than 0' => lambda { |p|
-              p > 1024
+              p > 0
             },
           },
           description: 'The location to insert the rule into for the chain'
