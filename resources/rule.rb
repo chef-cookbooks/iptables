@@ -56,6 +56,10 @@ property :line, String,
 
 property :extra_options, String,
           description: 'Pass in extra arguments which are not available directly, useful with modules'
+
+property :comment, String,
+          description: 'An optional comment to add to the rule'
+
 ### Section here is for the accumalator pattern
 
 property :file_mode, String,
@@ -112,6 +116,7 @@ action :create do
     rule << " -o #{new_resource.out_interface}" if new_resource.out_interface
     rule << " -f #{new_resource.fragment}" if new_resource.fragment
     rule << " #{new_resource.extra_options}" if new_resource.extra_options
+    rule << " -m comment --comment #{new_resource.comment}" if new_resource.comment
   end
 
   with_run_context :root do

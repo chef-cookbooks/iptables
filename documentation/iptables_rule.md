@@ -35,6 +35,7 @@ If the property `line` is used all other properties around configuring the iptab
 | `line_number`                  | `Integer`      | | The location to insert the rule into for the chain | greater than 0 |
 | `line`                  | `String`      | | Specify the entire line yourself, overrides all other options | |
 | `extra_options`                  | `String`      | | Pass in extra arguments which are not available directly, useful with modules | |
+| `comment`             | `String` | | A comment to put on the rule | |
 | `file_mode`            | `file_mode`     | `0644` | Permissions on the saved output file | |
 | `source_template`                       | `source_template`      | `iptables.erb` | Source template to use to create the rules | |
 | `cookbook`               | `cookbook`      | `iptables` | Source cookbook to find the template in | |

@@ -27,8 +27,6 @@ This document will give you help on upgrading major versions of iptables
   - Property `chain` no longer supports `Hash` or `Array` values
 - Resource `iptables_chain6` has been marked as deprecated and will be removed in the next version, use `iptables_chain` with property `ip_version` set to `:ipv6`
 - Resource `iptables_rule6` has been marked as deprecated and will be removed in the next version, use `iptables_rule` with property `ip_version` set to `:ipv6`
-- Resource `iptables_rule`
-  - Property `comment` has been removed
 - Attributes
   - `['iptables']['persisted_rules_template']` if you still wish to use these it is recommended you loop through them to call the `iptables_chain` and `iptables_rule` resources
   -   `['iptables']['persisted_rules_iptables']` has been replaced with a helper library and the ability to override it on the resources using the `source_template` resource
