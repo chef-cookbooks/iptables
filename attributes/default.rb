@@ -42,9 +42,11 @@ case node['platform_family']
 when 'rhel', 'fedora', 'amazon'
   default['iptables']['persisted_rules_iptables'] = '/etc/sysconfig/iptables'
   default['iptables']['persisted_rules_ip6tables'] = '/etc/sysconfig/ip6tables'
+  default['iptables']['packages'] = %w(iptables iptables-services iptables-utils)
 when 'debian'
   default['iptables']['persisted_rules_iptables'] = '/etc/iptables/rules.v4'
   default['iptables']['persisted_rules_ip6tables'] = '/etc/iptables/rules.v6'
+  default['iptables']['packages'] = %w(iptables iptables-persistent)
 end
 
 default['iptables']['persisted_rules_template']['filter'] = {

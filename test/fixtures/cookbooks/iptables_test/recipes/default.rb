@@ -1,4 +1,4 @@
-apt_update
+apt_update ''
 
 include_recipe 'iptables::default'
 

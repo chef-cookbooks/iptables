@@ -22,30 +22,17 @@ include_recipe 'iptables::_package'
 %w(iptables ip6tables).each do |ipt|
   case node['platform_family']
   when 'debian'
-    # debian based systems load iptables during the interface activation
-    template "/etc/network/if-pre-up.d/#{ipt}_load" do
-      source 'iptables_load.erb'
-      mode '0755'
-      variables(
-        iptables_save_file: node['iptables']["persisted_rules_#{ipt}"],
-        iptables_restore_binary: "/sbin/#{ipt}-restore"
-      )
-    end
-
-    file = node['iptables']["persisted_rules_#{ipt}"]
-    execute "reload #{ipt}" do
-      command "/etc/network/if-pre-up.d/#{ipt}_load"
-      subscribes :run, "template[#{file}]", :delayed
-      action :nothing
+    edit_resource(:service, 'netfilter-persistent') do
+      subscribes :restart, "template[#{node['iptables']["persisted_rules_#{ipt}"]}]", :delayed
+      action :enable
     end
   when 'rhel', 'fedora', 'amazon'
-    # iptables service exists only on RHEL based systems
     file "/etc/sysconfig/#{ipt}" do
       content '# Chef managed placeholder to allow iptables service to start'
       action :create_if_missing
     end
 
-    template "/etc/sysconfig/#{ipt}-config" do
+    template "#{node['iptables']["persisted_rules_#{ipt}"]}-config" do
       source 'iptables-config.erb'
       mode '600'
       variables(
@@ -53,10 +40,9 @@ include_recipe 'iptables::_package'
       )
     end
 
-    file = node['iptables']["persisted_rules_#{ipt}"]
     service ipt do
       supports status: true, start: true, stop: true, restart: true, reload: true
-      subscribes :restart, "template[#{file}]", :delayed
+      subscribes :restart, "template[#{node['iptables']["persisted_rules_#{ipt}"]}]", :delayed
       action [:enable, :start]
     end
   end

@@ -3,7 +3,7 @@
 # Cookbook:: iptables
 # Resource:: chain
 #
-# Copyright:: 2019, Ben Hughes
+# Copyright:: 2020, Ben Hughes
 # Copyright:: 2017-2019, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ property :cookbook, String, default: 'iptables'
 property :config_file, String, default: lazy { node['iptables']['persisted_rules_iptables'] }
 property :table, String, equal_to: %w(filter mangle nat raw security), default: 'filter'
 property :chain, [String, Array, Hash]
-property :filemode, [String, Integer], default: '0644'
+property :filemode, [String, Integer], default: '0600'
 
 action :create do
   Chef::Resource::Template.send(:include, Iptables::ChainHelpers)
@@ -40,7 +40,8 @@ action :create do
 
       variables['iptables'][new_resource.table]['chains'] ||= {}
       unless chain_exists?(chainhash: variables['iptables'][new_resource.table]['chains'], chain: new_resource.chain)
-        variables['iptables'][new_resource.table]['chains'].update(chain_builder(chain: new_resource.chain))
+        variables['iptables'][new_resource.table]['chains'] =
+          variables['iptables'][new_resource.table]['chains'].merge(chain_builder(chain: new_resource.chain))
       end
 
       action :nothing

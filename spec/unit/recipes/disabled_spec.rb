@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'iptables::disabled' do
   context 'Debian' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'debian', version: '9').converge(described_recipe)
+      ChefSpec::SoloRunner.new(platform: 'debian', version: '9').converge(described_recipe)
     end
 
     it 'installs package iptables' do
@@ -22,12 +22,12 @@ describe 'iptables::disabled' do
 
   context 'RHEL 7' do
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(platform: 'centos', version: '7.6.1804').converge(described_recipe)
+      ChefSpec::SoloRunner.new(platform: 'centos', version: '7.7.1908').converge(described_recipe)
     end
 
     it 'should install iptables-services' do
       expect(chef_run).to install_package('iptables-services')
-      expect(chef_run).to_not install_package('iptables')
+      expect(chef_run).to install_package('iptables')
       expect(chef_run).to_not install_package('iptables-persistent')
     end
 
@@ -37,9 +37,8 @@ describe 'iptables::disabled' do
         expect(reload_exec).to do_nothing
       end
 
-      it 'should create fallback files' do
+      it 'should clear rule file' do
         expect(chef_run).to create_file("/etc/sysconfig/#{ipt}")
-        expect(chef_run).to create_file("/etc/sysconfig/#{ipt}.fallback")
       end
     end
 

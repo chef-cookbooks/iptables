@@ -37,7 +37,7 @@ module Iptables
 
         if chain_definition_valid?(chain)
           chainstring = chain.upcase
-        elsif chain.match?(/^(\w+)$/)
+        elsif !chain.match(/^(\w+)$/).nil?
           chainstring = chain.upcase.concat(' -')
         else
           raise ArgumentError, "Invalid chain format '#{chain}' specified"
@@ -53,8 +53,9 @@ module Iptables
 
     def chain_definition_valid?(chain)
       raise ArgumentError unless chain.is_a?(String)
+
       Chef::Log.info("Validating iptables chain definition: #{chain}")
-      chain.match?(/^((\w+) (-|[a-zA-Z]+))$|^((\w+) (-|[a-zA-Z]+) (\[\d+\:\d+\]))$/)
+      !chain.match(/^((\w+) (-|[a-zA-Z]+))$|^((\w+) (-|[a-zA-Z]+) (\[\d+\:\d+\]))$/).nil?
     end
 
     def chain_exists?(chainhash:, chain:)

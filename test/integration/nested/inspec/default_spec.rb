@@ -1,11 +1,14 @@
-%w(iptables ip6tables).each do |variant|
-  if %w(debian ubuntu).include?(os[:family])
-    describe file("/etc/network/if-pre-up.d/#{variant}_load") do
-      it { should exist }
-    end
-  elsif %w(redhat fedora).include?(os[:family])
+case os.family
+when 'redhat', 'fedora'
+  %w(iptables ip6tables).each do |variant|
     describe file("/etc/sysconfig/#{variant}-config") do
       its(:content) { should match(/IPTABLES_STATUS_VERBOSE="yes"/) }
+    end
+  end
+when 'debian', 'ubuntu'
+  %w(v4 v6).each do |variant|
+    describe file("/etc/iptables/rules.#{variant}") do
+      it { should exist }
     end
   end
 end

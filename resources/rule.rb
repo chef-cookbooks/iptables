@@ -3,7 +3,7 @@
 # Cookbook:: iptables
 # Resource:: rule
 #
-# Copyright:: 2019, Ben Hughes
+# Copyright:: 2020, Ben Hughes
 # Copyright:: 2017-2019, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,7 @@ property :target, String
 property :line, String
 property :comment, [String, TrueClass, FalseClass], default: true
 property :extra_options, String
-property :filemode, [String, Integer], default: '0644'
+property :filemode, [String, Integer], default: '0600'
 
 action :create do
   Chef::Resource::Template.send(:include, Iptables::RuleHelpers)

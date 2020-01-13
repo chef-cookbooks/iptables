@@ -3,7 +3,7 @@
 # Cookbook:: iptables
 # Resource:: rule6
 #
-# Copyright:: 2019, Chef Software, Inc.
+# Copyright:: 2020, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ property :target, String
 property :line, String
 property :comment, [String, TrueClass, FalseClass], default: true
 property :extra_options, String
-property :filemode, [String, Integer], default: '0644'
+property :filemode, [String, Integer], default: '0600'
 
 action :create do
   iptables_rule new_resource.name do
-    source new_resource.source
-    cookbook new_resource.cookbook
+    source new_resource.source if new_resource.source
+    cookbook new_resource.cookbook if new_resource.cookbook
     config_file new_resource.config_file
     table new_resource.table
     chain new_resource.chain

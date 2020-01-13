@@ -19,25 +19,25 @@
 
 include_recipe 'iptables::_package'
 
+service 'netfilter-persistent' do
+  action [:disable, :stop]
+  delayed_action :stop
+end if platform_family?('debian')
+
 %w(iptables ip6tables).each do |ipt|
   service ipt do
     action [:disable, :stop]
     delayed_action :stop
     supports status: true, start: true, stop: true, restart: true
-    only_if { platform_family?('rhel', 'fedora', 'amazon') }
-  end
+  end if platform_family?('rhel', 'fedora', 'amazon')
 
-  ["/etc/sysconfig/#{ipt}", "/etc/sysconfig/#{ipt}.fallback"].each do |f|
-    file f do
-      content '# iptables rules files cleared by chef via iptables::disabled'
-      only_if { platform_family?('rhel', 'fedora', 'amazon') }
-      notifies :run, "execute[flush #{ipt}]", :immediately
-    end
-  end
-
-  # Flush and delete iptables rules
   execute "flush #{ipt}" do
     command "#{ipt} -F"
     action :nothing
+  end
+
+  file node['iptables']["persisted_rules_#{ipt}"] do
+    content '# iptables rules files cleared by chef via iptables::disabled'
+    notifies :run, "execute[flush #{ipt}]", :immediately
   end
 end

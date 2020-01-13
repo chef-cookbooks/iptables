@@ -20,6 +20,8 @@
 module Iptables
   module RuleHelpers
     def comment_builder(name:, comment:)
+      raise ArgumentError if name.nil? && comment.nil?
+
       int_comment = if comment.is_a?(String)
                       " -m comment --comment \"#{comment}\""
                     elsif comment.is_a?(TrueClass)
@@ -31,8 +33,9 @@ module Iptables
     end
 
     def rule_builder(line: nil, chain: nil, match: nil, target: nil, extra_options: nil)
-      rule = ''
       raise ArgumentError if line.nil? && chain.nil? && match.nil? && target.nil? && extra_options.nil?
+
+      rule = ''
 
       if match.nil? && target.nil?
         rule.concat(line)
@@ -48,7 +51,8 @@ module Iptables
 
     def comment_exists?(rule)
       raise ArgumentError unless rule.is_a?(String)
-      rule.match?(/-m comment --comment/)
+
+      !rule.match(/-m comment --comment/).nil?
     end
   end
 end

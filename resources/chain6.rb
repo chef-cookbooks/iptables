@@ -3,7 +3,7 @@
 # Cookbook:: iptables
 # Resource:: chain6
 #
-# Copyright:: 2019, Ben Hughes
+# Copyright:: 2020, Ben Hughes
 # Copyright:: 2017-2019, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,12 +23,12 @@ property :cookbook, String
 property :config_file, String, default: lazy { node['iptables']['persisted_rules_ip6tables'] }
 property :table, String, equal_to: %w(filter mangle nat raw security), default: 'filter'
 property :chain, [String, Array, Hash]
-property :filemode, [String, Integer], default: '0644'
+property :filemode, [String, Integer], default: '0600'
 
 action :create do
   iptables_chain new_resource.name do
-    source new_resource.source
-    cookbook new_resource.cookbook
+    source new_resource.source if new_resource.source
+    cookbook new_resource.cookbook if new_resource.cookbook
     config_file new_resource.config_file
     table new_resource.table
     chain new_resource.chain
