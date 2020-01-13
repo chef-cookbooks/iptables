@@ -17,7 +17,7 @@ property :sysconfig_file_mode, String,
           default: '0600',
           description: 'Permissions on the saved sysconfig file'
 
-property :sysconfig_file_mode, String,
+property :file_mode, String,
           default: '0644',
           description: 'Permissions on the saved rules file'
 
