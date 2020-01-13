@@ -20,6 +20,13 @@
 module Iptables
   module Cookbook
     module Helpers
+      def convert_to_symbol_and_mark_deprecated(parameter_name, parameter_value)
+        if parameter_value.class == 'String'
+          Chef::Log.warn("Property #{parameter_name} should be a symbol, the property will no longer accept Strings in the next major version (8.0.0)")
+        end
+        parameter_value.to_sym
+      end
+
       def default_iptables_rules_file(ip_version)
         # This function will look at the node platform
         # and return the correct file on disk location for the config file

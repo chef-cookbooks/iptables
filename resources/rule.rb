@@ -83,20 +83,10 @@ action :create do
   # This is as we are managing a single config file but using multiple
   # resouces to allow a cleaner api for the end user
   # Note, this will only ever go as a file on disk at the end of a chef run
-  if new_resource.table.class == 'String'
-    Chef::Log.warn("Table #{new_resource.table} should be a symbol, the property will no longer accept Strings in the next major version")
-    table = new_resource.table.to_sym
-  else
-    table = new_resource.table
-  end
-  table_name = new_resource.table.to_s
+  table = convert_to_symbol_and_mark_deprecated('table', new_resource.table)
+  table_name = table.to_s
 
-  if new_resource.chain.class == 'String'
-    Chef::Log.warn("Chain #{new_resource.chain} should be a symbol, the property will no longer accept Strings in the next major version")
-    chain = new_resource.chain.to_sym
-  else
-    chain = new_resource.chain
-  end
+  chain = convert_to_symbol_and_mark_deprecated('chain', new_resource.chain) if new_resource.chain
 
   jump = new_resource.jump
   if new_resource.target

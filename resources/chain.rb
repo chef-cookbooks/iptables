@@ -42,14 +42,8 @@ action :create do
   # This is as we are managing a single config file but using multiple
   # resouces to allow a cleaner api for the end user
   # Note, this will only ever go as a file on disk at the end of a chef run
-  if new_resource.table.class == 'String'
-    Chef::Log.warn("Table #{new_resource.table} should be a symbol, the property will no longer accept Strings in the next major version")
-    table = new_resource.table.to_sym
-  else
-    table = new_resource.table
-  end
-
-  Chef::Log.warn("Chain #{new_resource.chain} should be a symbol, the property will no longer accept Strings in the next major version") if new_resource.chain.class == 'String'
+  table = convert_to_symbol_and_mark_deprecated('table', new_resource.table) if new_resource.table
+  chain = convert_to_symbol_and_mark_deprecated('chain', new_resource.chain) if new_resource.chain
 
   table_name = table.to_s
   with_run_context :root do
@@ -69,7 +63,7 @@ action :create do
       variables['iptables'][table_name]['chains'] ||= {}
       variables['iptables'][table_name]['chains'] = get_default_chains_for_table(table) if variables['iptables'][table_name]['chains'] == {}
 
-      variables['iptables'][table_name]['chains'][new_resource.chain.to_sym] = new_resource.value if new_resource.chain
+      variables['iptables'][table_name]['chains'][chain] = new_resource.value if new_resource.chain
 
       action :nothing
       delayed_action :create
