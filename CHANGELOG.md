@@ -2,6 +2,14 @@
 
 This file is used to list changes made in each version of the iptables cookbook.
 
+## 7.0.0 (2020-01-13)
+
+- Expose all basic options on rules - [@Xorima](https://github.com/Xorima)
+- Deprecate all recipes - [@Xorima](https://github.com/Xorima)
+- Remove a lot of Attributes - [@Xorima](https://github.com/Xorima)
+
+For Upgrading notes see [UPGRADING.md](https://github.com/chef-cookbooks/iptables/tree/master/documentation/UPGRADING.md)
+
 ## 6.0.1 (2020-01-08)
 
 - Update readme to require 12.15+ - [@tas50](https://github.com/tas50)
