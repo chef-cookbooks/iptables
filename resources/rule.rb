@@ -79,8 +79,7 @@ property :config_file, String,
           default: lazy { default_iptables_rules_file(ip_version) },
           description: 'The full path to find the rules on disk'
 
-property :target, String, # --jump (-j)
-          description: 'The target property was renamed jump in 7.0.0 and will be removed in 8.0.0'
+deprecated_property_alias 'target', 'jump', 'The target property was renamed jump in 7.0.0 and will be removed in 8.0.0'
 
 action :create do
   # We are using the accumalator pattern here
@@ -92,15 +91,6 @@ action :create do
 
   chain = convert_to_symbol_and_mark_deprecated('chain', new_resource.chain) if new_resource.chain
 
-  jump = new_resource.jump
-  if new_resource.target
-    Chef::Log.warn('property target has been renamed to jump, please reference this new property name')
-    if new_resource.jump
-      Chef::Log.Error('property target has been renamed to Jump and both have been detected, please only use the jump property')
-    end
-    jump = new_resource.target
-  end
-
   if new_resource.line
     rule = new_resource.line
   else
@@ -110,7 +100,7 @@ action :create do
     rule << " -m #{new_resource.match}" if new_resource.match
     rule << " -s #{new_resource.source}" if new_resource.source
     rule << " -d #{new_resource.destination}" if new_resource.destination
-    rule << " -j #{jump}" if jump
+    rule << " -j #{new_resource.jump}" if new_resource.jump
     rule << " -g #{new_resource.go_to}" if new_resource.go_to
     rule << " -i #{new_resource.in_interface}" if new_resource.in_interface
     rule << " -o #{new_resource.out_interface}" if new_resource.out_interface

@@ -10,7 +10,8 @@ transport:
 
 provisioner:
   name: dokken
-  deprecations_as_errors: true
+  # We have our own deprecation errors ...
+  deprecations_as_errors: false
 
 platforms:
   - name: amazonlinux-2
@@ -46,7 +47,7 @@ platforms:
     driver:
       image: dokken/centos-8
       pid_one_command: /usr/lib/systemd/systemd
-  
+
   - name: fedora-latest
     driver:
       image: dokken/fedora-latest

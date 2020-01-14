@@ -74,8 +74,7 @@ property :config_file, String,
           default: lazy { default_iptables_rules_file(ip_version) },
           description: 'The full path to find the rules on disk'
 
-property :target, String, # --jump (-j)
-          description: 'The target property was renamed jump in 7.0.0 and will be removed in 8.0.0'
+deprecated_property_alias 'target', 'jump', 'The target property was renamed jump in 7.0.0 and will be removed in 8.0.0'
 
 action :create do
   Chef::Log.warn('iptables_rule6 is deprecated, please use the normal iptable_rule with property ip_version set to :ipv6')
