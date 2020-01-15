@@ -55,3 +55,10 @@ end
 iptables_chain 'logging' do
   chain 'LOGGING'
 end
+
+iptables_rule 'custom-template' do
+  config_file '/tmp/custom-template'
+  source 'foo.erb'
+  cookbook 'iptables_test'
+  filemode 0o600
+end
