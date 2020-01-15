@@ -4,7 +4,7 @@ driver:
 
 provisioner:
   name: chef_zero
-  deprecations_as_errors: true
+  deprecations_as_errors: false
   chef_license: accept-no-persist
 
 verifier:
@@ -23,36 +23,47 @@ platforms:
   - name: fedora-latest
   - name: ubuntu-16.04
   - name: ubuntu-18.04
+
 suites:
-  - name: default
-    run_list:
-      - recipe[iptables_test::default]
-    attributes:
-      iptables:
-        iptables_sysconfig:
-          IPTABLES_STATUS_VERBOSE: 'yes'
-        ip6tables_sysconfig:
-          IPTABLES_STATUS_VERBOSE: 'yes'
+  # - name: default
+  #   run_list:
+  #     - recipe[test::default]
+  #   attributes:
+  #     iptables:
+  #       iptables_sysconfig:
+  #         IPTABLES_STATUS_VERBOSE: 'yes'
+  #       ip6tables_sysconfig:
+  #         IPTABLES_STATUS_VERBOSE: 'yes'
 
-  - name: disabled
-    run_list:
-      - recipe[iptables::disabled]
-  - name: no_template
-    run_list:
-      - recipe[iptables_test::no_template]
-    attributes:
-      iptables:
-        iptables_sysconfig:
-          IPTABLES_STATUS_VERBOSE: 'yes'
-        ip6tables_sysconfig:
-          IPTABLES_STATUS_VERBOSE: 'yes'
 
-  - name: nested
+  # - name: disabled
+  #   run_list:
+  #     - recipe[iptables::disabled]
+
+  # - name: no_template
+  #   run_list:
+  #     - recipe[test::no_template]
+  #   attributes:
+  #     iptables:
+  #       iptables_sysconfig:
+  #         IPTABLES_STATUS_VERBOSE: 'yes'
+  #       ip6tables_sysconfig:
+  #         IPTABLES_STATUS_VERBOSE: 'yes'
+
+  # - name: nested
+  #   run_list:
+  #     - recipe[test::nested]
+  #   attributes:
+  #     iptables:
+  #       iptables_sysconfig:
+  #         IPTABLES_STATUS_VERBOSE: 'yes'
+  #       ip6tables_sysconfig:
+  #         IPTABLES_STATUS_VERBOSE: 'yes'
+
+  - name: all-tables
     run_list:
-      - recipe[iptables_test::nested]
-    attributes:
-      iptables:
-        iptables_sysconfig:
-          IPTABLES_STATUS_VERBOSE: 'yes'
-        ip6tables_sysconfig:
-          IPTABLES_STATUS_VERBOSE: 'yes'
+      - recipe[test::all_tables]
+
+  - name: install-and-remove
+    run_list:
+      - recipe[test::install-and-remove]

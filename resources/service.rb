@@ -40,9 +40,11 @@ property :config_file, String,
 action :enable do
   case node['platform_family']
   when 'debian'
-    edit_resource(:service, 'netfilter-persistent') do
-      subscribes :restart, "template[#{new_resource.config_file}]", :delayed
-      action :enable
+    with_run_context :root do
+      edit_resource(:service, 'netfilter-persistent') do
+        subscribes :restart, "template[#{new_resource.config_file}]", :delayed
+        action :enable
+      end
     end
   when 'rhel', 'fedora', 'amazon'
     file new_resource.config_file do
@@ -58,11 +60,11 @@ action :enable do
         config: new_resource.sysconfig
       )
     end
-
-    service new_resource.service_name do
-      supports status: true, start: true, stop: true, restart: true, reload: true
-      subscribes :restart, "template[#{new_resource.config_file}]", :delayed
-      action [:enable, :start]
+    with_run_context :root do
+      edit_resource(:service, new_resource.service_name) do
+        subscribes :restart, "template[#{new_resource.config_file}]", :delayed
+        action [:enable, :start]
+      end
     end
   end
 end
@@ -85,7 +87,7 @@ action :disable do
     end
 
     file new_resource.sysconfig_file do
-      action :remove
+      action :delete
     end
     service new_resource.service_name do
       action [:disable, :stop]

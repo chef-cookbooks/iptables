@@ -20,7 +20,20 @@
 module Iptables
   module Cookbook
     module Helpers
-      def get_sysconfig_path(ip_version)
+      def get_service_name(ip_version)
+        # This function will return the service name
+        # for the given ip version
+        case ip_version
+        when :ipv4
+          'iptables'
+        when :ipv6
+          'ip6tables'
+        else
+          raise "#{ip_version} is unknown"
+        end
+      end
+
+        def get_sysconfig_path(ip_version)
         # This function will return the sysconfig path
         # for the given ip version
         case ip_version
