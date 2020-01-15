@@ -81,7 +81,11 @@ module Iptables
         # This function will return all package names
         case node['platform_family']
         when 'rhel', 'fedora', 'amazon'
-          %w(iptables iptables-services iptables-utils)
+          if node['platform_version'].to_i < 7
+            %w(iptables)
+          else
+            %w(iptables iptables-services iptables-utils)
+          end
         when 'debian'
           %w(iptables iptables-persistent)
         else

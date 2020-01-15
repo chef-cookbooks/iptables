@@ -32,7 +32,7 @@ jobs:
           - 'centos-8'
           - 'fedora-latest'
           - 'ubuntu-1604'
-          - 'ubunty-1804'
+          - 'ubuntu-1804'
 
         suite:
           - 'all-tables'
