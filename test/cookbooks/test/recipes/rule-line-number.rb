@@ -25,4 +25,3 @@ iptables_rule 'Allow from loopback interface' do
   in_interface 'eth0'
   line_number 1
 end
-

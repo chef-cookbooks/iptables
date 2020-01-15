@@ -33,7 +33,7 @@ module Iptables
         end
       end
 
-        def get_sysconfig_path(ip_version)
+      def get_sysconfig_path(ip_version)
         # This function will return the sysconfig path
         # for the given ip version
         case ip_version

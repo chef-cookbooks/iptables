@@ -16,5 +16,3 @@ describe command('/sbin/iptables-save') do
   its(:stdout) { should match %r{\-A\sDIVERT\s\-j\sMARK\s\-\-set\-xmark\s0x1/0xffffffff} }
   its(:stdout) { should match /\-A\sDIVERT\s\-j\sACCEPT/m }
 end
-
-
