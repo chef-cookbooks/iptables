@@ -131,7 +131,8 @@ action :create do
       # If there is a line number let's insert it into the rules
       # for the chain at that point
       if new_resource.line_number
-        variables['iptables'][table_name]['rules'].insert(new_resource.line_number, rule)
+        line_number = new_resource.line_number - 1 # 0 index vs 1 index
+        variables['iptables'][table_name]['rules'].insert(line_number, rule)
       else
         variables['iptables'][table_name]['rules'].push(rule)
       end

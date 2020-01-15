@@ -24,12 +24,22 @@ jobs:
     strategy:
       matrix:
         os:
+          - 'amazonlinux-2'
+          - 'debian-9'
+          - 'debian-10'
+          - 'centos-6'
+          - 'centos-7'
           - 'centos-8'
+          - 'fedora-latest'
+          - 'ubuntu-1604'
+          - 'ubunty-1804'
+
         suite:
-          - 'default'
-          - 'nested'
-          - 'no-template'
-          - 'disabled'
+          - 'all-tables'
+          - 'install-and-remove'
+          - 'rule-line-number'
+          - 'rule-line'
+          - 'rules'
       fail-fast: false
 
     steps:

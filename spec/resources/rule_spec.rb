@@ -46,7 +46,7 @@ describe 'iptables_rule' do
 
   context 'Creates rules with extra options under a different table with a custom chain' do
     recipe do
-      iptables_chain 'filter' do
+      iptables_chain 'mangle' do
         table :mangle
         chain :DIVERT
         value '- [0:0]'

@@ -62,8 +62,20 @@ suites:
 
   - name: all-tables
     run_list:
-      - recipe[test::all_tables]
+      - recipe[test::all-tables]
 
   - name: install-and-remove
     run_list:
       - recipe[test::install-and-remove]
+
+  - name: rules
+    run_list:
+      - recipe[test::rules]
+
+  - name: rule-line
+    run_list:
+      - recipe[test::rule-line]
+
+  - name: rule-line-number
+    run_list:
+      - recipe[test::rule-line-number]
