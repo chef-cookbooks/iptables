@@ -1,8 +1,6 @@
 # This will test that inserting a rule at a given number
 # will output the rule correctly
 
-include_recipe '::centos-6-helper' if platform?('centos') && node['platform_version'].to_i == 6
-
 iptables_packages 'install iptables'
 iptables_service 'configure iptables services'
 
