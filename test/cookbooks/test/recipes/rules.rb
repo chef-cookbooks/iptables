@@ -1,6 +1,8 @@
 # This will create a multitude of rules under multiple
 # tables and validate that they all created correctly
 
+include_recipe '::centos-6-helper' if platform?('centos') && node['platform_version'].to_i == 6
+
 iptables_packages 'install iptables'
 iptables_service 'configure iptables services'
 
