@@ -19,7 +19,7 @@
 
 default['iptables']['iptables_sysconfig'] = {
   'IPTABLES_MODULES' => '',
-  'IPTABLES_MODULES_UNLOAD' => 'yes',
+  'IPTABLES_MODULES_UNLOAD' => 'no',
   'IPTABLES_SAVE_ON_STOP' => 'no',
   'IPTABLES_SAVE_ON_RESTART' => 'no',
   'IPTABLES_SAVE_COUNTER' => 'no',
@@ -29,7 +29,7 @@ default['iptables']['iptables_sysconfig'] = {
 }
 default['iptables']['ip6tables_sysconfig'] = {
   'IP6TABLES_MODULES' => '',
-  'IP6TABLES_MODULES_UNLOAD' => 'yes',
+  'IP6TABLES_MODULES_UNLOAD' => 'no',
   'IP6TABLES_SAVE_ON_STOP' => 'no',
   'IP6TABLES_SAVE_ON_RESTART' => 'no',
   'IP6TABLES_SAVE_COUNTER' => 'no',
