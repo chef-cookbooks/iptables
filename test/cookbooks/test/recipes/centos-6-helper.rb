@@ -3,11 +3,8 @@
 %w(ip_tables iptable_filter iptable_mangle iptable_nat).each do |mod|
   next if node['kernel']['modules'].keys.include?(mod)
 
-  begin
-    kernel_module mod do
-      action :load
-    end
-  rescue Mixlib::ShellOut::ShellCommandFailed
-    Chef::Log.warn("Failed to load kernel module #{mod}. On containers/cloud this is expected.")
+  kernel_module mod do
+    returns [0, 1]
+    action :load
   end
 end
