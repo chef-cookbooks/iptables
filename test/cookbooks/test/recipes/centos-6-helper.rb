@@ -3,8 +3,7 @@
 %w(ip_tables iptable_filter iptable_mangle iptable_nat).each do |mod|
   next if node['kernel']['modules'].keys.include?(mod)
 
-  kernel_module mod do
+  execute "modprobe #{mod}" do
     returns [0, 1]
-    action :load
   end
 end
