@@ -86,9 +86,6 @@ action :disable do
       action :create
     end
 
-    file new_resource.sysconfig_file do
-      action :delete
-    end
     service new_resource.service_name do
       action [:disable, :stop]
     end
