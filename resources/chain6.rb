@@ -1,39 +1,53 @@
-#
-# Author:: Ben Hughes <bmhughes@bmhughes.co.uk>
-# Cookbook:: iptables
-# Resource:: chain6
-#
-# Copyright:: 2019, Ben Hughes
-# Copyright:: 2017-2019, Chef Software, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+include Iptables::Cookbook::Helpers
 
-property :source, String
-property :cookbook, String
-property :config_file, String, default: lazy { node['iptables']['persisted_rules_ip6tables'] }
-property :table, String, equal_to: %w(filter mangle nat raw security), default: 'filter'
-property :chain, [String, Array, Hash]
-property :filemode, [String, Integer], default: '0644'
+property :table, [Symbol, String],
+          equal_to: [:filter, :mangle, :nat, :raw, :security, 'filter', 'mangle', 'nat', 'raw', 'security'],
+          default: :filter,
+          description: 'The table the chain should exist on'
+
+property :chain, [Symbol, String],
+          description: 'The name of the Chain'
+
+property :value, String,
+          default: 'ACCEPT [0:0]',
+          description: 'The default action and the Packets : Bytes count'
+
+property :ip_version, Symbol,
+          equal_to: %i(ipv4 ipv6),
+          default: :ipv6,
+          description: 'The IP version, 4 or 6'
+
+property :file_mode, String,
+          default: '0644',
+          description: 'Permissions on the saved output file'
+
+property :source_template, String,
+          default: 'iptables.erb',
+          description: 'Source template to use to create the rules'
+
+property :cookbook, String,
+          default: 'iptables',
+          description: 'Source cookbook to find the template in'
+
+property :sensitive, [true, false],
+          default: false,
+          description: 'mark the resource as senstive'
+
+property :config_file, String,
+          default: lazy { default_iptables_rules_file(ip_version) },
+          description: 'The full path to find the rules on disk'
 
 action :create do
+  Chef::Log.warn('iptables_chain6 is deprecated, please use the normal iptable_chain with property ip_version set to :ipv6')
   iptables_chain new_resource.name do
-    source new_resource.source
-    cookbook new_resource.cookbook
-    config_file new_resource.config_file
     table new_resource.table
     chain new_resource.chain
-    filemode new_resource.filemode
+    value new_resource.value
+    ip_version new_resource.ip_version
+    file_mode new_resource.file_mode
+    source_template new_resource.source_template
+    cookbook  new_resource.cookbook
     sensitive new_resource.sensitive
-    action :create
+    config_file new_resource.config_file
   end
 end

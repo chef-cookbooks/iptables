@@ -19,7 +19,7 @@
 
 default['iptables']['iptables_sysconfig'] = {
   'IPTABLES_MODULES' => '',
-  'IPTABLES_MODULES_UNLOAD' => 'yes',
+  'IPTABLES_MODULES_UNLOAD' => 'no',
   'IPTABLES_SAVE_ON_STOP' => 'no',
   'IPTABLES_SAVE_ON_RESTART' => 'no',
   'IPTABLES_SAVE_COUNTER' => 'no',
@@ -29,66 +29,11 @@ default['iptables']['iptables_sysconfig'] = {
 }
 default['iptables']['ip6tables_sysconfig'] = {
   'IP6TABLES_MODULES' => '',
-  'IP6TABLES_MODULES_UNLOAD' => 'yes',
+  'IP6TABLES_MODULES_UNLOAD' => 'no',
   'IP6TABLES_SAVE_ON_STOP' => 'no',
   'IP6TABLES_SAVE_ON_RESTART' => 'no',
   'IP6TABLES_SAVE_COUNTER' => 'no',
   'IP6TABLES_STATUS_NUMERIC' => 'yes',
   'IP6TABLES_STATUS_VERBOSE' => 'no',
   'IP6TABLES_STATUS_LINENUMBERS' => 'yes',
-}
-
-case node['platform_family']
-when 'rhel', 'fedora', 'amazon'
-  default['iptables']['persisted_rules_iptables'] = '/etc/sysconfig/iptables'
-  default['iptables']['persisted_rules_ip6tables'] = '/etc/sysconfig/ip6tables'
-when 'debian'
-  default['iptables']['persisted_rules_iptables'] = '/etc/iptables/rules.v4'
-  default['iptables']['persisted_rules_ip6tables'] = '/etc/iptables/rules.v6'
-end
-
-default['iptables']['persisted_rules_template']['filter'] = {
-  'chains' => {
-    'INPUT' => 'ACCEPT [0:0]',
-    'FORWARD' => 'ACCEPT [0:0]',
-    'OUTPUT' => 'ACCEPT [0:0]',
-  },
-  'rules' => [],
-}
-
-default['iptables']['persisted_rules_template']['mangle'] = {
-  'chains' => {
-    'PREROUTING' => 'ACCEPT [0:0]',
-    'INPUT' => 'ACCEPT [0:0]',
-    'FORWARD' => 'ACCEPT [0:0]',
-    'OUTPUT' => 'ACCEPT [0:0]',
-    'POSTROUTING' => 'ACCEPT [0:0]',
-  },
-  'rules' => [],
-}
-
-default['iptables']['persisted_rules_template']['nat'] = {
-  'chains' => {
-    'PREROUTING' => 'ACCEPT [0:0]',
-    'OUTPUT' => 'ACCEPT [0:0]',
-    'POSTROUTING' => 'ACCEPT [0:0]',
-  },
-  'rules' => [],
-}
-
-default['iptables']['persisted_rules_template']['raw'] = {
-  'chains' => {
-    'PREROUTING' => 'ACCEPT [0:0]',
-    'OUTPUT' => 'ACCEPT [0:0]',
-  },
-  'rules' => [],
-}
-
-default['iptables']['persisted_rules_template']['security'] = {
-  'chains' => {
-    'INPUT' => 'ACCEPT [0:0]',
-    'FORWARD' => 'ACCEPT [0:0]',
-    'OUTPUT' => 'ACCEPT [0:0]',
-  },
-  'rules' => [],
 }

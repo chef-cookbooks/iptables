@@ -16,10 +16,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+Chef::Recipe.send(:include, Iptables::Cookbook::Helpers)
 include_recipe 'iptables::_package'
 
+Chef::Log.warn('The recipes inside iptables will be removed in the next major itteration (8.0.0), please change to resources provided by the iptables cookbook')
+
 %w(iptables ip6tables).each do |ipt|
+  file = if ipt == 'iptables'
+           default_iptables_rules_file(:ipv4)
+         else
+           default_iptables_rules_file(:ipv6)
+         end
   case node['platform_family']
   when 'debian'
     # debian based systems load iptables during the interface activation
@@ -27,12 +34,11 @@ include_recipe 'iptables::_package'
       source 'iptables_load.erb'
       mode '0755'
       variables(
-        iptables_save_file: node['iptables']["persisted_rules_#{ipt}"],
+        iptables_save_file: file,
         iptables_restore_binary: "/sbin/#{ipt}-restore"
       )
     end
 
-    file = node['iptables']["persisted_rules_#{ipt}"]
     execute "reload #{ipt}" do
       command "/etc/network/if-pre-up.d/#{ipt}_load"
       subscribes :run, "template[#{file}]", :delayed
@@ -53,7 +59,6 @@ include_recipe 'iptables::_package'
       )
     end
 
-    file = node['iptables']["persisted_rules_#{ipt}"]
     service ipt do
       supports status: true, start: true, stop: true, restart: true, reload: true
       subscribes :restart, "template[#{file}]", :delayed
