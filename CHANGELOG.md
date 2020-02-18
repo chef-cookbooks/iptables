@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the iptables cookbook.
 
-## 7.0.0 (2020-01-13)
+## 7.0.0 (2020-02-18)
 
 - Expose all basic options on rules - [@Xorima](https://github.com/Xorima)
 - Deprecate all recipes - [@Xorima](https://github.com/Xorima)
