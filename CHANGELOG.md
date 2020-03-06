@@ -6,6 +6,8 @@ This file is used to list changes made in each version of the iptables cookbook.
 
 - resolved cookstyle error: recipes/default.rb:19:14 warning: `Lint/SendWithMixinArgument`
 - Fixes issue where comments with a space were not quoted and would cause iptables to fail to start
+- Allow the use of String for rule `:ip_Version` - [@bmhughes](https://github.com/bmhughes)
+- Allow the use of String and Integer for rule `:protocol` - [@bmhughes](https://github.com/bmhughes)
 
 ## 7.0.0 (2020-02-18)
 

@@ -22,7 +22,7 @@ end
 iptables_rule 'Allow from loopback interface' do
   table :filter
   chain :INPUT
-  ip_version :ipv4
+  ip_version 'ipv4'
   jump 'ACCEPT'
   in_interface 'eth0'
   line_number 1
