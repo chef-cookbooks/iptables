@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the iptables cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: recipes/default.rb:19:14 warning: `Lint/SendWithMixinArgument`
+
 ## 7.0.0 (2020-02-18)
 
 - Expose all basic options on rules - [@Xorima](https://github.com/Xorima)
