@@ -40,10 +40,10 @@ property :out_interface, String, # --out-interface (-o)
 property :fragment, String, # --fragment (-f)
           description: 'Name of an interface via which a packet is going to be sent (for packets entering the FORWARD, OUTPUT and POSTROUTING chains). When the "!" argument is used before the interface name, the sense is inverted. If the interface name ends in a "+", then any interface which begins with this name will match. If this option is omitted, any interface name will match. '
 
-property :line_number, Integer,
+property :line_number, [Symbol, Integer],
           callbacks: {
-            'should be a number greater than 0' => lambda { |p|
-              p > 0
+            'should be a number greater than 0, or :next' => lambda { |p|
+              (p.kind_of?(Numeric) && p > 0) || (p == :next)
             },
           },
           description: 'The location to insert the rule into for the chain'
@@ -131,8 +131,16 @@ action :create do
       # If there is a line number let's insert it into the rules
       # for the chain at that point
       if new_resource.line_number
-        line_number = new_resource.line_number - 1 # 0 index vs 1 index
-        variables['iptables'][table_name]['rules'].insert(line_number, rule)
+        if new_resource.line_number == :next
+          if (next_free_line = variables['iptables'][table_name]['rules'].index {|line| line.nil?} )
+            variables['iptables'][table_name]['rules'][next_free_line] = rule
+          else
+            variables['iptables'][table_name]['rules'].push(rule)
+          end
+        else
+          line_number = new_resource.line_number - 1 # 0 index vs 1 index
+          variables['iptables'][table_name]['rules'].insert(line_number, rule)
+        end
       else
         variables['iptables'][table_name]['rules'].push(rule)
       end
