@@ -12,15 +12,15 @@ next table and so on
 <% unless @iptables.nil? || @iptables.empty? -%>
 <% @iptables.each do |table, data| -%>
 *<%= table %>
-<%# Put the chains in the file, format of :Name%>
+<%# Put the chains in the file, format of :Name %>
 <% unless data['chains'].nil? || data['chains'].empty? -%>
 <% data['chains'].each do |chain, value| -%>
 :<%= chain %> <%= value %>
 <% end -%>
 <% end -%>
-<%# once all chains are down we put the rules doen%>
+<%# once all chains are down we put the rules down %>
 <% unless data['rules'].nil? || data['rules'].empty? -%>
-<% data['rules'].each do |rule| -%>
+<% data['rules'].reject{|rule| rule.to_s.empty? }.each do |rule| -%>
 <%= rule %>
 <% end -%>
 <% end -%>
