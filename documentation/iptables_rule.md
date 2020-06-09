@@ -22,8 +22,8 @@ If the property `line` is used all other properties around configuring the iptab
 --------------------------------- | ----------- | -------- | ----------- | -------------- |
 | `table`              | `Symbol`       | `:filter` | The table the chain exists on for the rule | `:filter`, `:mangle`, `:nat`, `:raw`, `:security` |
 | `chain`         | `Symbol`      | `nil` | The name of the Chain to put this rule on | |
-| `ip_version`                  | `Symbol`      | `:ipv4` | The IP version | `:ipv4`, `:ipv6` |
-| `protocol`                  | `Symbol`      | | The protocol to look for | |
+| `ip_version`                  | `Symbol`, `String`      | `:ipv4` | The IP version | `:ipv4`, `:ipv6`, `ipv4`, `ipv6` |
+| `protocol`                  | `Symbol`, `String`, `Integer`      | | The protocol to look for | |
 | `match`                  | `String`      | | extended packet matching module to use | |
 | `source`                  | `String`      | | Source specification. Address can be either a network name, a hostname (please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea), a network IP address (with /mask), or a plain IP address. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A "!" argument before the address specification inverts the sense of the address. | |
 | `destination`                  | `String`      | | Destination specification,  Address can be either a network name, a hostname (please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea), a network IP address (with /mask), or a plain IP address. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A "!" argument before the address specification inverts the sense of the address. | |

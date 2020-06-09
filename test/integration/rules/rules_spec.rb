@@ -3,6 +3,7 @@ describe command('/sbin/iptables-save') do
   its(:stdout) { should match /:INPUT\sACCEPT\s\[\d+\:\d+\]/ }
   its(:stdout) { should match /:OUTPUT\sACCEPT\s\[\d+\:\d+\]/ }
   its(:stdout) { should match /:FORWARD\sACCEPT\s\[\d+\:\d+\]/ }
+  its(:stdout) { should match /-A INPUT -p icmp -j ACCEPT/ }
 
   its(:stdout) { should match /\*mangle/ }
   its(:stdout) { should match /:INPUT\sACCEPT\s\[\d+\:\d+\]/ }

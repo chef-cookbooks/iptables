@@ -8,12 +8,12 @@ property :table, [Symbol, String],
 property :chain, [Symbol, String],
           description: 'The name of the Chain to put this rule on'
 
-property :ip_version, Symbol,
-          equal_to: %i(ipv4 ipv6),
+property :ip_version, [Symbol, String],
+          equal_to: [:ipv4, :ipv6, 'ipv4', 'ipv6'],
           default: :ipv4,
           description: 'The IP version, 4 or 6'
 
-property :protocol, Symbol, #--protocol (-p)
+property :protocol, [Symbol, String, Integer], #--protocol (-p)
           description: 'The protocol of the rule or of the packet to check. The specified protocol can be one of :tcp, :udp, :icmp, or :all, or it can be a numeric value, representing one of these protocols or a different one. A protocol name from /etc/protocols is also allowed. A "!" argument before the protocol inverts the test. The number zero is equivalent to all. Protocol all will match with all protocols and is taken as default when this option is omitted. '
 
 property :match, String, # --match (-m)
@@ -76,7 +76,7 @@ property :sensitive, [true, false],
           description: 'mark the resource as senstive'
 
 property :config_file, String,
-          default: lazy { default_iptables_rules_file(ip_version) },
+          default: lazy { default_iptables_rules_file(ip_version.to_sym) },
           description: 'The full path to find the rules on disk'
 
 deprecated_property_alias 'target', 'jump', 'The target property was renamed jump in 7.0.0 and will be removed in 8.0.0'

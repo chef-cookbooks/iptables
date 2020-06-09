@@ -21,6 +21,13 @@ iptables_rule 'Divert tcp prerouting' do
   jump 'DIVERT'
 end
 
+iptables_rule 'Accept ICMP' do
+  chain :INPUT
+  ip_version 'ipv4'
+  protocol 'icmp'
+  jump 'ACCEPT'
+end
+
 iptables_rule 'Mark Diverted rules' do
   table :mangle
   chain :DIVERT
