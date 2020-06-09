@@ -35,3 +35,12 @@ iptables_rule 'accept divert trafic' do
   ip_version :ipv4
   jump 'ACCEPT'
 end
+
+iptables_rule 'Rule with space in comment' do
+  table :filter
+  comment 'This will allow loopback'
+  chain :INPUT
+  ip_version :ipv4
+  jump 'ACCEPT'
+  in_interface 'lo'
+end

@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the iptables cookbook.
 ## Unreleased
 
 - resolved cookstyle error: recipes/default.rb:19:14 warning: `Lint/SendWithMixinArgument`
+- Fixes issue where comments with a space were not quoted and would cause iptables to fail to start
 
 ## 7.0.0 (2020-02-18)
 
