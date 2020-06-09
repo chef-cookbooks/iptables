@@ -106,7 +106,7 @@ action :create do
     rule << " -o #{new_resource.out_interface}" if new_resource.out_interface
     rule << " -f #{new_resource.fragment}" if new_resource.fragment
     rule << " #{new_resource.extra_options}" if new_resource.extra_options
-    rule << " -m comment --comment #{new_resource.comment}" if new_resource.comment
+    rule << " -m comment --comment \"#{new_resource.comment}\"" if new_resource.comment
   end
 
   with_run_context :root do
