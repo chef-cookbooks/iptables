@@ -7,7 +7,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
 
   subject { DummyClass.new }
 
-  describe '#get_sysconfig_path' do
+  describe '#default_sysconfig_path' do
     before do
       allow(subject).to receive(:[]).with('ip_version').and_return(ip_version)
     end
@@ -15,7 +15,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
       let(:ip_version) { :ipv4 }
 
       it 'returns the correct path' do
-        expect(subject.get_sysconfig_path(ip_version)).to match('/etc/sysconfig/iptables-config')
+        expect(subject.default_sysconfig_path(ip_version)).to match('/etc/sysconfig/iptables-config')
       end
     end
 
@@ -23,12 +23,12 @@ RSpec.describe Iptables::Cookbook::Helpers do
       let(:ip_version) { :ipv6 }
 
       it 'returns the correct path' do
-        expect(subject.get_sysconfig_path(ip_version)).to match('/etc/sysconfig/ip6tables-config')
+        expect(subject.default_sysconfig_path(ip_version)).to match('/etc/sysconfig/ip6tables-config')
       end
     end
   end
 
-  describe '#get_sysconfig' do
+  describe '#default_sysconfig' do
     before do
       allow(subject).to receive(:[]).with('ip_version').and_return(ip_version)
     end
@@ -36,7 +36,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
       let(:ip_version) { :ipv4 }
 
       it 'returns the correct path' do
-        expect(subject.get_sysconfig(ip_version)).to match(
+        expect(subject.default_sysconfig(ip_version)).to match(
           'IPTABLES_MODULES' => '',
           'IPTABLES_MODULES_UNLOAD' => 'no',
           'IPTABLES_SAVE_ON_STOP' => 'no',
@@ -53,7 +53,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
       let(:ip_version) { :ipv6 }
 
       it 'returns the correct path' do
-        expect(subject.get_sysconfig(ip_version)).to match(
+        expect(subject.default_sysconfig(ip_version)).to match(
           'IP6TABLES_MODULES' => '',
           'IP6TABLES_MODULES_UNLOAD' => 'no',
           'IP6TABLES_SAVE_ON_STOP' => 'no',
@@ -178,7 +178,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
     end
   end
 
-  describe '#get_default_chains_for_table' do
+  describe '#default_chains_for_table' do
     before do
       allow(subject).to receive(:[]).with('table_name').and_return(table_name)
     end
@@ -186,14 +186,14 @@ RSpec.describe Iptables::Cookbook::Helpers do
       let(:table_name) { :does_not_exist }
 
       it 'returns an empty Hash' do
-        expect(subject.get_default_chains_for_table(table_name)).to eq({})
+        expect(subject.default_chains_for_table(table_name)).to eq({})
       end
     end
     context 'When given the table filter' do
       let(:table_name) { :filter }
 
       it 'returns the correct default chains' do
-        expect(subject.get_default_chains_for_table(table_name)).to include(
+        expect(subject.default_chains_for_table(table_name)).to include(
           INPUT: 'ACCEPT [0:0]',
           FORWARD: 'ACCEPT [0:0]',
           OUTPUT: 'ACCEPT [0:0]'
@@ -204,7 +204,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
       let(:table_name) { :mangle }
 
       it 'returns the correct default chains' do
-        expect(subject.get_default_chains_for_table(table_name)).to include(
+        expect(subject.default_chains_for_table(table_name)).to include(
           PREROUTING: 'ACCEPT [0:0]',
           INPUT: 'ACCEPT [0:0]',
           FORWARD: 'ACCEPT [0:0]',
@@ -217,7 +217,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
       let(:table_name) { :nat }
 
       it 'returns the correct default chains' do
-        expect(subject.get_default_chains_for_table(table_name)).to include(
+        expect(subject.default_chains_for_table(table_name)).to include(
           PREROUTING: 'ACCEPT [0:0]',
           OUTPUT: 'ACCEPT [0:0]',
           POSTROUTING: 'ACCEPT [0:0]'
@@ -229,7 +229,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
       let(:table_name) { :raw }
 
       it 'returns the correct default chains' do
-        expect(subject.get_default_chains_for_table(table_name)).to include(
+        expect(subject.default_chains_for_table(table_name)).to include(
           PREROUTING: 'ACCEPT [0:0]',
           OUTPUT: 'ACCEPT [0:0]'
         )
@@ -240,7 +240,7 @@ RSpec.describe Iptables::Cookbook::Helpers do
       let(:table_name) { :security }
 
       it 'returns the correct default chains' do
-        expect(subject.get_default_chains_for_table(table_name)).to include(
+        expect(subject.default_chains_for_table(table_name)).to include(
           INPUT: 'ACCEPT [0:0]',
           FORWARD: 'ACCEPT [0:0]',
           OUTPUT: 'ACCEPT [0:0]'
