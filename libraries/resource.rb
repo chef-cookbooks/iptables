@@ -88,7 +88,7 @@ module Iptables
 
             helpers(Iptables::Cookbook::TemplateHelpers)
 
-            action :nothing
+            action :create_if_missing
             delayed_action :create
           end
         end
