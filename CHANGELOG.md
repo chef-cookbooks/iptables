@@ -2,6 +2,18 @@
 
 This file is used to list changes made in each version of the iptables cookbook.
 
+## Unreleased
+
+- Refactor cookbook [@bmhughes](https://github.com/bmhughes)
+  - Remove legacy code
+  - Refactor chain and rule resources
+    - Complex logic moved to helper libraries
+  - Refactor service resource
+    - Add the full set of service actions
+    - Create a default configuration to ensure starting on Redhat platform families
+  - Refactor package resource
+    - Add the full set of package actions
+
 ## 8.0.0 (2021-05-26)
 
 - Cookstyle Bot Auto Corrections with Cookstyle 6.17.6 - [@cookstyle](https://github.com/cookstyle)
