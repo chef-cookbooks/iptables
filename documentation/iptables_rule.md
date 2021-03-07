@@ -1,4 +1,4 @@
-[back to resource list](https://github.com/chef-cookbooks/iptables#resources)
+[Back to resource list](https://github.com/chef-cookbooks/iptables/tree/master/README.md#resources)
 
 ---
 
@@ -14,15 +14,23 @@ If the property `line` is used all other properties around configuring the iptab
 
 ## Actions
 
-`:create`
+- `:create`
+- `:delete`
 
 ## Properties
 
 | Name                            | Type        |  Default | Description | Allowed Values |
 --------------------------------- | ----------- | -------- | ----------- | -------------- |
+| `config_file`          | `String`     | The default location on disk of the config file, see resource for details | The full path to find the rules on disk | |
+| `owner`            | `String`     | `root` | Owner of the saved output file | |
+| `group`            | `String`     | `root` | Group of the saved output file | |
+| `mode`            | `String`     | `0644` | Permissions on the saved output file | |
+| `template`                       | `source_template`      | `iptables.erb` | Source template to use to create the rules | |
+| `cookbook`               | `String`      | `iptables` | Source cookbook to find the template in | |
+| `sensitive`               | `true, false`      | `false` | mark the resource as senstive | |
 | `table`              | `Symbol`       | `:filter` | The table the chain exists on for the rule | `:filter`, `:mangle`, `:nat`, `:raw`, `:security` |
 | `chain`         | `Symbol`      | `nil` | The name of the Chain to put this rule on | |
-| `ip_version`                  | `Symbol`, `String`      | `:ipv4` | The IP version | `:ipv4`, `:ipv6`, `ipv4`, `ipv6` |
+| `ip_version`                  | `Symbol`, `String` | `:ipv4` | The IP version | `:ipv4`, `:ipv6`, `ipv4`, `ipv6` |
 | `protocol`                  | `Symbol`, `String`, `Integer`      | | The protocol to look for | |
 | `match`                  | `String`      | | extended packet matching module to use | |
 | `source`                  | `String`      | | Source specification. Address can be either a network name, a hostname (please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea), a network IP address (with /mask), or a plain IP address. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A "!" argument before the address specification inverts the sense of the address. | |
@@ -36,11 +44,6 @@ If the property `line` is used all other properties around configuring the iptab
 | `line`                  | `String`      | | Specify the entire line yourself, overrides all other options | |
 | `extra_options`                  | `String`      | | Pass in extra arguments which are not available directly, useful with modules | |
 | `comment`             | `String` | | A comment to put on the rule | |
-| `file_mode`            | `String`     | `0644` | Permissions on the saved output file | |
-| `source_template`                       | `source_template`      | `iptables.erb` | Source template to use to create the rules | |
-| `cookbook`               | `String`      | `iptables` | Source cookbook to find the template in | |
-| `sensitive`               | `true, false`      | `false` | mark the resource as senstive | |
-| `config_file`          | `String`     | The default location on disk of the config file, see resource for details | The full path to find the rules on disk | |
 
 ## Examples
 
