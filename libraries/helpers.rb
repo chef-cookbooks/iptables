@@ -1,6 +1,6 @@
 #
 # Cookbook:: iptables
-# Library:: chain
+# Library:: helpers
 #
 # Copyright:: 2019, Chef Software, Inc.
 #
@@ -20,9 +20,11 @@
 module Iptables
   module Cookbook
     module Helpers
-      def get_service_name(ip_version)
-        # This function will return the service name
-        # for the given ip version
+      IPTABLES_TABLE_NAMES ||= %i(filter mangle nat raw security).freeze
+
+      def default_service_name(ip_version)
+        return 'netfilter-persistent' if platform_family?('debian')
+
         case ip_version
         when :ipv4
           'iptables'
@@ -33,9 +35,7 @@ module Iptables
         end
       end
 
-      def get_sysconfig_path(ip_version)
-        # This function will return the sysconfig path
-        # for the given ip version
+      def default_sysconfig_path(ip_version)
         case ip_version
         when :ipv4
           '/etc/sysconfig/iptables-config'
@@ -46,9 +46,7 @@ module Iptables
         end
       end
 
-      def get_sysconfig(ip_version)
-        # This function will return the sysconfig settings
-        # for the given ip version
+      def default_sysconfig(ip_version)
         case ip_version
         when :ipv4
           {
@@ -78,7 +76,6 @@ module Iptables
       end
 
       def package_names
-        # This function will return all package names
         case node['platform_family']
         when 'rhel'
           if node['platform_version'].to_i < 7
@@ -95,16 +92,7 @@ module Iptables
         end
       end
 
-      def convert_to_symbol_and_mark_deprecated(parameter_name, parameter_value)
-        if parameter_value.class == 'String'
-          Chef::Log.warn("Property #{parameter_name} should be a symbol, the property will no longer accept Strings in the next major version (8.0.0)")
-        end
-        parameter_value.to_sym
-      end
-
       def default_iptables_rules_file(ip_version)
-        # This function will look at the node platform
-        # and return the correct file on disk location for the config file
         case ip_version
         when :ipv4
           case node['platform_family']
@@ -125,10 +113,7 @@ module Iptables
         end
       end
 
-      def get_default_chains_for_table(table_name)
-        # This function will take in a table and look for default chains
-        # that should exist for that table, it will then return a structured hash
-        # of those chains
+      def default_chains_for_table(table_name)
         case table_name
         when :filter
           {
