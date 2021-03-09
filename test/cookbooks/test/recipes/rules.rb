@@ -8,6 +8,9 @@ iptables_service 'configure iptables services' do
   action :enable
   delayed_action :start
 
+  cookbook 'test'
+  sensitive false
+
   subscribes :restart, 'template[/etc/sysconfig/iptables]', :delayed
   subscribes :restart, 'template[/etc/iptables/rules.v4]', :delayed
 end

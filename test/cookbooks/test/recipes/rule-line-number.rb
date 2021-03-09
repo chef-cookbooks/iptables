@@ -24,7 +24,7 @@ iptables_rule 'Allow from loopback interface' do
 end
 
 # This should be the first rule now
-iptables_rule 'Allow from loopback interface' do
+iptables_rule 'Allow from ethernet interface' do
   table :filter
   chain :INPUT
   ip_version 'ipv4'
