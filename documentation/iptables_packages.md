@@ -1,8 +1,6 @@
-[Back to resource list](https://github.com/chef-cookbooks/iptables/tree/master/README.md#resources)
-
----
-
 # iptables_packages
+
+[Back to resource list](https://github.com/chef-cookbooks/iptables/tree/master/README.md#resources)
 
 The `iptables_packages` resource can be used to install the required packages for iptables.
 
@@ -16,9 +14,9 @@ The `iptables_packages` resource can be used to install the required packages fo
 
 ## Properties
 
-| Name                            | Type        |  Default | Description | Allowed Values |
---------------------------------- | ----------- | -------- | ----------- | -------------- |
-| `package_names`                 | `Array`     | Correct packages for platfrom | List of packages required for this cookbook to work | |
+| Name            | Type    | Default            | Description                                         | Allowed Values |
+| --------------- | ------- | ------------------ | --------------------------------------------------- | -------------- |
+| `package_names` | `Array` | Platform dependant | List of packages required for this cookbook to work |                |
 
 ## Examples
 
