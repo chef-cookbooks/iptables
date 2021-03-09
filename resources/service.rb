@@ -44,9 +44,13 @@ property :sysconfig_file, String,
           default: lazy { default_sysconfig_path(ip_version) },
           description: 'The full path to find the sysconfig file on disk'
 
+property :sysconfig_cookbook, String,
+          default: 'iptables',
+          description: 'Source cookbook to find the sysconfig template in'
+
 property :sysconfig_template, String,
           default: 'iptables-config.erb',
-          description: 'Source template to use to create the rule file'
+          description: 'Source template to use to create the sysconfig file'
 
 property :sysconfig, Hash,
           default: lazy { default_sysconfig(ip_version) },
@@ -68,7 +72,7 @@ action_class do
       mode new_resource.mode
 
       source new_resource.sysconfig_template
-      cookbook new_resource.cookbook
+      cookbook new_resource.sysconfig_cookbook
       sensitive new_resource.sensitive
 
       variables['config'] = new_resource.sysconfig
