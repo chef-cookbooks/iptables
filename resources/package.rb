@@ -1,5 +1,8 @@
 unified_mode true
 
+provides :iptables_package
+provides :iptables_packages
+
 include Iptables::Cookbook::Helpers
 
 property :packages, Array,

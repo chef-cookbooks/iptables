@@ -62,11 +62,11 @@ action_class do
   SERVICE_PRE_ACTIONS_REQUIRED ||= %i(start restart reload).freeze
 
   def do_service_action(resource_action)
-    edit_resource(:service, new_resource.service_name).action(resource_action)
+    declare_resource(:service, new_resource.service_name) { action(resource_action) }
   end
 
   def do_redhat_pre_actions
-    edit_resource(:template, new_resource.sysconfig_file) do
+    declare_resource(:template, new_resource.sysconfig_file) do
       owner new_resource.owner
       group new_resource.group
       mode new_resource.mode

@@ -46,3 +46,4 @@ This document will give you help on upgrading major versions of iptables
   - Property `match` now prefixes the `String` passed in with `-m` so you only need to pass in the match provider name, e.g: `tcp`
   - Property `target` has been deprecated please use property `jump`
 - Recipe `iptables::default` now gets it's iptables config file path from a helper library
+- Resource `iptables_packages` renamed to `iptables_package`
