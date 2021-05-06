@@ -83,7 +83,13 @@ module Iptables
           else
             %w(iptables iptables-services iptables-utils)
           end
-        when 'fedora', 'amazon'
+        when 'fedora'
+          if node['platform_version'].to_i >= 34
+            %w(iptables-compat iptables-nft iptables-services iptables-utils)
+          else
+            %w(iptables iptables-services iptables-utils)
+          end
+        when 'amazon'
           %w(iptables iptables-services iptables-utils)
         when 'debian'
           %w(iptables iptables-persistent)
