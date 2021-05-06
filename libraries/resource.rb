@@ -44,9 +44,9 @@ module Iptables
       end
 
       def rulefile_resource
-        return false unless rulefile_resource_exist?
+        return unless rulefile_resource_exist?
 
-        find_resource(:template, new_resource.config_file)
+        find_resource!(:template, new_resource.config_file)
       end
 
       def rule_builder
@@ -62,7 +62,7 @@ module Iptables
       private
 
       def rulefile_resource_exist?
-        !find_resource(:template, new_resource.config_file).nil?
+        !find_resource!(:template, new_resource.config_file).nil?
       rescue Chef::Exceptions::ResourceNotFound
         false
       end
