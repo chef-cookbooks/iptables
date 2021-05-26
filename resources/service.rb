@@ -61,7 +61,7 @@ action :enable do
       )
     end
     with_run_context :root do
-      edit_resource(:service, new_resource.service_name) do
+      edit_resource(:service, new_resource.service_name) do |new_resource|
         subscribes :restart, "template[#{new_resource.config_file}]", :delayed
         action [:enable, :start]
       end

@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the iptables cookbook.
 
+## UNRELEASED
+
+- Resolved error: `resources/service.rb:65` undefined method `new_resource' for Chef::Resource::Service (Fixes [#129](https://github.com/chef-cookbooks/iptables/issues/129))
+
 ## 7.1.0 (2020-06-09)
 
 - Resolved cookstyle error: recipes/default.rb:19:14 warning: `Lint/SendWithMixinArgument`
