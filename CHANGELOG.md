@@ -2,8 +2,10 @@
 
 This file is used to list changes made in each version of the iptables cookbook.
 
-## UNRELEASED
+## 8.0.0 (2021-05-26)
 
+- Cookstyle Bot Auto Corrections with Cookstyle 6.17.6 - [@cookstyle](https://github.com/cookstyle)
+- Remove the FQDN from the config file - [@ziggythehamster](https://github.com/ziggythehamster)
 - Set all resources to use `unified_mode`
 - Bump the supported `chef_version` up to 15.3
 - Another fix for "undefined method `new_resource`"
