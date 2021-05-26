@@ -43,7 +43,7 @@ action :enable do
   case node['platform_family']
   when 'debian'
     with_run_context :root do
-      edit_resource(:service, 'netfilter-persistent') do
+      edit_resource(:service, 'netfilter-persistent') do |new_resource|
         subscribes :restart, "template[#{new_resource.config_file}]", :delayed
         action :enable
       end
