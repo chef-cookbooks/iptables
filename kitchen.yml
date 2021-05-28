@@ -4,8 +4,12 @@ driver:
 
 provisioner:
   name: chef_zero
-  deprecations_as_errors: false
-  chef_license: accept-no-persist
+  deprecations_as_errors: true
+  chef_license: accept
+  product_name: chef
+  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  install_strategy: always
+  log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
 
 verifier:
   name: inspec
@@ -23,6 +27,7 @@ platforms:
   - name: fedora-latest
   - name: ubuntu-16.04
   - name: ubuntu-18.04
+  - name: ubuntu-20.04
 
 suites:
   - name: all-tables

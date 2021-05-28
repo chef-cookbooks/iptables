@@ -3,15 +3,12 @@ driver:
   name: dokken
   privileged: true
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
-  chef_license: accept-no-persist
 
 transport:
   name: dokken
 
 provisioner:
   name: dokken
-  # We have our own deprecation errors ...
-  deprecations_as_errors: false
 
 platforms:
   - name: amazonlinux-2
@@ -68,6 +65,13 @@ platforms:
   - name: ubuntu-18.04
     driver:
       image: dokken/ubuntu-18.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+
+  - name: ubuntu-20.04
+    driver:
+      image: dokken/ubuntu-20.04
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update

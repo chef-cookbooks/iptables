@@ -34,6 +34,7 @@ jobs:
           - 'fedora-latest'
           - 'ubuntu-1604'
           - 'ubuntu-1804'
+          - 'ubuntu-2004'
 
         suite:
           - 'all-tables'
