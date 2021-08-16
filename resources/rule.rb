@@ -47,10 +47,11 @@ property :chain, [Symbol, String],
           description: 'The name of the Chain to put this rule on'
 
 property :protocol, [Symbol, String, Integer],
-          description: 'The protocol of the rule or of the packet to check. The specified protocol can be one of :tcp, :udp, :icmp, or :all, or it can be a numeric value, representing one of these protocols or a different one. A protocol name from /etc/protocols is also allowed. A "!" argument before the protocol inverts the test. The number zero is equivalent to all. Protocol all will match with all protocols and is taken as default when this option is omitted. '
+          description: 'The protocol of the rule or of the packet to check. The specified protocol can be one of :tcp, :udp, :icmp, or :all, or it can be a numeric value, representing one of these protocols or a different one. A protocol name from /etc/protocols is also allowed. A "!" argument before the protocol inverts the test. The number zero is equivalent to all. Protocol all will match with all protocols and is taken as default when this option is omitted.'
 
-property :match, String,
-          description: 'Extended packet matching module to use'
+property :match, [String, Array],
+          description: 'Extended packet matching module to use',
+          coerce: proc { |p| p.is_a?(Array) ? p.join(' -m ') : p }
 
 property :source, String,
           description: "Source specification. Address can be either a network name, a hostname (please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea), a network IP address (with /mask), or a plain IP address. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A \"!\" argument before the address specification inverts the sense of the address. The flag --src is an alias for this option. "

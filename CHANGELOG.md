@@ -8,6 +8,7 @@ This file is used to list changes made in each version of the iptables cookbook.
   - Remove legacy code
   - Refactor chain and rule resources
     - Complex logic moved to helper libraries
+    - Allow multiple matches per rule
   - Refactor service resource
     - Add the full set of service actions
     - Create a default configuration to ensure starting on Redhat platform families
