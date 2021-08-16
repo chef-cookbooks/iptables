@@ -1,11 +1,11 @@
 ---
 name: ci
 
-on:
+"on":
   pull_request:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   delivery:
@@ -18,9 +18,25 @@ jobs:
         env:
           CHEF_LICENSE: accept-no-persist
 
-  dokken:
-    needs: [delivery]
+  yamllint:
     runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@main
+      - name: Run yaml Lint
+        uses: actionshub/yamllint@main
+
+  mdl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@main
+      - name: Run Markdown Lint
+        uses: actionshub/markdownlint@main
+
+  integration:
+    needs: [mdl, yamllint, delivery]
+    runs-on: macos-latest
     strategy:
       matrix:
         os:
@@ -35,7 +51,6 @@ jobs:
           - 'ubuntu-1604'
           - 'ubuntu-1804'
           - 'ubuntu-2004'
-
         suite:
           - 'all-tables'
           - 'install-and-remove'
@@ -46,19 +61,18 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@main
+        uses: actions/checkout@v2
       - name: Install Chef
         uses: actionshub/chef-install@main
-      - name: Dokken
-        uses: actionshub/kitchen-dokken@main
+      - name: test-kitchen
+        uses: actionshub/test-kitchen@main
         env:
           CHEF_LICENSE: accept-no-persist
-          KITCHEN_LOCAL_YAML: kitchen.dokken.yml
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
       - name: Print debug output on failure
-        if: failure()
+        if: ${{ failure() }}
         run: |
             set -x
             sudo journalctl -l --since today
