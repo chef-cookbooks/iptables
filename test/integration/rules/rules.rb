@@ -2,6 +2,7 @@ case os.family
 when 'debian', 'ubuntu'
   describe file('/etc/iptables/rules.v4') do
     it { should exist }
+    its(:content) { should match /# I'm from the test cookbook/ }
   end
   describe service('netfilter-persistent') do
     it { should be_installed }
@@ -9,6 +10,9 @@ when 'debian', 'ubuntu'
     it { should be_enabled }
   end
 when 'redhat', 'fedora'
+  describe file('/etc/sysconfig/iptables') do
+    its(:content) { should match /# I'm from the test cookbook/ }
+  end
   describe file('/etc/sysconfig/iptables-config') do
     its(:content) { should match /IPTABLES_STATUS_VERBOSE="no"/ }
   end

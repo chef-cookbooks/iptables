@@ -1,8 +1,8 @@
 #
 # Cookbook:: iptables
-# Recipe:: _package
+# Library:: template
 #
-# Copyright:: 2008-2019, Chef Software, Inc.
+# Copyright:: 2019, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +17,12 @@
 # limitations under the License.
 #
 
-# amazon linux, any fedora, and amazon linux 2
-if (platform_family?('rhel') && node['platform_version'].to_i >= 7) ||
-   (platform_family?('amazon') && node['platform_version'].to_i < 2013) ||
-   platform_family?('fedora')
-  package 'iptables-services'
-else
-  package 'iptables'
-  if platform_family?('debian')
-    # Since Ubuntu 10.04LTS and Debian6, this package takes over the automatic loading of the saved iptables rules
-    package 'iptables-persistent'
+module Iptables
+  module Cookbook
+    module TemplateHelpers
+      def nil_or_empty?(v)
+        v.nil? || (v.respond_to?(:empty?) && v.empty?)
+      end
+    end
   end
 end

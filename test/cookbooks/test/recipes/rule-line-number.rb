@@ -4,7 +4,12 @@
 include_recipe '::centos-6-helper' if platform?('centos') && node['platform_version'].to_i == 6
 
 iptables_packages 'install iptables'
-iptables_service 'configure iptables services'
+iptables_service 'configure iptables services' do
+  action %i(enable start)
+
+  subscribes :restart, 'template[/etc/sysconfig/iptables]', :delayed
+  subscribes :restart, 'template[/etc/iptables/rules.v4]', :delayed
+end
 
 iptables_chain 'filter' do
   table :filter
@@ -19,7 +24,7 @@ iptables_rule 'Allow from loopback interface' do
 end
 
 # This should be the first rule now
-iptables_rule 'Allow from loopback interface' do
+iptables_rule 'Allow from ethernet interface' do
   table :filter
   chain :INPUT
   ip_version 'ipv4'
