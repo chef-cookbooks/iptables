@@ -21,7 +21,7 @@ include_recipe 'iptables::_package'
 
 Chef::Log.warn('The recipes inside iptables will be removed in the next major itteration (8.0.0), please change to resources provided by the iptables cookbook')
 
-%w(iptables ip6tables).each do |ipt|
+%w(ip6tables).each do |ipt|
   service ipt do
     action [:disable, :stop]
     delayed_action :stop

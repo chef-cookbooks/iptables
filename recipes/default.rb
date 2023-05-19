@@ -18,10 +18,11 @@
 #
 Chef::DSL::Recipe.include Iptables::Cookbook::Helpers
 include_recipe 'iptables::_package'
+include_recipe 'iptables::disabled'
 
 Chef::Log.warn('The recipes inside iptables will be removed in the next major itteration (8.0.0), please change to resources provided by the iptables cookbook')
 
-%w(iptables ip6tables).each do |ipt|
+%w(iptables).each do |ipt|
   file = if ipt == 'iptables'
            default_iptables_rules_file(:ipv4)
          else
